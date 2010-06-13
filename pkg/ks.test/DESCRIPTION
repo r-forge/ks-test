@@ -1,0 +1,13 @@
+Package: ks.test
+Version: 1.0
+Date: 2010-06-13
+Title: Proposed Revision to ks.test()
+Author: Taylor B. Arnold and John W. Emerson
+Maintainer: Taylor B. Arnold <taylor.arnold@yale.edu>
+Description: This package simply contains a proposed new ks.test() function
+  and the associated ks.test.Rd help page.  With one minor exception, it
+  does not change the existing behavior of ks.test(), and it adds features
+  necessary for doing one-sample tests with hypothesized discrete
+  distributions.
+License: GPL (>= 2.0)
+LazyLoad: yes
