@@ -145,6 +145,11 @@ ks.test(x, y, \dots,
     performed.}
   \item{data.name}{a character string giving the name(s) of the data.}
 }
+\author{
+Modified by Taylor B. Arnold and John W. Emerson to include
+one-sample testing with a discrete distribution (as presented
+in Conover's 1972 paper -- see references).
+}
 \references{
   Z. W. Birnbaum and Fred H. Tingey (1951),
   One-sided confidence contours for probability distribution functions.
