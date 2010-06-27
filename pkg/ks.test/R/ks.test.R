@@ -158,7 +158,7 @@ ks.test <- function(x, y, ...,
 
     } else if (is.stepfun(y)) {
         z <- knots(y)
-        if(is.null(exact) || exact) exact <- (n < 30)
+        if(is.null(exact) || exact) exact <- (n <= 30)
         METHOD <- "One-sample Kolmogorov-Smirnov test"
         x <- c(0, ecdf(x)(z) - y(z))
         STATISTIC <- switch(alternative,
