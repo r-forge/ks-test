@@ -20,7 +20,13 @@ function(x,y, type=c("W2", "U2", "A2")) {
     }
 
     fun <- function(u) return(sin(theta(u))/(u*rho(u)))
-    return(0.5 + integrate(fun, 0, Inf, subdivisions=1e6)$value/pi)
+    pval <- 0
+    try(pval <- 0.5 + integrate(fun, 0, Inf, subdivisions=1e6)$value/pi, silent=TRUE)
+    if(pval > 0.001) return(pval)
+    if(pval <= 0.001) {
+      df <- sum(lambda != 0)
+      return(dchisq(STAT/max(lambda),df))
+    }
   }
 
 
