@@ -1,10 +1,9 @@
 Package: cvm.test
-Type: Package
+Version: 1.1
+Date: 2010-09-08
 Title: Discrete Cramer von Mises Goodness-of-Fit Test
-Version: 1.0
-Date: 2010-08-18
 Author: Taylor B. Arnold and John W. Emerson
 Maintainer: Taylor B. Arnold <taylor.arnold@yale.edu>
-Description: Computes the test statistics for doing one-sample Cramer von Mises Goodness-of-Fit Test and calculates asymptotic p-values.
+Description: Computes the test statistics for doing one-sample Cramer-von Mises goodness-of-fit tests and calculates asymptotic p-values; cvm.test() tries to follow the same guidelines as ks.test() in the R-base.
 License: GPL (>= 2.0)
 LazyLoad: yes

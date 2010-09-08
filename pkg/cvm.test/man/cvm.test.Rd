@@ -1,33 +1,23 @@
 \name{cvm.test}
 \alias{cvm.test}
-%- Also NEED an '\alias' for EACH other topic documented here.
-\title{
-Discrete Cramer von Mises Goodness-of-Fit Test
-}
+\title{Discrete Cramer-von Mises Goodness-of-Fit Tests}
 \description{
-Computes the test statistics for doing one sample Cramer von Mises Goodness-of-Fit Test
-and calculates asymptotic p-values. Package tries to follow the same guidelines as ks.test in the R-base.
+Computes the test statistics for doing one-sample Cramer-von Mises goodness-of-fit tests
+and calculates asymptotic p-values; cvm.test() tries to follow the same guidelines as ks.test() in the R-base.
 }
 \usage{
 cvm.test(x, y, type = c("W2", "U2", "A2"))
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x}{ a numerical vecotr of data values.
- 
-}
-  \item{y}{
-   an ecdf or step-function for specifying the null model.
-}
-  \item{type}{
- Which variant of the Cramer von Mises test to use. W2 is the default and most common method, U2 is for cyclical data,
- and A2 is the Anderson-Darling alternative. For details see references.
-}
+  \item{x}{a numerical vector of data values.}
+  \item{y}{an \code{\link{ecdf}} or step-function (\code{\link{stepfun}}) for specifying the null model.}
+  \item{type}{the variant of the Cramer-von Mises test; \code{"W2"} is the default and most common method, \code{"U2"} is for cyclical data, and \code{"A2"} is the Anderson-Darling alternative. For details see references.}
 }
 \details{
-%%  ~~ If necessary, more details than the description above ~~
+Details here.
 }
 \value{
+An object of class \code{htest}.
 %%  ~Describe the value returned
 %%  If it is a LIST, use
 %% \item{comp1 }{Description of 'comp1'}
@@ -35,107 +25,41 @@ cvm.test(x, y, type = c("W2", "U2", "A2"))
 %% ...
 }
 \references{
-%% ~put references to the literature/web site here ~
+NEED REFERENCES.
 }
 \author{
 Taylor B. Arnold and John W. Emerson
+
+Maintainer: Taylor B. Arnold <taylor.arnold@yale.edu>
 }
 \note{
-%%  ~~further notes~~
+Additional notes?
 }
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+\code{\link{ks.test}}, \code{\link{ecdf}}, \code{\link{stepfun}}
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
 
-## The function is currently defined as
-function(x,y, type=c("W2", "U2", "A2")) {
-  cvm.pval <- function(STAT, lambda) {
-    x <- STAT
-    theta <- function(u) {
-      VAL <- 0
-      for(i in 1:length(lambda)) {
-         VAL <- VAL + 0.5*atan(lambda[i]*u)
-      }
-      return(VAL - 0.5*x*u)
-    }
+x3 <- sample(1:10, 25, replace=TRUE)
 
-    rho <- function(u) {
-      VAL <- 0
-      for(i in 1:length(lambda)) {
-        VAL <- VAL + log(1 + lambda[i]^2*u^2)     
-      }
-      VAL <- exp(VAL*0.25)
-      return(VAL)
-    }
+# Using ecdf() to specify a discrete distribution:
+if (require(ks.test, quietly=TRUE)) {
+  ks.test(x3, ecdf(1:10))
+} else {
+  cat(paste("See package ks.test for a revised ks.test()",
+            "handling discrete distributions.\n")
+}
+cvm.test(x3, ecdf(1:10))
 
-    fun <- function(u) return(sin(theta(u))/(u*rho(u)))
-    return(0.5 + integrate(fun, 0, Inf, subdivisions=1e6)$value/pi)
-  }
+# Using step() to specify the same discrete distribution:
+myfun <- stepfun(1:10, cumsum(c(0, rep(0.1, 10))))
+if (require(ks.test, quietly=TRUE)) ks.test(x3, myfun)
+cvm.test(x3, myfun)
 
-
-  cvm.stat <- function(x,y, type=c("W2", "U2", "A2")) {
-    type <- match.arg(type)
-    I <- knots(y)
-    N <- length(x)
-    e <- diff(c(0,N*y(I)))
-    obs <- rep(0, length(I))
-    for(j in 1:length(I)) {
-      obs[j] <- length(which(x == I[j]))
-    }
-    S <- cumsum(obs)
-    T <- cumsum(e)
-    H <- T/N
-    p <- e/N
-    t <- (p + p[c(2:length(p), 1)])/2
-    Z <- S - T
-    Zbar <- sum(Z*t)
-
-    # Test Statistics:
-    #W2 <- sum(Z^2*t)/N
-    #U2 <- sum((Z-Zbar)^2*t)/N
-    #A2 <- sum((Z^2*t/(H*(1-H) ))[-length(I)])/N
-
-    S0 <- diag(p) - p \%*\% t(p)
-    A <- matrix(1, length(p), length(p))
-    A <- apply(row(A) >= col(A),2, as.numeric)
-    E <- diag(t)
-    One <- rep(1, nrow(E))
-    K <- diag(0, length(H))
-    diag(K)[-length(H)] <- 1/(H[-length(H)]*(1-H[-length(H)]))
-    Sy <- A \%*\% S0 \%*\% t(A)
-    M <- switch(type, W2 = E, U2 = (diag(1, nrow(E))-E\%*\%One\%*\%t(One))\%*\%E\%*\%(diag(1, nrow(E))-One\%*\%t(One)\%*\%E) , A2 = E\%*\%K)
-    lambda <- eigen(M\%*\%Sy)$values
-
-    STAT <- switch(type, W2 = sum(Z^2*t)/N, U2 = sum((Z-Zbar)^2*t)/N,
-                        A2 = sum((Z^2*t/(H*(1-H) ))[-length(I)])/N)
-
-    return(c(STAT, lambda))
-  }
-
-
-  type <- match.arg(type)
-  DNAME <- deparse(substitute(x))
-  if(length(setdiff(x, knots(y))) != 0) stop("Data are incompatable with null distribution")
-  tempout <- cvm.stat(x,y,type=type)
-  STAT <- tempout[1]
-  lambda <- tempout[2:length(tempout)]
-  PVAL <- cvm.pval(STAT, lambda)
-  METHOD <- paste("Cramer von Mises -", type)
-  names(STAT) <- as.character(type)
-  RVAL <- list(statistic = STAT, p.value = PVAL, alternative = "Two.sided",
-              method = METHOD, data.name=DNAME)
-  class(RVAL) <- "htest"
-  return(RVAL)
-  }
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\keyword{htest}

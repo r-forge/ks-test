@@ -41,9 +41,9 @@ ks.test(x, y, \dots,
   % TBA, JWE: modified argument description.
   \item{y}{a numeric vector of data values, or a character string
     naming a cumulative distribution function or an actual cumulative
-    distribution function such as \code{pnorm}. Alternatively, can be 
-    an ecdf function (or an object of class \code{\link{stepfun}}) for
-    specifying a discrete distribution.}
+    distribution function such as \code{pnorm}. Alternatively, \code{y}
+    can be an \code{\link{ecdf}} function (or an object of class
+    \code{\link{stepfun}}) for specifying a discrete distribution.}
   % END TBA, JWE
   % ############
 
@@ -75,8 +75,9 @@ ks.test(x, y, \dots,
   % #####################
   % TBA, JWE: new details
   Alternatively, \code{y} can be a character string naming a continuous
-  (cumulative) distribution function (or such a function), or an ecdf function
-  (or object of class \code{'stepfun'}) giving a discrete distribution.  In
+  (cumulative) distribution function (or such a function),
+  or an \code{\link{ecdf}} function
+  (or object of class \code{stepfun}) giving a discrete distribution.  In
   these cases, a one-sample test is carried  out of the null that the
   distribution function which generated \code{x} is distribution \code{y}
   with parameters specified by \code{\dots}.
@@ -108,8 +109,8 @@ ks.test(x, y, \dots,
   one-sample case if \code{y} is discrete.  If \code{exact = NULL}
   (the default), an exact p-value is computed if the sample size is less
   than 100 in the one-sample case with \code{y} continuous or if the sample
-  size is less than 30 in the one-sample case with \code{y} discrete; or if
-  the product of the
+  size is less than or equal to 30 in the one-sample case with \code{y}
+  discrete; or if the product of the
   sample sizes is less than 10000 in the two-sample case.  Otherwise,
   asymptotic distributions are used whose approximations may be inaccurate
   in small samples.  In the one-sample two-sided case, exact p-values are
@@ -118,10 +119,10 @@ ks.test(x, y, \dots,
 
   In the one-sample case with \code{y} discrete, the method presented in
   Conover (1972) is used when \code{exact=TRUE} (or when \code{exact=NULL}
-  and \code{length(x)<30} as described above).  Here, the p-value with the
+  and \code{length(x)<=30} as described above).  Here, the p-value with the
   two-sided alternative will be slightly conservative (by an amount bounded
   as described in Conover's paper).  Exact p-values are provided for tests
-  with the one-sided alternatives with \code{length(x)<30}.
+  with the one-sided alternatives with \code{length(x)<=30}.
 
   In the one-sample case with \code{y} discrete and \code{exact=FALSE} or
   \code{length(x)>=30}, the test may not be exact but the resulting p-values
@@ -177,6 +178,8 @@ in Conover's 1972 paper -- see references).
   Evaluating Kolmogorov's distribution.
   \emph{Journal of Statistical Software}, \bold{8}/18.
   \url{http://www.jstatsoft.org/v08/i18/}.
+
+  **** OTHERS?  cvm? 
 
 }
 \seealso{
