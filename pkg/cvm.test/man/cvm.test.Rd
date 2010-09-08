@@ -50,7 +50,7 @@ if (require(ks.test, quietly=TRUE)) {
   ks.test(x3, ecdf(1:10))
 } else {
   cat(paste("See package ks.test for a revised ks.test()",
-            "handling discrete distributions.\n")
+            "handling discrete distributions.\n"))
 }
 cvm.test(x3, ecdf(1:10))
 
