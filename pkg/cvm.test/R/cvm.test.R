@@ -50,11 +50,6 @@ cvm.test <- function(x,y, type=c("W2", "U2", "A2")) {
     Z <- S - T
     Zbar <- sum(Z*t)
 
-    # Test Statistics:
-    #W2 <- sum(Z^2*t)/N
-    #U2 <- sum((Z-Zbar)^2*t)/N
-    #A2 <- sum((Z^2*t/(H*(1-H) ))[-length(I)])/N
-
     S0 <- diag(p) - p %*% t(p)
     A <- matrix(1, length(p), length(p))
     A <- apply(row(A) >= col(A),2, as.numeric)
