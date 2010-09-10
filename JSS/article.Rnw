@@ -70,6 +70,9 @@
 
 \setkeys{Gin}{width=1.0\textwidth, height=1.0\textheight}
 
+<<setup,include=FALSE,echo=FALSE>>=
+options(keep.source = TRUE, width = 60)
+@
 
 %% include your article here, just as usual
 %% Note that you should use the \pkg{}, \proglang{} and \code{} commands.
@@ -77,14 +80,9 @@
 \section{Introduction}
 
 Example code:
-\begin{Schunk}
-\begin{Sinput}
-> 1 + 1
-\end{Sinput}
-\begin{Soutput}
-[1] 2
-\end{Soutput}
-\end{Schunk}
+<<>>=
+1+1
+@
 
 %General idea of goodness-of-fit tests (hypothesis test about underlying distribution).
 Given an observed sequence of data, the typical question of statistical inference is to determine
