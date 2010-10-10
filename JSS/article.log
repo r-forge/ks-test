@@ -1,8 +1,8 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2010.9.1)  9 SEP 2010 08:43
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2010.9.9)  10 OCT 2010 12:45
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**article.tex
+**article
 (./article.tex
 LaTeX2e <2009/09/24>
 Babel <v3.8l> and hyphenation patterns for english, usenglishmax, dumylang, noh
@@ -484,56 +484,53 @@ Overfull \hbox (5.47499pt too wide) has occurred while \output is active
 \T1/aer/m/n/10.95 4 []
  []
 
-[4]
+[4] (./article.bbl)
+Underfull \hbox (badness 10000) in paragraph at lines 262--262
+
+ []
+
+
 Overfull \hbox (5.47499pt too wide) has occurred while \output is active
 [] \T1/aer/m/n/10.95 5
  []
 
-[5] (./article.bbl)
-Underfull \hbox (badness 10000) in paragraph at lines 282--282
-
- []
-
+[5]
 LaTeX Font Info:    Font shape `T1/pzc/m/n' in size <13> not available
-(Font)              Font shape `T1/pzc/mb/it' tried instead on input line 282.
+(Font)              Font shape `T1/pzc/mb/it' tried instead on input line 262.
 
 Overfull \hbox (5.47499pt too wide) has occurred while \output is active
 \T1/aer/m/n/10.95 6 []
  []
 
-[6]
-Overfull \hbox (5.47499pt too wide) has occurred while \output is active
-[] \T1/aer/m/n/10.95 7
- []
-
-[7] (./article.aux) ) 
+[6] (./article.aux) ) 
 Here is how much of TeX's memory you used:
- 6825 strings out of 495061
- 94883 string characters out of 1182622
- 163528 words of memory out of 3000000
- 9787 multiletter control sequences out of 15000+50000
+ 6832 strings out of 495061
+ 94990 string characters out of 1182622
+ 167555 words of memory out of 3000000
+ 9791 multiletter control sequences out of 15000+50000
  49971 words of font info for 93 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
- 45i,10n,34p,269b,295s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 45i,10n,34p,265b,334s stack positions out of 5000i,500n,10000p,200000b,50000s
 {/usr/share/texmf-texlive/fonts/enc/dvips/base/8r.enc}</us
 r/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmb10.pfb></usr/share/texm
 f-texlive/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texmf-texlive/f
 onts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-texlive/fonts/type1/
 public/amsfonts/cm/cmex10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsf
 onts/cm/cmmi10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmm
-i8.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr
-/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-
-texlive/fonts/type1/public/amsfonts/cm/cmsl10.pfb></usr/share/texmf-texlive/fon
-ts/type1/public/amsfonts/cm/cmsltt10.pfb></usr/share/texmf-texlive/fonts/type1/
-public/amsfonts/cm/cmss10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsf
-onts/cm/cmsy10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cms
-y8.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmti10.pfb></us
-r/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/tex
-mf-texlive/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texmf-tex
-live/fonts/type1/urw/zapfchan/uzcmi8a.pfb>
-Output written on article.pdf (7 pages, 256259 bytes).
+i6.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr
+/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf
+-texlive/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-texlive/font
+s/type1/public/amsfonts/cm/cmsl10.pfb></usr/share/texmf-texlive/fonts/type1/pub
+lic/amsfonts/cm/cmsltt10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfo
+nts/cm/cmss10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy
+10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr
+/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texm
+f-texlive/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texmf-texlive/f
+onts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texmf-texlive/fonts/t
+ype1/urw/zapfchan/uzcmi8a.pfb>
+Output written on article.pdf (6 pages, 256702 bytes).
 PDF statistics:
- 199 PDF objects out of 1000 (max. 8388607)
- 36 named destinations out of 1000 (max. 500000)
+ 204 PDF objects out of 1000 (max. 8388607)
+ 39 named destinations out of 1000 (max. 500000)
  78 words of extra memory for PDF output out of 10000 (max. 10000000)
 
