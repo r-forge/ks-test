@@ -147,7 +147,7 @@ and then the p-value for that particular statistic must be computed.
 Given that the test statistic is, theoretically, the same as in the
 continuous case it would seem that the first part could be directly taken from the existing procedures. This is, unfortunately, often not the case.
 Consider two non-decreasing functions $f$ and $g$, where the function $f$ is a step function with jumps on the set $\{x_1, \ldots x_N \}$ and $g$
-is continuous. If we want to determine the supreme of the difference between these two functions notice that:
+is continuous. If we want to determine the supremum of the difference between these two functions notice that:
 
 \begin{align}
 \sup_x \left| f(x)- g(x) \right| &= \max_i \left( \left|g(x_i) - f(x_i) \right|, \lim_{x \rightarrow x_i} \left| g(x) - f(x_{i-1}) \right| \right) \\
@@ -161,7 +161,12 @@ is also a step function, we could replace the formula for some small $\epsilon$ 
 \begin{align}
 \sup_x \left| f(x)- g(x) \right| &=  \max_i \left( \left|g(x_i) - f(x_i) \right|, \left| g(x_i - \epsilon) - f(x_{i-1}) \right| \right)
 \end{align}
-Where the discontinuities in $g$ are at least a distance $\epsilon$ apart. 
+Where the discontinuities in $g$ are at least a distance $\epsilon$ apart. But this requires knowing that $g$ is a step function. In the case of not knowing,
+or having a $g$ which is in neither a step function nor a continuous function, the only method for computing the supremum is to take the numerical limit in (1). 
+This clearly takes more computational time than simply cycling over $2N$ values.
+
+Therefore, in order to implement the discrete Kolmogorov-Smirnov test statistic, the user must either indicate the points of discontinuity of the null
+distribution's cdf or live with a much smaller.
 
 %Once the test statistic is determined, the p-value for this value needs to be computed. For high sample sizes, the test distribution becomes the same as in the
 %continuous case. The default options for \pkg{ks.test} already allow the user to specify if they would like approximate asymptotic distributions (since these exist
