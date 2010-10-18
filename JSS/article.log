@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2010.9.1)  13 OCT 2010 13:10
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2010.8.28)  17 OCT 2010 12:44
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -217,7 +217,7 @@ Package etexcmds Info: Could not find \expanded.
 (etexcmds)             that some package has redefined \expanded.
 (etexcmds)             In the latter case, load this package earlier.
 )
-(/usr/share/texmf-texlive/tex/latex/latexconfig/hyperref.cfg
+(/etc/texmf/tex/latex/config/hyperref.cfg
 File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
 )
 (/usr/share/texmf-texlive/tex/latex/oberdiek/kvoptions.sty
@@ -438,7 +438,7 @@ LaTeX Info: Redefining \pageref on input line 72.
 \openout4 = `article.out'.
 
 \AtBeginShipoutBox=\box30
- <jsslogo.jpg, id=47, 540.0175pt x 393.47pt>
+ <jsslogo.jpg, id=43, 540.0175pt x 393.47pt>
 File: jsslogo.jpg Graphic file (type jpg)
  <use jsslogo.jpg>
 LaTeX Font Info:    Try loading font information for T1+pzc on input line 72.
@@ -463,11 +463,9 @@ LaTeX Font Info:    Try loading font information for T1+aess on input line 72.
 (/usr/share/texmf-texlive/tex/latex/ae/t1aess.fd
 File: t1aess.fd 1997/11/16 Font definitions for T1/aess.
 )
-LaTeX Font Info:    Try loading font information for T1+aett on input line 84.
+Underfull \vbox (badness 1616) has occurred while \output is active []
 
-(/usr/share/texmf-texlive/tex/latex/ae/t1aett.fd
-File: t1aett.fd 1997/11/16 Font definitions for T1/aett.
-) [1
+ [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./jsslogo.jpg>]
 Overfull \hbox (5.47499pt too wide) has occurred while \output is active
@@ -479,7 +477,17 @@ Overfull \hbox (5.47499pt too wide) has occurred while \output is active
 [] \T1/aer/m/n/10.95 3
  []
 
-[3]
+[3] <fig1.pdf, id=111, 578.16pt x 433.62pt>
+File: fig1.pdf Graphic file (type pdf)
+ <use fig1.pdf>
+
+LaTeX Warning: Float too large for page by 53.19336pt on input line 248.
+
+LaTeX Font Info:    Try loading font information for T1+aett on input line 254.
+
+(/usr/share/texmf-texlive/tex/latex/ae/t1aett.fd
+File: t1aett.fd 1997/11/16 Font definitions for T1/aett.
+)
 Underfull \vbox (badness 7576) has occurred while \output is active []
 
 
@@ -488,19 +496,19 @@ Overfull \hbox (5.47499pt too wide) has occurred while \output is active
  []
 
 [4]
-LaTeX Font Info:    Try loading font information for TS1+aer on input line 289.
+Overfull \hbox (5.47499pt too wide) has occurred while \output is active
+[] \T1/aer/m/n/10.95 5
+ []
+
+[5 <./fig1.pdf>]
+LaTeX Font Info:    Try loading font information for TS1+aer on input line 288.
 
  (/usr/share/texmf/tex/latex/R/ts1aer.fd
 File: ts1aer.fd 
 )
 LaTeX Font Info:    Font shape `TS1/aer/m/n' in size <10.95> not available
-(Font)              Font shape `TS1/cmr/m/n' tried instead on input line 289.
+(Font)              Font shape `TS1/cmr/m/n' tried instead on input line 288.
 
-Overfull \hbox (5.47499pt too wide) has occurred while \output is active
-[] \T1/aer/m/n/10.95 5
- []
-
-[5]
 Overfull \hbox (5.47499pt too wide) has occurred while \output is active
 \T1/aer/m/n/10.95 6 []
  []
@@ -516,53 +524,50 @@ Overfull \hbox (5.47499pt too wide) has occurred while \output is active
  []
 
 [8])
-Underfull \hbox (badness 10000) in paragraph at lines 470--470
+Underfull \hbox (badness 10000) in paragraph at lines 433--433
 
  []
 
 LaTeX Font Info:    Font shape `T1/pzc/m/n' in size <13> not available
-(Font)              Font shape `T1/pzc/mb/it' tried instead on input line 470.
+(Font)              Font shape `T1/pzc/mb/it' tried instead on input line 433.
 
 Overfull \hbox (5.47499pt too wide) has occurred while \output is active
 [] \T1/aer/m/n/10.95 9
  []
 
-[9] (./article.aux) ) 
+[9] (./article.aux)
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ ) 
 Here is how much of TeX's memory you used:
- 6864 strings out of 495061
- 95627 string characters out of 1182622
- 166651 words of memory out of 3000000
- 9812 multiletter control sequences out of 15000+50000
+ 6870 strings out of 495061
+ 95574 string characters out of 1182621
+ 166799 words of memory out of 3000000
+ 9818 multiletter control sequences out of 15000+50000
  50312 words of font info for 94 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
- 45i,10n,34p,269b,444s stack positions out of 5000i,500n,10000p,200000b,50000s
-pdfTeX warning (dest): name{Section.6.Examples.1} has been
- referenced but does not exist, replaced by a fixed one
-
-pdfTeX warning (dest): name{Section.3.Kolmogorov-Smirnov\040and\040Cramer\040vo
-n\040Mises\040in\040R.1} has been referenced but does not exist, replaced by a 
-fixed one
-
- </home/jay/.texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1095.600pk>{/usr/share/t
-exmf-texlive/fonts/enc/dvips/base/8r.enc}</usr/share/texmf-texlive/fonts/type1/
-public/amsfonts/cm/cmb10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfo
-nts/cm/cmbx10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx
-12.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmex10.pfb></us
-r/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/tex
-mf-texlive/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texmf-texlive/f
-onts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texmf-texlive/fonts/type1/p
-ublic/amsfonts/cm/cmr10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfon
-ts/cm/cmr8.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsl10.
-pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsltt10.pfb></usr
-/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/share/texm
-f-texlive/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-texlive/f
-onts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texmf-texlive/fonts/type1/p
-ublic/amsfonts/cm/cmti10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfo
-nts/cm/cmtt10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/symbols
-/msbm10.pfb></usr/share/texmf-texlive/fonts/type1/urw/zapfchan/uzcmi8a.pfb>
-Output written on article.pdf (9 pages, 282377 bytes).
+ 45i,10n,34p,269b,454s stack positions out of 5000i,500n,10000p,200000b,50000s
+ </home/tba3/.texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1095.600pk>{/usr/shar
+e/texmf-texlive/fonts/enc/dvips/base/8r.enc}</usr/share/texmf-texlive/fonts/typ
+e1/public/amsfonts/cm/cmb10.pfb></usr/share/texmf-texlive/fonts/type1/public/am
+sfonts/cm/cmbx10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/c
+mbx12.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmex10.pfb><
+/usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/
+texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texmf-texliv
+e/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texmf-texlive/fonts/type
+1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-texlive/fonts/type1/public/ams
+fonts/cm/cmr8.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsl
+10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsltt10.pfb></
+usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/share/t
+exmf-texlive/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-texliv
+e/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texmf-texlive/fonts/type
+1/public/amsfonts/cm/cmti10.pfb></usr/share/texmf-texlive/fonts/type1/public/am
+sfonts/cm/cmtt10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/symb
+ols/msbm10.pfb></usr/share/texmf-texlive/fonts/type1/urw/zapfchan/uzcmi8a.pfb>
+Output written on article.pdf (9 pages, 303351 bytes).
 PDF statistics:
- 235 PDF objects out of 1000 (max. 8388607)
- 46 named destinations out of 1000 (max. 500000)
- 94 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 237 PDF objects out of 1000 (max. 8388607)
+ 45 named destinations out of 1000 (max. 500000)
+ 91 words of extra memory for PDF output out of 10000 (max. 10000000)
 

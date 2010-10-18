@@ -217,6 +217,16 @@ the original papers shows that this approximation (*** NOT FINISHED?)
 
 \subsection{Implementation}
 
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.2]{fig1.pdf}
+\end{center}
+\caption{Plot of p-value for given test statistics using numerical integration (pink) versus a conservative
+         chi-squared bound (blue). }
+\label{cvmissues}
+\end{figure}
+
+
 Calculation of the three test statistics is done by straightforward matrix algebra as given in \cite{choulakian1994}. Determining 
 the form of the asymptotic null distribution is also easy using the built-in eigenvalue decomposition functions. The only 
 difficulty in the process involves actually calculating the percentiles for these weighted chi-squares. 
@@ -236,7 +246,7 @@ fine in most situations, but numerical issues do become a problem in the regime 
 $\theta(\cdot, x)$ is linear in $x$, and thus as the the test statistic grows the corresponding period of the integrand 
 decreases. As the function acquires too many inflection points, the approximation becomes unstable. This is further
 magnified by this occurring when $p$-values should be very small; thus tiny fluctuations which would be undetectable
-elsewhere are quite prominent. Figure ? shows the non-monotonicity of the function as the test statistic grows.
+elsewhere are quite prominent. Figure \ref{cvmissues} shows the non-monotonicity of the function as the test statistic grows.
 
 There is fortunately a simple conservative approximation which can get around this numerical problem. Given the
 following inequality:

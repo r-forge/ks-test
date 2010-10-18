@@ -1,6 +1,6 @@
 \documentclass[article]{jss}
 
-\usepackage{amsthm, amsmath, amssymb, graphicx}
+\usepackage{amsthm, amsmath, amssymb}
 %\usepackage{Sweave}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -25,9 +25,6 @@
    the two most popular nonparametric tests. The structure of these two packages are explained and examples
    to their specific usage are presented. Particular attention is given to the various numerical issues that arise
    in their implementation.
-
-*** try to clean up, avoid package/function issue, make it a general
-contribution if possible.
 }
 \Keywords{Cramer von Mises, goodness-of-fit tests, Kolmogorov-Smirnov, \proglang{R}}
 \Plainkeywords{Cramer von Mises, goodness-of-fit tests, Kolmogorov-Smirnov, R} %% without formatting
@@ -73,11 +70,19 @@ contribution if possible.
 
 \setkeys{Gin}{width=1.0\textwidth, height=1.0\textheight}
 
+<<setup,include=FALSE,echo=FALSE>>=
+options(keep.source = TRUE, width = 60)
+@
 
 %% include your article here, just as usual
 %% Note that you should use the \pkg{}, \proglang{} and \code{} commands.
 
 \section{Introduction}
+
+Example code:
+<<>>=
+1+1
+@
 
 %General idea of goodness-of-fit tests (hypothesis test about underlying distribution).
 %Given an observed sequence of data, the typical question of statistical inference is to determine
@@ -102,8 +107,6 @@ This has left the end-user to either use only parametric tests, such as Pearson'
 apply the functions meant for continuous distributions. As shown in section 5, the latter can be particularly dangerous
 in the small sample setting. The packages \pkg{ks.test} and \pkg{cvm.test} serve to fill this void for users
 operating in the \proglang{R} environment. 
-
-** Ditto on wordsmithing the contribution (package/function, etc...).
 
 \section{Kolmogorov-Smirnov Test}
 
@@ -159,6 +162,8 @@ This clearly takes more computational time than simply cycling over $2N$ values.
 Therefore, in order to implement the discrete Kolmogorov-Smirnov test statistic, the user must either indicate the points of discontinuity of the null
 distribution's cdf or live with a much smaller.
 
+Once the test statistic has been determined 
+
 %Once the test statistic is determined, the p-value for this value needs to be computed. For high sample sizes, the test distribution becomes the same as in the
 %continuous case. The default options for \pkg{ks.test} already allow the user to specify if they would like approximate asymptotic distributions (since these exist
 %in the continuous setting as well). So when this approximation flag is turned on, this distribution is used for all situations. When the user requires exact p-values,
@@ -168,8 +173,6 @@ distribution's cdf or live with a much smaller.
 
 %Numerical issues arise from the summation; need to do something else for high $n$. Simulation? Asymptotic approximation? 
 %The interesting part of the implementation of Conover's method, from a computational standpoint, are the difficult numerical issues that arise when calculated the p-values for larger sample sizes. 
-
-*** Check Cramer-von Mises for hyphen, and let's get the accent done properly.
 
 \section{Cramer von Mises Tests}
 
@@ -189,8 +192,6 @@ U^2 &= n \cdot \int_{-\infty}^{\infty} \left[ F_{data}(x)- F_{0}(x) - W^2 \right
 Where $F$ is either the cumulative distribution of the null model or the empirical cumulative distribution of the observed data.
 As in the Kolmogorov-Smirnov test statistic, these all have distribution free null distributions in the continuous case. 
 
-*** New paragraph, perhaps here, on the differences between these three tests.
-
 It has been shown that these tests can be more powerful than Kolmogorov-Smirnov tests to certain deviations. As they all involve
 integration over the whole range of data, rather than one supremum, it is not surprising that they are generally best when the
 true alternative distribution deviates a little over the whole range of data rather than deviating a lot over a small range. For
@@ -202,9 +203,7 @@ the theoretical form of the test statistics are unchanged; although the discrete
 The null distribution of the test statistics are again distribution dependent, unlike the continuous version. The methods do not
 suggest finite sample results, but rather show that the asymptotic null distribution is equal to a weighted sum of independent
 chi-squared variables (the weights depending on the particular distribution). This asymptotic distribution is what we implement here;
-the original papers shows that this approximation (*** NOT FINISHED?)
-
-
+the original papers shows that this approximation 
 
 \subsection{Implementation}
 
@@ -227,7 +226,7 @@ fine in most situations, but numerical issues do become a problem in the regime 
 $\theta(\cdot, x)$ is linear in $x$, and thus as the the test statistic grows the corresponding period of the integrand 
 decreases. As the function acquires too many inflection points, the approximation becomes unstable. This is further
 magnified by this occurring when $p$-values should be very small; thus tiny fluctuations which would be undetectable
-elsewhere are quite prominent. Figure \ref{cvmissues} shows the non-monotonicity of the function as the test statistic grows.
+elsewhere are quite prominent. Figure ? shows the non-monotonicity of the function as the test statistic grows.
 
 There is fortunately a simple conservative approximation which can get around this numerical problem. Given the
 following inequality:
@@ -238,193 +237,32 @@ following inequality:
 We see that the values for the weighted sum can be bounded by a simple transformation and a chi-squared distribution
 of a higher degree of freedom. 
 
-\begin{figure}
-\begin{center}
-\includegraphics[scale=0.2]{fig1.pdf}
-\end{center}
-\caption{Plot of p-value for given test statistics using numerical integration (pink) versus a conservative
-         chi-squared bound (blue). }
-\label{cvmissues}
-\end{figure}
+\section{Kolmogorov-Smirnov and Cramer von Mises in R}
 
+For the user, the function \pkg{cvm.test} was designed to work in exactly the same manner as \pkg{ks.test} in \proglang{R}. This
+alleviates the need to learn a new set of input and output instructions and hopefully will increase the usage of these tests. 
+As there is no default functionality in \proglang{R} for continuous Cramer-von Mises, subsequent versions of the package
+should also originally implement the continuous case even though this is not what we concentrate on here. 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Kolmogorov-Smirnov and Cramer von Mises Tests in R}
-
-Package \pkg{ks.test} contains function \code{ks.test()}, a revision of
-\proglang{R}'s Kolmogorov-Smirnov function \code{ks.test()} from base
-package \pkg{stats}.
-Package \pkg{cvm.test} contains function \code{cvm.test()}, a new
-function for Cramer von Mises tests.  Both are available from the authors
-as of October, 2010,
-or from R-Forge (\url{https://r-forge.r-project.org/R/?group_id=802});
-they will be proposed for inclusion in \pkg{stats} in late 2010.
-
-The revised \pkg{ks.test()} function supports one-sample tests for discrete
-null distributions by allowing the second argument, \code{y}, to be
-an empirical cumulative distribution function (an \proglang{R} function
-with class \code{ecdf}) or an object of class \code{stepfun} specifying
-a discrete distribution.  As in the original version of \code{ks.test()},
-the presence of ties in the data (the first argument, \code{x}) generates a
-warning unless \code{y} describes a discrete distribution.  When a discrete
-distribution is specified, exact p-values are not available for 
-two-sided alternative hypotheses, but the reported p-values will be
-conservative.  For one-sided tests,
-exact p-values are calculated using Conover's
-method (when \code{exact = NULL} or \code{exact = TRUE})
-if the sample size is less than or equal to 30; otherwise, asymptotic distributions
-are used which are reliable in such cases (CITATION? Is this correct?).
-When \code{exact = FALSE} the asymptotic distribution is used which is known
-to be imprecise but conservative, even for small sample (CITATION).
-
-*** Discussion of what we might have broken: cases where the user
-provided a discrete distribution to the original ks.test() even though
-it wasn't intended to be supported. ***
-
-The function \pkg{cvm.test()} is similar to \pkg{ks.test()}.  Its first two
-arguments specify the data and null distribution; the only extra option,
-\code{type}, specifies the variant of the Cramer-von Mises test:
-\begin{itemize}
-\item \code{x}: a numerical vector of data values.
-\item \code{y}: an \code{ecdf} or step-function (\code{stepfun}) for specifying
-the null model
-\item \code{type}: the variant of the Cramer-von Mises test; \code{W2}
-is the default and most common method, \code{U2} is for cyclical data,
-and \code{A2} is the Anderson-Darling alternative.
-\end{itemize}
-As with \code{ks.test()}, \code{cvm.test()} returns an object of class 
-\code{htest}.
-
- 
-
-
-
-
-%%%%%%%%%%%%%%%%%%
 \section{Examples}
-
-Hmm... I thought the package had a trivial example where the standard
-\code{ks.test()} was a problem?
-\begin{Schunk}
-\begin{Sinput}
-> library(ks.test)
-> x <- sample(1:10, 25, replace = TRUE)
-> x
-\end{Sinput}
-\begin{Soutput}
- [1]  3  4  6 10  3  9 10  7  7  1  3  2  7  4  8  5  8 10
-[19]  4  8 10  3  7  2  3
-\end{Soutput}
-\begin{Sinput}
-> ks.test(x, ecdf(1:10))
-\end{Sinput}
-\begin{Soutput}
-	One-sample Kolmogorov-Smirnov test
-
-data:  x 
-D = 0.08, p-value = 1
-alternative hypothesis: two-sided 
-\end{Soutput}
-\begin{Sinput}
-> ks.test(x, ecdf(1:10), alternative = "g")
-\end{Sinput}
-\begin{Soutput}
-	One-sample Kolmogorov-Smirnov test
-
-data:  x 
-D^+ = 0.04, p-value = 0.7731
-alternative hypothesis: the CDF of x lies above the null hypothesis 
-\end{Soutput}
-\begin{Sinput}
-> ks.test(x, ecdf(1:10), alternative = "g", exact = FALSE)
-\end{Sinput}
-\begin{Soutput}
-	One-sample Kolmogorov-Smirnov test
-
-data:  x 
-D^+ = 0.04, p-value = 0.9231
-alternative hypothesis: the CDF of x lies above the null hypothesis 
-\end{Soutput}
-\end{Schunk}
-
-Discuss this, nice example.  Relate to new material that is about to go into
-the earlier section.
-\begin{Schunk}
-\begin{Sinput}
-> stats::ks.test(c(0, 1), ecdf(c(0, 1)))
-\end{Sinput}
-\begin{Soutput}
-	One-sample Kolmogorov-Smirnov test
-
-data:  c(0, 1) 
-D = 0.5, p-value = 0.5
-alternative hypothesis: two-sided 
-\end{Soutput}
-\begin{Sinput}
-> ks.test(c(0, 1), ecdf(c(0, 1)))
-\end{Sinput}
-\begin{Soutput}
-	One-sample Kolmogorov-Smirnov test
-
-data:  c(0, 1) 
-D = 0, p-value = 1
-alternative hypothesis: two-sided 
-\end{Soutput}
-\end{Schunk}
-
-JAY: simulation showing original ks.test() was conservative, Conover exact.
-
-\begin{Schunk}
-\begin{Sinput}
-> library(cvm.test)
-> cvm.test(x, ecdf(1:10))
-\end{Sinput}
-\begin{Soutput}
-	Cramer-von Mises - W2
-
-data:  x 
-W2 = 0.057, p-value = 0.8114
-alternative hypothesis: Two.sided 
-\end{Soutput}
-\begin{Sinput}
-> cvm.test(x, ecdf(1:10), type = "A2")
-\end{Sinput}
-\begin{Soutput}
-	Cramer-von Mises - A2
-
-data:  x 
-A2 = 0.3969, p-value = 0.75
-alternative hypothesis: Two.sided 
-\end{Soutput}
-\end{Schunk}
-
-TAYLOR: good cyclical example, relating to new material about to go into
-earlier section.
-
 
 \section{Discussion}
 
 Go into more detail about reasons for using these versus chi-squared type tests. (*) 
 
-Issues revolving around incorrect usage of default ks.test() in R because of continuity error (i.e. ks.test(1:2, ecdf(1:2)).  Will be earlier, needed here?
+Issues revolving around incorrect usage of default ks.test() in R because of continuity error (i.e. ks.test(1:2, ecdf(1:2))
 
 Further discuss numerical issues; ks -> n over 30 has problems, CvM -> integrate function can sometimes refuse to run because of failure to calculate integral.
-Earlier, needed here?
 
 Benefits and drawbacks of using simulation to gather p-values. (*)
 
-Possibly go into a brief discussion of classes and class inheritance in R. The use of `htest' in our functions; benefits and issues with using it. Particularly troublesome in ks.test where we have a range of p-values.  More precisely, explain that we
-could provide upper and lower bounds for the p-value but are limited by class
-\code{htest}.
+Possibly go into a brief discussion of classes and class inheritance in R. The use of `htest' in our functions; benefits and issues with using it. Particularly troublesome in ks.test where we have a range of p-values.
 
 Two-sample cases; no theory for discrete distributions. Why? Distribution dependence messes things up. Discuss this for sure. (*)
 
 For further generalizations of tests see \cite{dewev1973}
 
-Future work: continuous CVM.
-
-
-*** Bibliography needs cleaning before we finish up, just don't forget.
+\section{Examples}
 
 
 %\bibliographystyle{plain}
