@@ -1,0 +1,45 @@
+This is BibTeX, Version 0.99c (TeX Live 2009/Debian)
+The top-level auxiliary file: RJwrapper.aux
+The style file: abbrvnat.bst
+Database file #1: paper.bib
+You've used 10 entries,
+            2773 wiz_defined-function locations,
+            658 strings with 5797 characters,
+and the built_in function-call counts, 3883 in all, are:
+= -- 356
+> -- 122
+< -- 10
++ -- 46
+- -- 36
+* -- 273
+:= -- 601
+add.period$ -- 30
+call.type$ -- 10
+change.case$ -- 41
+chr.to.int$ -- 10
+cite$ -- 20
+duplicate$ -- 200
+empty$ -- 388
+format.name$ -- 50
+if$ -- 824
+int.to.chr$ -- 1
+int.to.str$ -- 1
+missing$ -- 11
+newline$ -- 58
+num.names$ -- 40
+pop$ -- 76
+preamble$ -- 1
+purify$ -- 32
+quote$ -- 0
+skip$ -- 136
+stack$ -- 0
+substring$ -- 217
+swap$ -- 10
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 105
+warning$ -- 0
+while$ -- 41
+width$ -- 0
+write$ -- 137
