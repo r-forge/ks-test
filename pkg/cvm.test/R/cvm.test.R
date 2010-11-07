@@ -1,6 +1,27 @@
 cvm.test <- function(x,y, type=c("W2", "U2", "A2")) {
 
-  cvm.pval <- function(STAT, lambda) {
+  cvm.stat <- function(x,y,type) {
+    fdata <- ecdf(x)
+    if(type != 'A2') {
+      igrand <- function(z) return((fdata(z) - y(z))^2)
+    } else {
+      igrand <- function(z) return((fdata(z) - y(z))^2 / (y(z) - y(z)^2))
+    }
+    stat <- integrate(igrand, -Inf, Inf)[1]
+    if(type != 'U2') {
+      return(stat)
+    } else {
+      igrand <- function(z) return((fdata(z) - y(z)-stat)^2) 
+      return(integrate(igrand, -Inf, Inf)[1])
+    }    
+  }
+
+  cvm.pval <- function(stat) {
+
+    return()
+  }  
+
+  cvm.pval.disc <- function(STAT, lambda) {
 
     x <- STAT
 
@@ -33,7 +54,7 @@ cvm.test <- function(x,y, type=c("W2", "U2", "A2")) {
     }
   } # End cvm.pval()
 
-  cvm.stat <- function(x,y, type=c("W2", "U2", "A2")) {
+  cvm.stat.disc <- function(x,y, type=c("W2", "U2", "A2")) {
     type <- match.arg(type)
     I <- knots(y)
     N <- length(x)
@@ -74,17 +95,32 @@ cvm.test <- function(x,y, type=c("W2", "U2", "A2")) {
 
   type <- match.arg(type)
   DNAME <- deparse(substitute(x))
-  if(length(setdiff(x, knots(y))) != 0) {
-    stop("Data are incompatable with null distribution")
+  if(is.stepfun(y)) {
+    if(length(setdiff(x, knots(y))) != 0) {
+      stop("Data are incompatable with null distribution")
+    }
+    tempout <- cvm.stat.disc(x,y,type=type)
+    STAT <- tempout[1]
+    lambda <- tempout[2:length(tempout)]
+    PVAL <- cvm.pval.disc(STAT, lambda)
+    METHOD <- paste("Cramer-von Mises -", type)
+    names(STAT) <- as.character(type)
+    RVAL <- list(statistic = STAT, p.value = PVAL, alternative = "Two.sided",
+                 method = METHOD, data.name=DNAME)
+  } else {
+    y <- y[!is.na(y)]
+    n.x <- as.double(n)             # to avoid integer overflow
+    n.y <- length(y)
+    if(n.y < 1L)
+       stop("not enough 'y' data")
+    STAT <- cvm.stat(x,y,type=type)
+    PVAL <- cvm.pval(STAT)
+    METHOD <- paste("Cramer-von Mises -", type)
+    RVAL <- list(statistic = STAT, p.value = PVAL, alternative = "Two.sided",
+                 method = METHOD, data.name=DNAME)
   }
-  tempout <- cvm.stat(x,y,type=type)
-  STAT <- tempout[1]
-  lambda <- tempout[2:length(tempout)]
-  PVAL <- cvm.pval(STAT, lambda)
-  METHOD <- paste("Cramer-von Mises -", type)
-  names(STAT) <- as.character(type)
-  RVAL <- list(statistic = STAT, p.value = PVAL, alternative = "Two.sided",
-              method = METHOD, data.name=DNAME)
+
+
   class(RVAL) <- "htest"
   return(RVAL)
 }

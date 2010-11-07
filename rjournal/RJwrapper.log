@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2010.8.28)  27 OCT 2010 14:40
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2010.8.28)  7 NOV 2010 11:01
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -750,57 +750,57 @@ less on input line 14.
 LaTeX Font Info:    Font shape `T1/ppl/bx/n' in size <24.88> not available
 (Font)              Font shape `T1/ppl/b/n' tried instead on input line 4.
 LaTeX Font Info:    Font shape `T1/ppl/bx/n' in size <10> not available
-(Font)              Font shape `T1/ppl/b/n' tried instead on input line 16.
-LaTeX Font Info:    Try loading font information for OT1+ppl on input line 16.
+(Font)              Font shape `T1/ppl/b/n' tried instead on input line 13.
+LaTeX Font Info:    Try loading font information for OT1+ppl on input line 13.
  (/usr/share/texmf-texlive/tex/latex/psnfss/ot1ppl.fd
 File: ot1ppl.fd 2001/06/04 font definitions for OT1/ppl.
 )
-LaTeX Font Info:    Try loading font information for OML+zplm on input line 16.
+LaTeX Font Info:    Try loading font information for OML+zplm on input line 13.
 
 
 (/usr/share/texmf-texlive/tex/latex/psnfss/omlzplm.fd
 File: omlzplm.fd 2002/09/08 Fontinst v1.914 font definitions for OML/zplm.
 )
-LaTeX Font Info:    Try loading font information for OMS+zplm on input line 16.
+LaTeX Font Info:    Try loading font information for OMS+zplm on input line 13.
 
 
 (/usr/share/texmf-texlive/tex/latex/psnfss/omszplm.fd
 File: omszplm.fd 2002/09/08 Fontinst v1.914 font definitions for OMS/zplm.
 )
-LaTeX Font Info:    Try loading font information for OMX+zplm on input line 16.
+LaTeX Font Info:    Try loading font information for OMX+zplm on input line 13.
 
 
 (/usr/share/texmf-texlive/tex/latex/psnfss/omxzplm.fd
 File: omxzplm.fd 2002/09/08 Fontinst v1.914 font definitions for OMX/zplm.
 )
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 16.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 13.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7.6> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 16.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 13.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 16.
-LaTeX Font Info:    Try loading font information for OT1+zplm on input line 16.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 13.
+LaTeX Font Info:    Try loading font information for OT1+zplm on input line 13.
 
 
 (/usr/share/texmf-texlive/tex/latex/psnfss/ot1zplm.fd
 File: ot1zplm.fd 2002/09/08 Fontinst v1.914 font definitions for OT1/zplm.
 )
 LaTeX Font Info:    Font shape `U/msa/m/n' will be
-(Font)              scaled to size 10.42007pt on input line 16.
+(Font)              scaled to size 10.42007pt on input line 13.
 LaTeX Font Info:    Font shape `U/msa/m/n' will be
-(Font)              scaled to size 7.91925pt on input line 16.
+(Font)              scaled to size 7.91925pt on input line 13.
 LaTeX Font Info:    Font shape `U/msa/m/n' will be
-(Font)              scaled to size 6.25204pt on input line 16.
+(Font)              scaled to size 6.25204pt on input line 13.
 LaTeX Font Info:    Font shape `U/msb/m/n' will be
-(Font)              scaled to size 10.42007pt on input line 16.
+(Font)              scaled to size 10.42007pt on input line 13.
 LaTeX Font Info:    Font shape `U/msb/m/n' will be
-(Font)              scaled to size 7.91925pt on input line 16.
+(Font)              scaled to size 7.91925pt on input line 13.
 LaTeX Font Info:    Font shape `U/msb/m/n' will be
-(Font)              scaled to size 6.25204pt on input line 16.
+(Font)              scaled to size 6.25204pt on input line 13.
 LaTeX Font Info:    Font shape `T1/ppl/bx/n' in size <14.4> not available
-(Font)              Font shape `T1/ppl/b/n' tried instead on input line 20.
+(Font)              Font shape `T1/ppl/b/n' tried instead on input line 17.
 LaTeX Font Info:    Font shape `T1/ppl/bx/n' in size <12> not available
-(Font)              Font shape `T1/ppl/b/n' tried instead on input line 52.
+(Font)              Font shape `T1/ppl/b/n' tried instead on input line 47.
  [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
 pdfTeX warning (ext4): destination with the same identifier (name{section*.2}) 
@@ -808,23 +808,23 @@ has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.82 
-     ]
+l.82 \end{align*}
+                 ] [2]
 LaTeX Font Info:    Try loading font information for U+fplmbb on input line 164
 .
  (/usr/share/texmf-texlive/tex/latex/psnfss/ufplmbb.fd
 File: ufplmbb.fd 2003/10/30 Fontinst v1.914 font definitions for U/fplmbb.
-) [2]
-<fig1.pdf, id=101, 578.16pt x 433.62pt>
+)
+<fig1.pdf, id=104, 578.16pt x 433.62pt>
 File: fig1.pdf Graphic file (type pdf)
- <use fig1.pdf>
-LaTeX Font Info:    Try loading font information for TS1+ppl on input line 230.
+ <use fig1.pdf> [3 <./fig1.pdf>]
+LaTeX Font Info:    Try loading font information for TS1+ppl on input line 236.
 
 
 (/usr/share/texmf-texlive/tex/latex/psnfss/ts1ppl.fd
 File: ts1ppl.fd 2001/06/04 font definitions for TS1/ppl.
-) [3 <./fig1.pdf>]
-(./RJwrapper.bbl [4])) [5] (./RJwrapper.aux) ) 
+) [4] (./RJwrapper.bbl))
+[5] (./RJwrapper.aux) ) 
 Here is how much of TeX's memory you used:
  13532 strings out of 495061
  215347 string characters out of 1182621
@@ -832,20 +832,20 @@ Here is how much of TeX's memory you used:
  16332 multiletter control sequences out of 15000+50000
  39535 words of font info for 88 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
- 56i,12n,53p,377b,677s stack positions out of 5000i,500n,10000p,200000b,50000s
-{/usr/share/texmf-texlive/fonts/e
-nc/dvips/base/8r.enc}</usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/c
-mex10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr10.pfb></
-usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/t
-exmf-texlive/fonts/type1/public/mathpazo/fplmbb.pfb></usr/share/texmf-texlive/f
-onts/type1/public/mathpazo/fplmr.pfb></usr/share/texmf-texlive/fonts/type1/publ
-ic/mathpazo/fplmri.pfb></usr/share/texmf-texlive/fonts/type1/urw/courier/ucrr8a
-.pfb></usr/share/texmf-texlive/fonts/type1/urw/palatino/uplb8a.pfb></usr/share/
-texmf-texlive/fonts/type1/urw/palatino/uplr8a.pfb></usr/share/texmf-texlive/fon
-ts/type1/urw/palatino/uplri8a.pfb>
-Output written on RJwrapper.pdf (5 pages, 179334 bytes).
+ 56i,12n,53p,377b,507s stack positions out of 5000i,500n,10000p,200000b,50000s
+{/usr/share/texmf-texlive/fonts/enc/dvips/base/8r.enc}</
+usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/t
+exmf-texlive/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-texlive
+/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-texlive/fonts/type
+1/public/mathpazo/fplmbb.pfb></usr/share/texmf-texlive/fonts/type1/public/mathp
+azo/fplmr.pfb></usr/share/texmf-texlive/fonts/type1/public/mathpazo/fplmri.pfb>
+</usr/share/texmf-texlive/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texmf-
+texlive/fonts/type1/urw/palatino/uplb8a.pfb></usr/share/texmf-texlive/fonts/typ
+e1/urw/palatino/uplr8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/palatino/u
+plri8a.pfb>
+Output written on RJwrapper.pdf (5 pages, 182572 bytes).
 PDF statistics:
- 171 PDF objects out of 1000 (max. 8388607)
+ 176 PDF objects out of 1000 (max. 8388607)
  32 named destinations out of 1000 (max. 500000)
  106 words of extra memory for PDF output out of 10000 (max. 10000000)
 

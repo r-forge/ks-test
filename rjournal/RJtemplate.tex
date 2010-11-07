@@ -10,9 +10,6 @@
    the two most popular nonparametric tests. The structure of these two packages are explained and examples
    to their specific usage are presented. Particular attention is given to the various numerical issues that arise
    in their implementation.
-
-*** try to clean up, avoid package/function issue, make it a general
-contribution if possible.
 }
 
 
@@ -33,17 +30,15 @@ calculate differences between the empirical distribution of the observed data an
 of the null model. In many cases these tests are preferential since they tend to have an increased power for 
 interesting deviations from the null model, in exchange for failing to detect less interesting deviations due to 
 factors such as measurement error. By far the most popular of these nonparametric tests are due to Kolmogorov and 
-Smirnov, followed closely by several variants on an estimation procedure proposed by Cram\'{e}r-von Mises. 
+Smirnov, followed closely by several variants on an estimation procedure proposed by Cram\'{e}r and von Mises. 
 
 % Discrete versions exist; just no code
 While the original aim of nonparametric goodness of fit tests was meant for continuous null distributions, discrete versions
 have existed since the early 1970s. Unfortunately, current statistical software has largely failed to incorporate them.
 This has left the end-user to either use only parametric tests, such as Pearson's Chi-Squared test, or to incorrectly
-apply the functions meant for continuous distributions. As shown in section 5, the latter can be particularly dangerous
-in the small sample setting. The packages \pkg{ks.test} and \pkg{cvm.test} serve to fill this void for users
+apply the functions meant for continuous distributions. As we will see, the latter can be particularly dangerous
+in the small sample setting. The functions \pkg{ks.test} and \pkg{cvm.test} presented here serve to fill this void for users
 operating in the R environment. 
-
-** Ditto on wordsmithing the contribution (package/function, etc...).
 
 \section{Kolmogorov-Smirnov Test}
 
@@ -51,7 +46,7 @@ operating in the R environment.
 
 \subsection{Overview}
 
-Of all the methods for nonparametric goodness-of-fit tests, by far the most popular is the method devised by Kolmogorov and Smirnov.
+Of all the methods for nonparametric goodness-of-fit tests, the most popular is the method devised by Kolmogorov and Smirnov.
 It is the only such test built into the base of R. The idea behind it is fairly simple. Given the cumulative distribution
 function $F_0(x)$ of the continuous null distribution, and the empirical distribution function $F_{data}(x)$ of the observed data, 
 one constructs the statistic:
@@ -61,7 +56,7 @@ D = \sup_x \left| F_0(x)- F_{data}(x) \right|
 The distribution of $D$ under the null model does not depend on which null distribution is being used, making this a computationally
 attractive method. For a standard treatment of the test and its performance relative to other algorithms see \cite{slakter65}. Two common
 alternatives of the above test statistic exist. The absolute value is discarded and the rest is either left alone (the `greater' testing 
-alternative) or the supremum is replaces with a negative infimum (the `lesser' hypothesis alternative). These can be helpful depending 
+alternative) or the supremum is replaced with a negative infimum (the `lesser' hypothesis alternative). These can be helpful depending 
 on the nature of the alternative hypotheses for which the test is desired to be powerful towards.
 
 The extension of this result to non-continuous null distributions does not have such a clean solution. The formula of
@@ -94,24 +89,24 @@ is also a step function, we could replace the formula for some small $\epsilon$ 
 \sup_x &\left| f(x)- g(x) \right| =   \\
         &                    \max_i \{ \left|g(x_i) - f(x_i) \right|, \left| g(x_i - \epsilon) - f(x_{i-1}) \right| \}
 \end{align*}
-Where the discontinuities in $g$ are at least a distance $\epsilon$ apart. But this requires knowing that $g$ is a step function. In the case of not knowing,
+Where the discontinuities in $g$ are at least a distance $\epsilon$ apart. But this requires knowing that $g$ is a step function and knowing something
+about its particular break-points. In the case of not knowing,
 or having a $g$ which is in neither a step function nor a continuous function, the only method for computing the supremum is to take the numerical limit in (1). 
-This clearly takes more computational time than simply cycling over $2N$ values.
+This clearly takes more computational time than simply cycling over $2N$ values. 
 
-Therefore, in order to implement the discrete Kolmogorov-Smirnov test statistic, the user must either indicate the points of discontinuity of the null
-distribution's cdf or live with a much smaller.
+Therefore, in order to implement the discrete Kolmogorov-Smirnov test statistic, we have forced the user to indicate the points of discontinuity
+of the null distribution's cumulative distribution function. It is often the case that the test is used inside of a long simulation, 
+and the added computational time would likely be prohibitive. 
 
-%Once the test statistic is determined, the p-value for this value needs to be computed. For high sample sizes, the test distribution becomes the same as in the
-%continuous case. The default options for \pkg{ks.test} already allow the user to specify if they would like approximate asymptotic distributions (since these exist
-%in the continuous setting as well). So when this approximation flag is turned on, this distribution is used for all situations. When the user requires exact p-values,
-%the methodology in \citet{Conover1972} needs to be used. Code for this procedure in the R language, or in any other open source options, did not previously
-%exist and is included in the revised \pkg{ks.test}. The calculations are complex but straightforward; the full details are contained in the package source and in 
-%the original Conover paper. 
+Once the test statistic is determined, the p-value for this value needs to be computed. For high sample sizes, the test distribution becomes the same as in the
+continuous case. When the user requires exact p-values,
+the methodology in \citet{Conover1972} needs to be used. Code for this procedure in the R language, or in any other open source options, did not previously
+exist and is included in the new function \pkg{ks.test}. The calculations are complex but straightforward; 
+the full details are contained in the package source and in the original Conover paper. 
 
 %Numerical issues arise from the summation; need to do something else for high $n$. Simulation? Asymptotic approximation? 
-%The interesting part of the implementation of Conover's method, from a computational standpoint, are the difficult numerical issues that arise when calculated the p-values for larger sample sizes. 
-
-*** Check Cram\'{e}r-von Mises for hyphen, and let's get the accent done properly.
+%The interesting part of the implementation of Conover's method, from a computational standpoint, are the difficult numerical issues that 
+%arise when calculated the p-values for larger sample sizes. 
 
 \section{Cram\'{e}r-von Mises Tests}
 
@@ -131,7 +126,12 @@ U^2 &= n \cdot \int_{-\infty}^{\infty} \left[ F_{data}(x)- F_{0}(x) - W^2 \right
 Where $F$ is either the cumulative distribution of the null model or the empirical cumulative distribution of the observed data.
 As in the Kolmogorov-Smirnov test statistic, these all have distribution free null distributions in the continuous case. 
 
-*** New paragraph, perhaps here, on the differences between these three tests.
+The relative powers of these tests to different alternatives are studied in depth in \cite{stephens1974}. In general, the $W^2$
+statistic is used unless there is a good reason not to. The $A^2$ statistic was developed by Anderson in order to be
+generalized to the two-sample case, but was shown to perform very similarly to the original statistic in the one-sample
+setting. Watson's $U^2$ statistic was developed for distributions which are cyclically distributed; that is they have some
+order to them but no natural starting point. A common example would be the months of the year. His statistic will be same
+if the data are cyclically reordered, since giving preference to one ordering would be unnatural. 
 
 It has been shown that these tests can be more powerful than Kolmogorov-Smirnov tests to certain deviations. As they all involve
 integration over the whole range of data, rather than one supremum, it is not surprising that they are generally best when the
@@ -144,9 +144,7 @@ the theoretical form of the test statistics are unchanged; although the discrete
 The null distribution of the test statistics are again distribution dependent, unlike the continuous version. The methods do not
 suggest finite sample results, but rather show that the asymptotic null distribution is equal to a weighted sum of independent
 chi-squared variables (the weights depending on the particular distribution). This asymptotic distribution is what we implement here;
-the original papers shows that this approximation (*** NOT FINISHED?)
-
-
+the original papers shows that this approximation is conservative and asymptotically equivalent to the true null distribution.
 
 \subsection{Implementation}
 
@@ -169,7 +167,7 @@ fine in most situations, but numerical issues do become a problem in the regime 
 $\theta(\cdot, x)$ is linear in $x$, and thus as the the test statistic grows the corresponding period of the integrand 
 decreases. As the function acquires too many inflection points, the approximation becomes unstable. This is further
 magnified by this occurring when $p$-values should be very small; thus tiny fluctuations which would be undetectable
-elsewhere are quite prominent. Figure \ref{cvmissues} shows the non-monotonicity of the function as the test statistic grows.
+elsewhere are quite prominent. 
 
 There is fortunately a simple conservative approximation which can get around this numerical problem. Given the
 following inequality:
@@ -178,7 +176,13 @@ following inequality:
 &= \mathbb{P} \left(\chi^2_p \geq \frac{x}{p \, \lambda_{max}} \right)
 \end{align*}
 We see that the values for the weighted sum can be bounded by a simple transformation and a chi-squared distribution
-of a higher degree of freedom. 
+of a higher degree of freedom. While for higher p-values it is better to use the original formulation, for small
+p-values (we picked a cut-off of 0.001) this correction is useful and, given the small values, it should not
+greatly affect the interpretation of the results.
+
+Figure \ref{cvmissues} shows the non-monotonicity of the function as the test statistic grows, as well as how the
+conservative approximation performs. While it is slightly conservative, it has the nice property of being strictly
+monotone and not exhibiting other odd noisy behavior.
 
 \begin{figure}
 \begin{center}
@@ -217,7 +221,7 @@ method (when \code{exact = NULL} or \code{exact = TRUE})
 if the sample size is less than or equal to 30; otherwise, asymptotic distributions
 are used which are reliable in such cases (CITATION? Is this correct?).
 When \code{exact = FALSE} the asymptotic distribution is used which is known
-to be imprecise but conservative, even for small sample (CITATION).
+to be imprecise but conservative, even for small samples (CITATION).
 
 *** Discussion of what we might have broken: cases where the user
 provided a discrete distribution to the original ks.test() even though
@@ -238,10 +242,6 @@ As with \code{ks.test()}, \code{cvm.test()} returns an object of class
 \code{htest}.
 
  
-
-
-
-
 %%%%%%%%%%%%%%%%%%
 \section{Examples}
 
@@ -346,12 +346,16 @@ earlier section.
 
 \section{Discussion}
 
-Go into more detail about reasons for using these versus chi-squared type tests. (*) 
-
-Issues revolving around incorrect usage of default ks.test() in R because of continuity error (i.e. ks.test(1:2, ecdf(1:2)).  Will be earlier, needed here?
-
-Further discuss numerical issues; ks -> n over 30 has problems, CvM -> integrate function can sometimes refuse to run because of failure to calculate integral.
-Earlier, needed here?
+The chi-squared test is a popular alternative to the methods presented here for doing goodness-of-fit tests for discrete data.
+It differs by using no information about the geometry of the distribution, instead relying only the difference between the 
+number of data points observed at each value and the expected number of data points that should be observed at each point. 
+This generally has the effect of having a greater power towards alternatives with sharply different densities on a few points,
+at the expense of losing power for alternatives with slight deviations over all of the points. Also, the non-parametric tests
+have an advantage of being useful when the sample size is lower compared to the support of the distribution. The chi-squared
+test is generally not used unless there are at least five data points in each element of the support. On the other hand,
+chi-squared can be used in situations when there is not a numerical interpretation of the observation space 
+(e.g. a set of ethnicities).
+For a more complete comparison of the two tests' power see \cite{slakter65}.
 
 The computational capabilities of modern computers provide an alternative to using a complex formula to
 calculate the p-value for a test statistic. By drawing random samples from the null distribution, in many
@@ -365,7 +369,7 @@ simulations are generally a well received accepted method, it is often important
 to be sure that the calculated $p$-values are not the result of a numerical oddity in a particular
 run of a simulation. 
 
-In the end, for methods such as those presented in this paper where it is possible
+In the end, for methods such as those presented in this paper where it is possible,
 there are enough positives to suggest that we attempt to implement exact $p$-value calculations. This does lead
 to an interesting direction for future research in non-parametric goodness of fit tests: the methods presented
 here were historically chosen because they could be shown to have fixed null distributions which could easily
@@ -373,34 +377,37 @@ calculated in an era without fast computers for carrying out permutation tests. 
 variants without the property, which could be easily used today, have greater power to certain alternative 
 distributions.
 
-Possibly go into a brief discussion of classes and class inheritance in R. The use of `htest' in our functions; benefits and issues with using it. Particularly troublesome in ks.test where we have a range of p-values.  More precisely, explain that we
-could provide upper and lower bounds for the p-value but are limited by class
-\code{htest}.
+%Possibly go into a brief discussion of classes and class inheritance in R. The use of `htest' in our functions; benefits and issues with using it. Particularly troublesome in ks.test where we have a range of p-values.  More precisely, explain that we
+%could provide upper and lower bounds for the p-value but are limited by class
+%\code{htest}.
 
-Two-sample cases; no theory for discrete distributions. Why? Distribution dependence messes things up. Discuss this for sure. (*)
+In the continuous setting, both the Kolmogorov-Smirnov and the Cram\'{e}r-von Mises tests have two sample analogues. Here data are
+observed from two processes, and the hypothesis tested is whether they came from the same (but unspecified) distribution. There
+does not exist an analogous theory for discrete distributions. This comes from the fact that the discrete null distributions
+of the test statistics depend on the exact null distribution; therefore the two sample case would surely have to depend
+on the exact distributions used as well, which are generally not even stated in the two-sample case. 
 
-For further generalizations of tests see \cite{dewev1973}
-
-Future work: continuous CVM.
+While we have implemented the two most popular variants of goodness-of-fit tests, there are 
+several more exotic varieties to be found. For further generalizations of tests see the extended study done in \cite{dewev1973}.
 
 
 %\bibliography{example}
 
 \bibliography{paper}
 
-\address{
-  Taylor B. Arnold \\
-  24 Hillhouse Ave. \\
-  New Haven, CT 06511
-  USA\\
+\address{Taylor B. Arnold \\
+Yale University\\
+24 Hillhouse Ave. \\
+New Haven, CT 06511
+USA\\
 }
 \email{taylor.arnold@yale.edu}
 
-\address{
-  John W. Emerson \\
-  24 Hillhouse Ave. \\
-  New Haven, CT 06511
-  USA\\
+\address{John W. Emerson \\
+Yale University\\
+24 Hillhouse Ave. \\
+New Haven, CT 06511
+USA\\
 }
 \email{john.emerson@yale.edu}
 
