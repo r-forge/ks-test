@@ -4,12 +4,16 @@
 \maketitle
 
 \abstract{
-   A general theory for extending nonparametric goodness-of-fit tests to discrete null distributions has existed
-   for several decades. Despite this, modern statistical software have generally failed to provide this methodology
-   to users. The packages ks.test and cvm.test serve to fill this need in the R language for
-   the two most popular nonparametric tests. The structure of these two packages are explained and examples
-   to their specific usage are presented. Particular attention is given to the various numerical issues that arise
-   in their implementation.
+A general theory for extending nonparametric goodness-of-fit tests 
+to discrete null distributions has existed
+for several decades. Despite this, modern statistical software 
+has generally failed to provide this methodology
+to users. We offer a revision of R's \code{ks.test()} function
+and a new \code{cvm.test()} function that serve to fill this need
+in the R language for two of the most popular nonparametric tests. 
+This paper describes the the structure of these contributions and
+provides examples of their usage. Particular attention is given
+to various numerical issues that arise in their implementation.
 }
 
 
@@ -20,11 +24,14 @@
 %Given an observed sequence of data, the typical question of statistical inference is to determine
 %the underlying process from which it came. 
 Given a particular null distribution, goodness-of-fit tests 
-are used in order to test whether it is likely that the data were generated via the null distribution.
+are used in order to test whether it is likely that the data were
+generated via the null distribution.
 
 %Why we use non-parametric tests (power to interesting shifts; robustness to underlying assumptions).
-While almost any hypothesis test can be viewed as a variant on a goodness-of-fit test, the term is typically
-applied to those tests which are nonparametric in nature. That is, they do not conduct the hypothesis testing 
+While almost any hypothesis test can be viewed as a variant on a
+goodness-of-fit test, the term ``goodness-of-fit test'' is typically
+reserved for those tests which are nonparametric in nature. 
+That is, they do not conduct the hypothesis testing 
 through the explicit calculation of the parameters generating the data. Instead, they generally attempt to 
 calculate differences between the empirical distribution of the observed data and the overall distribution 
 of the null model. In many cases these tests are preferential since they tend to have an increased power for 
@@ -245,52 +252,11 @@ As with \code{ks.test()}, \code{cvm.test()} returns an object of class
 %%%%%%%%%%%%%%%%%%
 \section{Examples}
 
-Hmm... I thought the package had a trivial example where the standard
-\code{ks.test()} was a problem?
-\begin{Schunk}
-\begin{Sinput}
-> library(ks.test)
-> x <- sample(1:10, 25, replace = TRUE)
-> x
-\end{Sinput}
-\begin{Soutput}
- [1]  3  4  6 10  3  9 10  7  7  1  3  2  7  4  8  5  8 10
-[19]  4  8 10  3  7  2  3
-\end{Soutput}
-\begin{Sinput}
-> ks.test(x, ecdf(1:10))
-\end{Sinput}
-\begin{Soutput}
-	One-sample Kolmogorov-Smirnov test
-
-data:  x 
-D = 0.08, p-value = 1
-alternative hypothesis: two-sided 
-\end{Soutput}
-\begin{Sinput}
-> ks.test(x, ecdf(1:10), alternative = "g")
-\end{Sinput}
-\begin{Soutput}
-	One-sample Kolmogorov-Smirnov test
-
-data:  x 
-D^+ = 0.04, p-value = 0.7731
-alternative hypothesis: the CDF of x lies above the null hypothesis 
-\end{Soutput}
-\begin{Sinput}
-> ks.test(x, ecdf(1:10), alternative = "g", exact = FALSE)
-\end{Sinput}
-\begin{Soutput}
-	One-sample Kolmogorov-Smirnov test
-
-data:  x 
-D^+ = 0.04, p-value = 0.9231
-alternative hypothesis: the CDF of x lies above the null hypothesis 
-\end{Soutput}
-\end{Schunk}
-
-Discuss this, nice example.  Relate to new material that is about to go into
-the earlier section.
+Consider a toy example, with observed data of length 2 (specifically, the
+values 0 and 1) and a hypothized null distribution that places equal
+probability on the values 0 and 1.  With the current \code{ks.test()} function
+in R (which, admittedly, doesn't claim to handle discrete distributions),
+the reported p-value, 0.5, is clearly incorrect:
 \begin{Schunk}
 \begin{Sinput}
 > stats::ks.test(c(0, 1), ecdf(c(0, 1)))
@@ -302,6 +268,11 @@ data:  c(0, 1)
 D = 0.5, p-value = 0.5
 alternative hypothesis: two-sided 
 \end{Soutput}
+\end{Schunk}
+Instead, the value of $D$ given in equation (1)
+should be 0 and the associated p-value should be 1.  Our revision of \code{ks.test()}
+fixes this problem when the user provides a discrete distribution:
+\begin{Schunk} 
 \begin{Sinput}
 > ks.test(c(0, 1), ecdf(c(0, 1)))
 \end{Sinput}
@@ -314,7 +285,76 @@ alternative hypothesis: two-sided
 \end{Soutput}
 \end{Schunk}
 
-JAY: simulation showing original ks.test() was conservative, Conover exact.
+Next, we simulate a sample of 25 from the discrete uniform distribution on
+the integers $\{1, 2, \ldots, 10\}$ and show several variants of the
+new \code{ks.test()} implementation.  The first is the default two-sided test,
+where the reported p-value is a conservative upper bound for the actual
+p-value.  In this case, the approximation may not be that tight, but this is
+irrelevant for such large p-values (for more interesting p-values, the
+upper bound is very close to the true p-value).
+\begin{Schunk}
+\begin{Sinput}
+> library(ks.test)
+> set.seed(1)
+> x <- sample(1:10, 25, replace = TRUE)
+> x
+\end{Sinput}
+\begin{Soutput}
+ [1]  3  4  6 10  3  9 10  7  7  1  3  2  7
+[14]  4  8  5  8 10  4  8 10  3  7  2  3
+\end{Soutput}
+\begin{Sinput}
+> ks.test(x, ecdf(1:10))
+\end{Sinput}
+\begin{Soutput}
+	One-sample Kolmogorov-Smirnov test
+
+data:  x 
+D = 0.08, p-value = 1
+alternative hypothesis: two-sided 
+\end{Soutput}
+\end{Schunk}
+Next, we conduct the default one-sided test, where Conover's method
+provides the exact p-value (up to the numerical precision of the
+implementation):
+\begin{Schunk}
+\begin{Sinput}
+> ks.test(x, ecdf(1:10), alternative = "g")
+\end{Sinput}
+\begin{Soutput}
+	One-sample Kolmogorov-Smirnov test
+
+data:  x 
+D^+ = 0.04, p-value = 0.7731
+alternative hypothesis:
+the CDF of x lies above the null hypothesis 
+\end{Soutput}
+\end{Schunk}
+In contrast, the option \code{exact=FALSE} results in the
+p-value obtained by applying the classical Kolmogorov-Smirnov
+test, resulting in a conservative p-value:
+\begin{Schunk}
+\begin{Sinput}
+> ks.test(x, ecdf(1:10), alternative = "g", 
++         exact = FALSE)
+\end{Sinput}
+\begin{Soutput}
+	One-sample Kolmogorov-Smirnov test
+
+data:  x 
+D^+ = 0.04, p-value = 0.9231
+alternative hypothesis:
+the CDF of x lies above the null hypothesis 
+\end{Soutput}
+\end{Schunk}
+
+JAY: reconsider simulation.  Not really needed, if we have citations for
+the conservatism points, etc...?  The code for this is in the JSS folder.
+if we want to revisit it.
+
+Finally, we employ two of the Cram\'{e}r-von Mises tests.  Taylor, are these
+your ``cynical example'' that you commented on, or did you have something
+in addition to these?  What should be discussed here?
 
 \begin{Schunk}
 \begin{Sinput}
