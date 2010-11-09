@@ -4,14 +4,14 @@
 \maketitle
 
 \abstract{
-A general theory for extending nonparametric goodness-of-fit tests 
+A general theory for extending nonparametric goodness-of-fit tests
 to discrete null distributions has existed
-for several decades. Despite this, modern statistical software 
+for several decades. Despite this, modern statistical software
 has generally failed to provide this methodology
 to users. We offer a revision of R's \code{ks.test()} function
 and a new \code{cvm.test()} function that serve to fill this need
-in the R language for two of the most popular nonparametric tests. 
-This paper describes the the structure of these contributions and
+in the R language for two of the most popular nonparametric
+goodness-of-fit tests. This paper describes these contributions and
 provides examples of their usage. Particular attention is given
 to various numerical issues that arise in their implementation.
 }
@@ -23,29 +23,47 @@ to various numerical issues that arise in their implementation.
 %General idea of goodness-of-fit tests (hypothesis test about underlying distribution).
 %Given an observed sequence of data, the typical question of statistical inference is to determine
 %the underlying process from which it came. 
-Given a particular null distribution, goodness-of-fit tests 
-are used in order to test whether it is likely that the data were
-generated via the null distribution.
+Goodness-of-fit tests are used to assess whether data are consistent
+with a hypothesized null distribution.  The $\chi^2$ test the best-known
+parametric goodness-of-fit test, while the most popular nonparametric tests
+are the classic test proposed by Kolmogorov and Smirnov followed closely by
+several variants on an estimation procedure proposed by
+Cram\'{e}r and von Mises (tests sometimes called Cram\'{e}r-von Mises-Smirnov
+tests, or simply Cram\'{e}r-von Mises tests).
+
+In their most basic form, the nonparametric goodness-of-fit
+tests are intended for continuous null distributions, but they have
+also been adapted for use with discrete null distributions.  Unfortunately,
+most modern statistical software has failed to incorporate these discrete
+versions, leaving researchers with the $\chi^2$ test or in the unfortunate
+position of applying a nonparametric test designed for continuous null
+distributions and hoping for the best.
+As we will see, the latter choice can be particularly dangerous
+in the small sample setting. This paper presents a revision of R's
+\code{ks.test()} function and a new \code{cvm.test()} function to
+fill this void for researchers and practitioners in the R environment. 
+
+%Given a particular null distribution, goodness-of-fit tests 
+%are used in order to test whether it is likely that the data were
+%generated via the null distribution.
 
 %Why we use non-parametric tests (power to interesting shifts; robustness to underlying assumptions).
-While almost any hypothesis test can be viewed as a variant on a
-goodness-of-fit test, the term ``goodness-of-fit test'' is typically
-reserved for those tests which are nonparametric in nature. 
-That is, they do not conduct the hypothesis testing 
-through the explicit calculation of the parameters generating the data. Instead, they generally attempt to 
-calculate differences between the empirical distribution of the observed data and the overall distribution 
-of the null model. In many cases these tests are preferential since they tend to have an increased power for 
-interesting deviations from the null model, in exchange for failing to detect less interesting deviations due to 
-factors such as measurement error. By far the most popular of these nonparametric tests are due to Kolmogorov and 
-Smirnov, followed closely by several variants on an estimation procedure proposed by Cram\'{e}r and von Mises. 
+%While almost any hypothesis test can be viewed as a variant on a
+%goodness-of-fit test, the term ``goodness-of-fit test'' is typically
+%reserved for those tests which are nonparametric in nature. 
+%That is, they do not conduct the hypothesis testing 
+%through the explicit calculation of the parameters generating the data. Instead, they %generally attempt to
+%calculate differences between the empirical distribution of the observed data and the overall distribution 
+%of the null model. In many cases these tests are preferential since they tend to have an increased power for 
+%interesting deviations from the null model, in exchange for failing to detect less interesting deviations due to 
+%factors such as measurement error. By far the most popular of these nonparametric tests are due to Kolmogorov and 
+%Smirnov, followed closely by several variants on an estimation procedure proposed by Cram\'{e}r and von Mises. 
 
 % Discrete versions exist; just no code
-While the original aim of nonparametric goodness of fit tests was meant for continuous null distributions, discrete versions
-have existed since the early 1970s. Unfortunately, current statistical software has largely failed to incorporate them.
-This has left the end-user to either use only parametric tests, such as Pearson's Chi-Squared test, or to incorrectly
-apply the functions meant for continuous distributions. As we will see, the latter can be particularly dangerous
-in the small sample setting. The functions \pkg{ks.test} and \pkg{cvm.test} presented here serve to fill this void for users
-operating in the R environment. 
+%While the original aim of nonparametric goodness of fit tests was meant for continuous null distributions, discrete versions
+%have existed since the early 1970s. Unfortunately, current statistical software has largely failed to incorporate them.
+%This has left the end-user to either use only parametric tests, such as Pearson's Chi-Squared test, or to incorrectly
+%apply the functions meant for continuous distributions. 
 
 \section{Kolmogorov-Smirnov Test}
 
@@ -82,20 +100,20 @@ continuous case it would seem that the first part could be directly taken from t
 Consider two non-decreasing functions $f$ and $g$, where the function $f$ is a step function with jumps on the set $\{x_1, \ldots x_N \}$ and $g$
 is continuous. If we want to determine the supremum of the difference between these two functions notice that:
 
-\begin{align*}
+\begin{align}
 \sup_x &\left| f(x)- g(x) \right|   \\
        &= \max_i \left( \left|g(x_i) - f(x_i) \right|, \lim_{x \rightarrow x_i} \left| g(x) - f(x_{i-1}) \right| \right) \\
 &=  \max_i \bigg( \left|g(x_i) - f(x_i) \right|, \left| g(x_i) - f(x_{i-1}) \right| \bigg)
-\end{align*}
+\end{align}
 
 Computing the maximum over these $2N$ values (with $f$ equal to $F_{data}(x)$ and $g$ equal to $F_0(x)$ as defined above) is clearly the 
 most efficient way to compute the Kolmogorov-Smirnov test statistic when given a continuous null distribution. When the function $g$ is not
 continuous, notice that this formula no longer works since in general we cannot replace the limit of $g$ with its value at $x_i$. If it is known that $g$
 is also a step function, we could replace the formula for some small $\epsilon$ by:
-\begin{align*}
+\begin{align}
 \sup_x &\left| f(x)- g(x) \right| =   \\
         &                    \max_i \{ \left|g(x_i) - f(x_i) \right|, \left| g(x_i - \epsilon) - f(x_{i-1}) \right| \}
-\end{align*}
+\end{align}
 Where the discontinuities in $g$ are at least a distance $\epsilon$ apart. But this requires knowing that $g$ is a step function and knowing something
 about its particular break-points. In the case of not knowing,
 or having a $g$ which is in neither a step function nor a continuous function, the only method for computing the supremum is to take the numerical limit in (1). 
@@ -125,11 +143,11 @@ While the Kolmogorov-Smirnov test is the most well known of the non-parametric g
 tests which has been shown to be more powerful to a large class of alternatives distributions. The original was developed jointly by
 Harald Cram\'{e}r and Richard von Mises \citep{cramer1928, vonmises1928}, and further adapted by \cite{anderson1952}, and 
 \cite{Watson1961}. The test statistics are, respectively, given as:
-\begin{align*}
+\begin{align}
 W^2 &= n \cdot \int_{-\infty}^{\infty} \left[ F_{data}(x)- F_{0}(x) \right]^2 dF_0(x) \\
 A^2 &= n \cdot \int_{-\infty}^{\infty} \frac{\left[F_{data}(x)- F_{0}(x) \right]^2}{F_0(x) -F_0(x)^2} dF_0(x) \\
 U^2 &= n \cdot \int_{-\infty}^{\infty} \left[ F_{data}(x)- F_{0}(x) - W^2 \right]^2 dF_0(x)
-\end{align*}
+\end{align}
 Where $F$ is either the cumulative distribution of the null model or the empirical cumulative distribution of the observed data.
 As in the Kolmogorov-Smirnov test statistic, these all have distribution free null distributions in the continuous case. 
 
@@ -164,9 +182,9 @@ The method used for calculating the distribution of a weighted sum of independen
 A general method for computing any quadratic form of normals is presented, which is easily adapted for our case since
 each chi-squared variable has only one degree of freedom. The exact formula given for the distribution function of $Q$, the weighted
 sum of chi squares, is:
-\begin{align*}
+\begin{align}
 \mathbb{P}\{Q \geq x \} = \frac{1}{2} + \frac{1}{\pi} \int_{0}^{\infty} \frac{\sin\theta(u,x)}{u \rho(u) } du
-\end{align*}
+\end{align}
 For continuous functions $\theta(\cdot, x)$ and $\rho(\cdot)$ which depend on the actual weights used. 
 
 There is no analytic solution to the integral, but integration can be carried out using numerical techniques. This seems
@@ -178,10 +196,10 @@ elsewhere are quite prominent.
 
 There is fortunately a simple conservative approximation which can get around this numerical problem. Given the
 following inequality:
-\begin{align*}
+\begin{align}
 \mathbb{P} \left(\sum_{i=1}^{p} \lambda_i \chi^2_1 \geq x \right) &\leq \mathbb{P} \left( \lambda_{max} \sum_{i=1}^{p} \chi^2_1 \geq x \right) \\
 &= \mathbb{P} \left(\chi^2_p \geq \frac{x}{p \, \lambda_{max}} \right)
-\end{align*}
+\end{align}
 We see that the values for the weighted sum can be bounded by a simple transformation and a chi-squared distribution
 of a higher degree of freedom. While for higher p-values it is better to use the original formulation, for small
 p-values (we picked a cut-off of 0.001) this correction is useful and, given the small values, it should not
@@ -195,8 +213,8 @@ monotone and not exhibiting other odd noisy behavior.
 \begin{center}
 \includegraphics[scale=0.4]{fig1.pdf}
 \end{center}
-\caption{Plot of p-value for given test statistics using numerical integration (pink) versus a conservative
-         chi-squared bound (blue). }
+\caption{Plot of p-value for given test statistics using numerical integration
+(pink) versus a conservative chi-squared bound (blue). }
 \label{cvmissues}
 \end{figure}
 
@@ -204,12 +222,13 @@ monotone and not exhibiting other odd noisy behavior.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Kolmogorov-Smirnov and Cram\'{e}r-von Mises Tests in R}
 
-Package \pkg{ks.test} contains function \code{ks.test()}, a revision of
+Functions \code{ks.test()} and \code{cvm.test()} are provided for
+convenience in packages \pkg{ks.test} and \pkg{cvm.test}, respectively.
+Function \code{ks.test()} offers a revision of
 R's Kolmogorov-Smirnov function \code{ks.test()} from base
-package \pkg{stats}.
-Package \pkg{cvm.test} contains function \code{cvm.test()}, a new
-function for Cram\'{e}r-von Mises tests.  Both are available from the authors
-as of October, 2010,
+package \pkg{stats}, while \code{cvm.test()} is a new
+function for Cram\'{e}r-von Mises tests.
+Both are available from the authors
 or from R-Forge (\url{https://r-forge.r-project.org/R/?group_id=802});
 they will be proposed for inclusion in \pkg{stats} in late 2010.
 
