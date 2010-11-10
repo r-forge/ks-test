@@ -4,7 +4,7 @@
 \maketitle
 
 \abstract{
-A general theory for extending nonparametric goodness-of-fit tests
+Methodology extending nonparametric goodness-of-fit tests
 to discrete null distributions has existed
 for several decades. Despite this, modern statistical software
 has generally failed to provide this methodology
@@ -31,15 +31,17 @@ several variants on an estimation procedure proposed by
 Cram\'{e}r and von Mises (tests sometimes called Cram\'{e}r-von Mises-Smirnov
 tests, or simply Cram\'{e}r-von Mises tests).
 
-In their most basic form, the nonparametric goodness-of-fit
+*** Citations in the paragraph above?  Also check the body of paper. ***
+
+In their most basic forms, the nonparametric goodness-of-fit
 tests are intended for continuous null distributions, but they have
 also been adapted for use with discrete null distributions.  Unfortunately,
-most modern statistical software has failed to incorporate these discrete
+most modern statistical software have failed to incorporate these discrete
 versions, leaving researchers with the $\chi^2$ test or in the unfortunate
 position of applying a nonparametric test designed for continuous null
 distributions and hoping for the best.
 As we will see, the latter choice can be particularly dangerous
-in the small sample setting. This paper presents a revision of R's
+with small sample sizes. This paper presents a revision of R's
 \code{ks.test()} function and a new \code{cvm.test()} function to
 fill this void for researchers and practitioners in the R environment. 
 
@@ -366,15 +368,26 @@ alternative hypothesis:
 the CDF of x lies above the null hypothesis 
 \end{Soutput}
 \end{Schunk}
+A different toy example shows the dangers of using R's existing
+\code{ks.test()} function:
+\begin{Schunk}
+\begin{Sinput}
+> ks.test(rep(1, 3), ecdf(1:3))
+\end{Sinput}
+\begin{Soutput}
+	One-sample Kolmogorov-Smirnov test
 
-JAY: reconsider simulation.  Not really needed, if we have citations for
-the conservatism points, etc...?  The code for this is in the JSS folder.
-if we want to revisit it.
+data:  rep(1, 3) 
+D = 0.6667, p-value = 0.04938
+alternative hypothesis: two-sided 
+\end{Soutput}
+\end{Schunk}
+If, instead, either \code{exact=FALSE} is used with the new
+\code{ks.test()} function, or if the original \code{stats::ks.test()}
+is used, the reported p-value is 0.1389.
 
-Finally, we employ two of the Cram\'{e}r-von Mises tests.  Taylor, are these
-your ``cynical example'' that you commented on, or did you have something
-in addition to these?  What should be discussed here?
-
+Finally, we employ two of the Cram\'{e}r-von Mises tests.  Need short discussion,
+and we could use a good cyclical example:
 \begin{Schunk}
 \begin{Sinput}
 > library(cvm.test)
