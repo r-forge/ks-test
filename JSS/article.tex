@@ -1,6 +1,6 @@
 \documentclass[article]{jss}
 
-\usepackage{amsthm, amsmath, amssymb, graphicx}
+\usepackage{amsthm, amsmath, amssymb}
 %\usepackage{Sweave}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -78,6 +78,16 @@ contribution if possible.
 %% Note that you should use the \pkg{}, \proglang{} and \code{} commands.
 
 \section{Introduction}
+
+Example code:
+\begin{Schunk}
+\begin{Sinput}
+> 1 + 1
+\end{Sinput}
+\begin{Soutput}
+[1] 2
+\end{Soutput}
+\end{Schunk}
 
 %General idea of goodness-of-fit tests (hypothesis test about underlying distribution).
 %Given an observed sequence of data, the typical question of statistical inference is to determine
@@ -208,6 +218,16 @@ the original papers shows that this approximation (*** NOT FINISHED?)
 
 \subsection{Implementation}
 
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.2]{fig1.pdf}
+\end{center}
+\caption{Plot of p-value for given test statistics using numerical integration (pink) versus a conservative
+         chi-squared bound (blue). }
+\label{cvmissues}
+\end{figure}
+
+
 Calculation of the three test statistics is done by straightforward matrix algebra as given in \cite{choulakian1994}. Determining 
 the form of the asymptotic null distribution is also easy using the built-in eigenvalue decomposition functions. The only 
 difficulty in the process involves actually calculating the percentiles for these weighted chi-squares. 
@@ -237,15 +257,6 @@ following inequality:
 \end{align*}
 We see that the values for the weighted sum can be bounded by a simple transformation and a chi-squared distribution
 of a higher degree of freedom. 
-
-\begin{figure}
-\begin{center}
-\includegraphics[scale=0.2]{fig1.pdf}
-\end{center}
-\caption{Plot of p-value for given test statistics using numerical integration (pink) versus a conservative
-         chi-squared bound (blue). }
-\label{cvmissues}
-\end{figure}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -371,6 +382,42 @@ D = 0, p-value = 1
 alternative hypothesis: two-sided 
 \end{Soutput}
 \end{Schunk}
+
+\begin{Schunk}
+\begin{Sinput}
+set.seed(1)
+REPS <- 100000
+asymp.pval <- rep(0, REPS)
+exact.pval <- rep(0, REPS)
+for (i in 1:REPS) {
+  x <- sample(1:10, 15, replace=TRUE)
+  asymp.pval[i] <- stats::ks.test(x, ecdf(1:10), alternative="g")$p.value
+  exact.pval[i] <- ks.test::ks.test(x, ecdf(1:10), alternative="g")$p.value
+}
+sum(asymp.pval<exact.pval)/REPS
+sum(asymp.pval<=0.05)/REPS
+sum(exact.pval<=0.05)/REPS
+sqrt(0.05*0.95/REPS)
+\end{Sinput}
+\end{Schunk}
+
+\begin{verbatim}
+#####################################################
+# 100000:
+
+> sum(asymp.pval<exact.pval)/REPS
+[1] 0
+> sum(asymp.pval<=0.05)/REPS
+[1] 0.01848
+> sum(exact.pval<=0.05)/REPS
+[1] 0.03763
+> 
+> sqrt(0.05*0.95/REPS)
+[1] 0.0006892024
+> 
+> REPS
+[1] 1e+05
+\end{verbatim}
 
 JAY: simulation showing original ks.test() was conservative, Conover exact.
 
