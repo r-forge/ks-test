@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2010.9.1)  10 NOV 2010 15:57
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2010.9.1)  14 NOV 2010 19:53
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -800,7 +800,7 @@ LaTeX Font Info:    Font shape `U/msb/m/n' will be
 LaTeX Font Info:    Font shape `T1/ppl/bx/n' in size <14.4> not available
 (Font)              Font shape `T1/ppl/b/n' tried instead on input line 21.
 LaTeX Font Info:    Font shape `T1/ppl/bx/n' in size <12> not available
-(Font)              Font shape `T1/ppl/b/n' tried instead on input line 74.
+(Font)              Font shape `T1/ppl/b/n' tried instead on input line 78.
  [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
 pdfTeX warning (ext4): destination with the same identifier (name{section*.2}) 
@@ -808,54 +808,64 @@ has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.109 \end{align}
-                 ] [2]
-LaTeX Font Info:    Try loading font information for U+fplmbb on input line 189
+l.133 \end{align}
+                 ]
+Underfull \hbox (badness 10000) in paragraph at lines 234--244
+[]\T1/ppl/m/n/10 Generalizations of the Cramér-von Mises
+ []
+
+[2]
+LaTeX Font Info:    Try loading font information for U+fplmbb on input line 271
 .
  (/usr/share/texmf-texlive/tex/latex/psnfss/ufplmbb.fd
 File: ufplmbb.fd 2003/10/30 Fontinst v1.914 font definitions for U/fplmbb.
 )
-<fig1.pdf, id=113, 578.16pt x 433.62pt>
+<fig1.pdf, id=112, 578.16pt x 433.62pt>
 File: fig1.pdf Graphic file (type pdf)
- <use fig1.pdf>
-LaTeX Font Info:    Try loading font information for TS1+ppl on input line 262.
+ <use fig1.pdf> [3 <./fig1.pdf>]
+LaTeX Font Info:    Try loading font information for TS1+ppl on input line 354.
 
 
 (/usr/share/texmf-texlive/tex/latex/psnfss/ts1ppl.fd
 File: ts1ppl.fd 2001/06/04 font definitions for TS1/ppl.
-) [3 <./fig1.pdf>]
-Underfull \hbox (badness 8189) in paragraph at lines 309--317
+)
+Underfull \hbox (badness 8189) in paragraph at lines 401--409
 []\T1/ppl/m/n/10 Next, we sim-u-late a sam-ple of 25 from
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 385--388
+Underfull \hbox (badness 10000) in paragraph at lines 477--480
 \T1/ppl/m/n/10 If, in-stead, ei-ther \T1/pcr/m/n/10 exact=FALSE \T1/ppl/m/n/10 
 is used with
  []
 
-[4] (./RJwrapper.bbl [5])) [6] (./RJwrapper.aux) ) 
+[4]
+Underfull \hbox (badness 10000) in paragraph at lines 554--564
+[]\T1/ppl/m/n/10 In the con-tin-u-ous set-ting, both of the
+ []
+
+(./RJwrapper.bbl)) [5] (./RJwrapper.aux) ) 
 Here is how much of TeX's memory you used:
- 13544 strings out of 495061
- 215526 string characters out of 1182622
- 296478 words of memory out of 3000000
+ 13542 strings out of 495061
+ 215507 string characters out of 1182622
+ 295478 words of memory out of 3000000
  16332 multiletter control sequences out of 15000+50000
  39535 words of font info for 88 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
- 56i,12n,53p,381b,609s stack positions out of 5000i,500n,10000p,200000b,50000s
-{/usr/share/texmf-texlive/fon
-ts/enc/dvips/base/8r.enc}</usr/share/texmf-texlive/fonts/type1/public/amsfonts/
-cm/cmex10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr10.pf
-b></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/sha
-re/texmf-texlive/fonts/type1/public/mathpazo/fplmbb.pfb></usr/share/texmf-texli
-ve/fonts/type1/public/mathpazo/fplmr.pfb></usr/share/texmf-texlive/fonts/type1/
-public/mathpazo/fplmri.pfb></usr/share/texmf-texlive/fonts/type1/urw/courier/uc
-rr8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/palatino/uplb8a.pfb></usr/sh
-are/texmf-texlive/fonts/type1/urw/palatino/uplr8a.pfb></usr/share/texmf-texlive
-/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on RJwrapper.pdf (6 pages, 181942 bytes).
+ 56i,12n,53p,381b,679s stack positions out of 5000i,500n,10000p,200000b,50000s
+{/usr/share/texmf-texlive/fonts/enc/d
+vips/base/8r.enc}</usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmex1
+0.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/
+share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf
+-texlive/fonts/type1/public/mathpazo/fplmbb.pfb></usr/share/texmf-texlive/fonts
+/type1/public/mathpazo/fplmr.pfb></usr/share/texmf-texlive/fonts/type1/public/m
+athpazo/fplmri.pfb></usr/share/texmf-texlive/fonts/type1/urw/courier/ucrr8a.pfb
+></usr/share/texmf-texlive/fonts/type1/urw/palatino/uplb8a.pfb></usr/share/texm
+f-texlive/fonts/type1/urw/palatino/uplr8a.pfb></usr/share/texmf-texlive/fonts/t
+ype1/urw/palatino/uplri8a.pfb>
+Output written on RJwrapper.pdf (5 pages, 179438 bytes).
 PDF statistics:
- 195 PDF objects out of 1000 (max. 8388607)
- 44 named destinations out of 1000 (max. 500000)
+ 188 PDF objects out of 1000 (max. 8388607)
+ 42 named destinations out of 1000 (max. 500000)
  106 words of extra memory for PDF output out of 10000 (max. 10000000)
 
