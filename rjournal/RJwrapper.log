@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2010.8.28)  16 NOV 2010 23:51
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2010.9.1)  18 NOV 2010 11:50
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -75,7 +75,7 @@ Package etexcmds Info: Could not find \expanded.
 (etexcmds)             that some package has redefined \expanded.
 (etexcmds)             In the latter case, load this package earlier.
 )
-(/etc/texmf/tex/latex/config/hyperref.cfg
+(/usr/share/texmf-texlive/tex/latex/latexconfig/hyperref.cfg
 File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
 )
 (/usr/share/texmf-texlive/tex/latex/oberdiek/kvoptions.sty
@@ -800,9 +800,9 @@ LaTeX Font Info:    Font shape `U/msb/m/n' will be
 LaTeX Font Info:    Font shape `T1/ppl/bx/n' in size <14.4> not available
 (Font)              Font shape `T1/ppl/b/n' tried instead on input line 21.
 LaTeX Font Info:    Font shape `T1/ppl/bx/n' in size <12> not available
-(Font)              Font shape `T1/ppl/b/n' tried instead on input line 78.
+(Font)              Font shape `T1/ppl/b/n' tried instead on input line 87.
 
-Overfull \hbox (10.15254pt too wide) in paragraph at lines 133--133
+Overfull \hbox (10.43272pt too wide) in paragraph at lines 142--142
 [] 
  []
 
@@ -813,55 +813,54 @@ has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.141 
-      ]
-Underfull \hbox (badness 10000) in paragraph at lines 229--240
+l.142 \end{align}
+                 ]
+Underfull \hbox (badness 10000) in paragraph at lines 241--251
 []\T1/ppl/m/n/10 Generalizations of the Cramér-von Mises
  []
 
-[2]
-LaTeX Font Info:    Try loading font information for U+fplmbb on input line 267
+LaTeX Font Info:    Try loading font information for U+fplmbb on input line 274
 .
- (/usr/share/texmf-texlive/tex/latex/psnfss/ufplmbb.fd
+(/usr/share/texmf-texlive/tex/latex/psnfss/ufplmbb.fd
 File: ufplmbb.fd 2003/10/30 Fontinst v1.914 font definitions for U/fplmbb.
-)
-<fig1.pdf, id=111, 578.16pt x 433.62pt>
+) [2]
+<fig1.pdf, id=119, 578.16pt x 433.62pt>
 File: fig1.pdf Graphic file (type pdf)
  <use fig1.pdf>
-LaTeX Font Info:    Try loading font information for TS1+ppl on input line 350.
+LaTeX Font Info:    Try loading font information for TS1+ppl on input line 360.
 
 
 (/usr/share/texmf-texlive/tex/latex/psnfss/ts1ppl.fd
 File: ts1ppl.fd 2001/06/04 font definitions for TS1/ppl.
 ) [3 <./fig1.pdf>]
-Underfull \hbox (badness 8189) in paragraph at lines 397--405
+Underfull \hbox (badness 8189) in paragraph at lines 407--415
 []\T1/ppl/m/n/10 Next, we sim-u-late a sam-ple of 25 from
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 473--476
+Underfull \hbox (badness 10000) in paragraph at lines 483--486
 \T1/ppl/m/n/10 If, in-stead, ei-ther \T1/pcr/m/n/10 exact=FALSE \T1/ppl/m/n/10 
 is used with
  []
 
-LaTeX Font Info:    Try loading font information for TS1+pcr on input line 509.
+LaTeX Font Info:    Try loading font information for TS1+pcr on input line 519.
 
 (/usr/share/texmf-texlive/tex/latex/psnfss/ts1pcr.fd
 File: ts1pcr.fd 2001/06/04 font definitions for TS1/pcr.
 ) [4]
-Underfull \hbox (badness 10000) in paragraph at lines 577--587
+Underfull \hbox (badness 10000) in paragraph at lines 587--597
 []\T1/ppl/m/n/10 In the con-tin-u-ous set-ting, both of the
  []
 
 (./RJwrapper.bbl)) [5] (./RJwrapper.aux) ) 
 Here is how much of TeX's memory you used:
- 13562 strings out of 495061
- 215760 string characters out of 1182621
+ 13575 strings out of 495061
+ 215888 string characters out of 1182622
  296478 words of memory out of 3000000
- 16349 multiletter control sequences out of 15000+50000
+ 16360 multiletter control sequences out of 15000+50000
  40127 words of font info for 90 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
- 56i,12n,53p,381b,679s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 56i,12n,53p,432b,679s stack positions out of 5000i,500n,10000p,200000b,50000s
 {/usr/share/texmf-texlive/fonts/enc/d
 vips/base/8r.enc}</usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmex1
 0.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/
@@ -873,9 +872,9 @@ athpazo/fplmri.pfb></usr/share/texmf-texlive/fonts/type1/urw/courier/ucrr8a.pfb
 -texlive/fonts/type1/urw/palatino/uplb8a.pfb></usr/share/texmf-texlive/fonts/ty
 pe1/urw/palatino/uplr8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/palatino/
 uplri8a.pfb>
-Output written on RJwrapper.pdf (5 pages, 179980 bytes).
+Output written on RJwrapper.pdf (5 pages, 182169 bytes).
 PDF statistics:
- 191 PDF objects out of 1000 (max. 8388607)
- 40 named destinations out of 1000 (max. 500000)
+ 198 PDF objects out of 1000 (max. 8388607)
+ 42 named destinations out of 1000 (max. 500000)
  106 words of extra memory for PDF output out of 10000 (max. 10000000)
 

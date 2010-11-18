@@ -6,10 +6,10 @@
 \abstract{
 Methodology extending nonparametric goodness-of-fit tests
 to discrete null distributions has existed
-for several decades. Despite this, modern statistical software
+for several decades. However, modern statistical software
 has generally failed to provide this methodology
 to users. We offer a revision of R's \code{ks.test()} function
-and a new \code{cvm.test()} function that serve to fill this need
+and a new \code{cvm.test()} function that fill this need
 in the R language for two of the most popular nonparametric
 goodness-of-fit tests. This paper describes these contributions and
 provides examples of their usage. Particular attention is given
@@ -27,24 +27,33 @@ Goodness-of-fit tests are used to assess whether data are consistent
 with a hypothesized null distribution.  The $\chi^2$ test is the best-known
 parametric goodness-of-fit test, while the most popular nonparametric tests
 are the classic test proposed by Kolmogorov and Smirnov followed closely by
-several variants on a procedure proposed by
-Cram\'{e}r and von Mises (tests sometimes called Cram\'{e}r-von Mises-Smirnov
-tests, or simply Cram\'{e}r-von Mises tests) .
+several variants on Cram\'{e}r-von Mises tests.
+
+%procedure proposed by
+%Cram\'{e}r and von Mises (tests sometimes called Cram\'{e}r-von Mises-Smirnov
+%tests, or simply Cram\'{e}r-von Mises tests).
 
 %*** why "estimation procedure" above?
 %*** Citations in the paragraph above?  Also check the body of paper. ***
 
 In their most basic forms, these nonparametric goodness-of-fit
 tests are intended for continuous null distributions, but they have
-also been adapted for use with discrete null distributions.  Unfortunately,
-most modern statistical software have failed to incorporate these discrete
-versions, leaving researchers with the $\chi^2$ test or in the unfortunate
-position of applying a nonparametric test designed for a continuous null
-distribution and hoping for the best.
-As we will see, this latter course of action can be particularly dangerous
-with small sample sizes. This paper presents a revision of R's
+also been adapted for discrete null distributions.  Unfortunately,
+most modern statistical software packages and programming environments
+have failed to incorporate these discrete versions.  As a result,
+researchers would typically rely upon the $\chi^2$ test or
+use of a nonparametric test designed for a continuous null distribution.
+For smaller sample sizes, in particular, both of these choices can produce
+misleading inferences.
+
+This paper presents a revision of R's
 \code{ks.test()} function and a new \code{cvm.test()} function to
 fill this void for researchers and practitioners in the R environment. 
+We first present overviews of the theory and general implementation of the
+discrete Kolmogorov-Smirnov and Cram\'{e}r-von Mises tests.  We discuss
+the particular implementation of tests in R and provide examples.  We
+conclude with a short discussion, including the state of existing continuous
+and two-sample Cram\'{e}r-von Mises testing in R.
 
 %*** Later, make sure we point out how using one of the ``old'' tests and
 %hoping for the best is a problem. ***
@@ -78,20 +87,20 @@ fill this void for researchers and practitioners in the R environment.
 \subsection{Overview}
 
 The most popular nonparametric goodness-of-fit test is the
-Kolmogorov-Smirnov test. The idea is fairly simple:
+Kolmogorov-Smirnov test.
 Given the cumulative distribution
 function $F_0(x)$ of the continuous null distribution
 and the empirical distribution function $F_{data}(x)$ of the observed data,  the test statistic is given by
 \begin{align}
-D = \sup_x \left| F_0(x)- F_{data}(x) \right|.
+D = \sup_x \left| F_0(x)- F_{data}(x) \right|.    \label{eqD}
 \end{align}
 The distribution of $D$ does not depend on the hypothesized
 distribution, making this a computationally
 attractive method. \cite{slakter65} offers a standard presentation
 of the test and its
 performance relative to other algorithms. 
-The test statistic (1) is easily adapted for one-sided tests.
-For these, the absolute value is discarded and the tests are based
+The test statistic is easily adapted for one-sided tests.
+For these, the absolute value in (\ref{eqD}) is discarded and the tests are based
 on either the supremum of the remaining difference (the `greater' testing
 alternative) or by replacing the supremum with a negative infimum
 (the `lesser' hypothesis alternative).  Tabulated p-values have been
@@ -100,52 +109,52 @@ available for these tests since 1933. %(*** year ****).
 %**** check this above, both do away with the absolute value, I think? ***
 
 The extension of the Kolmogorov-Smirnov test to non-continuous 
-null distributions does not have such a clean solution. The formula of
-the test statistic $D$ remains unchanged, but the distribution
-of the test statistic is much more difficult to obtain. Unlike the 
-continuous case, the null distribution depends on the null model.
+null distributions is not straightforward. The formula of
+the test statistic $D$ remains unchanged, but its distribution
+is much more difficult to obtain; unlike the 
+continuous case, its distribution depends on the null model.
 It has been known since at least the 1950's that using the tables associated
 with continuous null distributions results in conservative p-values
 when the null distribution is discontinuous 
-\citep{stephens1974}.  In the early 1970's, 
+(see *** or *** or \citet{stephens1974}, for example).  In the early 1970's, 
 \citet{Conover1972} developed the method implemented here
 for computing exact p-values
 in the case of discrete null distributions.
 
 \subsection{Implementation}
 
-The implementation of the discrete Kolmogorov-Smirnov test is considered
-in two parts. First, the particular test statistic needs to be calculated
+The implementation of the discrete Kolmogorov-Smirnov test involves
+two steps. First, the particular test statistic is calculated
 (corresponding to the desired one-sided or two-sided test).
 Then, the p-value for that particular test statistic may be computed. 
 
-The test statistic is, in terms of the theory, the same as in the
-continuous case; it would seem that no additional work would be required,
-but unfortunately this is not the case.
+The form of the test statistic is the same as in the
+continuous case; it would seem that no additional work would be required
+for the implemenetation, but this is not the case.
 Consider two non-decreasing functions $f$ and $g$, where the function $f$ is a step function with jumps on the set $\{x_1, \ldots x_N \}$ and $g$
 is continuous (the classical Kolmogorov-Smirnov situation).
 In order to determine the supremum of the difference between
-these two functions, notice that
-\begin{align*}
+these two functions, notice that **** FORMAT THESE AT END ****
+\begin{align}
 &\sup_x \left| f(x)- g(x) \right|  \nonumber  \\
-       &= \max_i \left( \max\left( \left|g(x_i) - f(x_i) \right|, \lim_{x \rightarrow x_i} \left| g(x) - f(x_{i-1}) \right| \right)\right) \\
-&=  \max_i \bigg(\max \bigg( \left|g(x_i) - f(x_i) \right|, \left| g(x_i) - f(x_{i-1}) \right| \bigg) \bigg).
-\end{align*}
+       &= \max_i \left( \max\left\{ \left|g(x_i) - f(x_i) \right|, \lim_{x \rightarrow x_i} \left| g(x) - f(x_{i-1}) \right| \right\} \right) \label{SUP1}\\
+&=  \max_i \bigg(\max \bigg\{ \left|g(x_i) - f(x_i) \right|, \left| g(x_i) - f(x_{i-1}) \right| \bigg\} \bigg). \label{SUP2}
+\end{align}
 Computing the maximum over these $2N$
 values (with $f$ equal to
 $F_{data}(x)$ and $g$ equal to $F_0(x)$ as defined above) is clearly the 
 most efficient way to compute the Kolmogorov-Smirnov test statistic for
 a continuous null distribution. When the function $g$ is not
-continuous, however, equality (3) does not hold in general because 
-we cannot replace $\lim_{x\rightarrow x_e} g(x)$ with the value $g(x_i)$. 
+continuous, however, equality (\ref{SUP2}) does not hold in general because 
+we cannot replace $\lim_{x\rightarrow x_i} g(x)$ with the value $g(x_i)$. 
 
 If it is known that $g$ is a step function, it follows that
 for some small $\epsilon$,
 \begin{align}
 \sup_x &\left| f(x)- g(x) \right| =  \nonumber \\
-        &                    \max_i \{ \left|g(x_i) - f(x_i) \right|, \left| g(x_i - \epsilon) - f(x_{i-1}) \right| \}
+        &                    \max_i \{ \left|g(x_i) - f(x_i) \right|, \left| g(x_i - \epsilon) - f(x_{i-1}) \right| \} \label{epsilon}
 \end{align}
-where the discontinuities in $g$ are at least a distance $\epsilon$ apart. 
+where the discontinuities in $g$ are more than some distance $\epsilon$ apart. 
 This, however, requires knowledge that $g$ is a step function as well as of
 the nature of its support (or break-points).
 %
@@ -163,7 +172,7 @@ distributions by forcing the user to completely specify the null distribution.
 
 Having obtained the test statistic, the p-value must then be calculated. 
 For larger sample sizes, the null distribution can be approximated
-with the standard null distribution. 
+with the null distribution from the classical Kolmogorov-Smirnov test. 
 When an exact p-value is required for
 smaller sample sizes, the methodology in \citet{Conover1972} is used. 
 Full details of the calculations are contained in source code
@@ -196,16 +205,15 @@ Harald Cram\'{e}r and Richard von Mises \citep{cramer1928, vonmises1928} and fur
 The original test statistic, $W^2$, Anderson's $A^2$, and Watson's
 $U^2$ are:
 \begin{align}
-W^2 &= n \cdot \int_{-\infty}^{\infty} \left[ F_{data}(x)- F_{0}(x) \right]^2 dF_0(x) \\
-A^2 &= n \cdot \int_{-\infty}^{\infty} \frac{\left[F_{data}(x)- F_{0}(x) \right]^2}{F_0(x) -F_0(x)^2} dF_0(x) \\
-U^2 &= n \cdot \int_{-\infty}^{\infty} \left[ F_{data}(x)- F_{0}(x) - W^2 \right]^2 dF_0(x)
+W^2 &= n \cdot \int_{-\infty}^{\infty} \left[ F_{data}(x)- F_{0}(x) \right]^2 dF_0(x) \label{W2} \\
+A^2 &= n \cdot \int_{-\infty}^{\infty} \frac{\left[F_{data}(x)- F_{0}(x) \right]^2}{F_0(x) -F_0(x)^2} dF_0(x) \label{A2} \\
+U^2 &= n \cdot \int_{-\infty}^{\infty} \left[ F_{data}(x)- F_{0}(x) - W^2 \right]^2 dF_0(x) \label{U2}
 \end{align}
 As with the original Kolmogorov-Smirnov test statistic, these all have 
 null distributions of their test statistics which are independent of the
 specified null models.
 
-The relative powers of these tests to different alternatives are
-studied in depth in \cite{stephens1974}. The $W^2$
+The $W^2$
 statistic was the original test statistic; it has the benefit of having
 the simplest form.
 The $A^2$ statistic was developed by
@@ -217,10 +225,14 @@ the support.
 For example, a distribution on the months of the year could be considered
 cyclic.
 
-It has been shown that these tests can be more powerful than Kolmogorov-Smirnov tests to certain deviations. As they all involve
-integration over the whole range of data, rather than one supremum, it is not surprising that they are generally best when the
-true alternative distribution deviates a little over the whole range of data rather than deviating a lot over a small range. For
-a complete analysis of the relative powers of these tests see \cite{stephens1974}.
+It has been shown that these tests can be more powerful than Kolmogorov-Smirnov tests to certain deviations from the hypothesized distribution. 
+As they all involve
+integration over the whole range of data, rather than use of a supremum.
+Thus, they are best-suited for situations where the
+true alternative distribution deviates a little over the whole support
+rather than having large deviations over a small section of the support. For
+a complete analysis of the relative powers of these tests, see 
+\cite{stephens1974}.
 
 %Discuss the discrete version. How to calculate W2, U2, and A2. 
 
@@ -228,35 +240,29 @@ a complete analysis of the relative powers of these tests see \cite{stephens1974
 
 Generalizations of the Cram\'{e}r-von Mises tests to discrete
 distributions were developed in \cite{choulakian1994}. As with the
-Kolmogorov-Smirnov test, the forms of the test statistics are unchanged, although the discreteness allows for slightly simpler representations.
-The null distribution of the test statistics are again hypothesis-dependent. The methods do not offer finite sample results, but rather 
-show that the asymptotic distribution of the test statistic under the null hypothesis is equal to the distribution of a weighted sum of independent
+Kolmogorov-Smirnov test, the forms of the test statistics are unchanged, 
+and the null distributions of the test statistics are again hypothesis-dependent. The methods do not offer finite-sample results, but rather 
+show that the asymptotic distributions of the test statistics under the null hypothesis each involve consideration of a weighted sum of independent
 chi-squared variables (with the weights depending on the particular
 null distribution). 
-We implement this asymptotic distribution here;
-the original papers %(*** really, all of them? ***)
-show that this approximation is conservative 
-and asymptotically equivalent to the true null distribution.
+We implement the asymptotic distributions here; \cite{stephens1974}
+showed that these approximations are conservative 
+and asymptotically equivalent to the true null distributions.
 
-%*** What does it mean for a distribution to be equal to a weighted sum of
-%independent chi-squared variables?  I think this needs to be stated more
-%precisely, above.  A formal definition of $Q$ is needed someplace, too,
-%as I'll probably note below. ***
 
 \subsection{Implementation}
 
 Calculation of the three test statistics is done using the
-matrix algebra given by \cite{choulakian1994}. The form of the
-asymptotic null distribution is obtained using R's
-eigenvalue decomposition functions. 
-
-The only notable difficulty in the process involves calculating the percentiles
+matrix algebra given by \cite{choulakian1994}. 
+The only notable difficulty in the implementation of the discrete form
+of the tests involves calculating the percentiles
 of the weighted sum of chi-squares,
 \begin{align}
-Q = \sum_{i=1}^{p} \lambda_i \chi^2_{i,1df}
+Q = \sum_{i=1}^{p} \lambda_i \chi^2_{i,1df},   \label{eqQ}
 \end{align}
-\cite{imhof1961} provides a method for obtaining the distribution of
-a weighted sum of independent chi-squared variables.  It is
+where $p$ is the number of elements in the support of the hypothesized
+distribution.
+\cite{imhof1961} provides a method for obtaining the distribution of $Q$,
 easily adapted for our case because
 the chi-squared variables have only one degree of freedom.
 The exact formula given for the distribution function of $Q$
@@ -264,10 +270,12 @@ is given by
 \begin{align}
 \mathbb{P}\{Q \geq x \} = \frac{1}{2} + 
 \frac{1}{\pi} \int_{0}^{\infty} \frac{\sin\theta(u,x)}{u \rho(u) } du
+\label{distQ}
 \end{align}
-for continuous functions $\theta(\cdot, x)$ and $\rho(\cdot)$ depending on the actual weights used. 
+for continuous functions $\theta(\cdot, x)$ and $\rho(\cdot)$ depending on the  weights $\lambda_i$. 
 
-There is no analytic solution to the integral, so the integration is
+There is no analytic solution to the integral in (\ref{distQ}), 
+so the integration is
 accomplished numerically. This seems fine in most situations we considered,
 but numerical issues appear in the regime of large test statistics $x$
 (or, equivalently, small p-values).
@@ -281,30 +289,32 @@ We resolve this problem by using a simple conservative approximation to
 avoid the numerical instability. Consider the
 following inequality:
 \begin{align}
-\mathbb{P} \left(\sum_{i=1}^{p} \lambda_i \chi^2_1 \geq x \right) &\leq \mathbb{P} \left( \lambda_{max} \sum_{i=1}^{p} \chi^2_1 \geq x \right) \\
+\mathbb{P} \left(\sum_{i=1}^{p} \lambda_i \chi^2_1 \geq x \right) &\leq \mathbb{P} \left( \lambda_{max} \sum_{i=1}^{p} \chi^2_1 \geq x \right) \label{ineq1} \\
 &= \mathbb{P} \left(\chi^2_p \geq \frac{x}{p \, \lambda_{max}} \right)
+\label{ineq2}
 \end{align}
 The values for the weighted sum can be bounded using a simple transformation
 and a chi-squared distribution of a higher degree of freedom. 
 The original formulation is preferable for most p-values, while
-this approximation is useful for smaller p-values (smaller than 0.001,
+this approximation is used for smaller p-values (smaller than 0.001,
 based on our observations of the numerical instability of the original
-formulation); it should not greatly affect the interpretation of the results.
-
-%*** How is the cutoff established in the code? ***
+formulation).
 
 Figure \ref{cvmissues} shows the non-monotonicity of the numerical
-evaluation of equation 7 for the null distribution which is
+evaluation of equation (\ref{distQ}) for the null distribution which is
 uniform on the set $\{1,2,3\}$, as well as the behavior of the
-conservative approximation in equation 9.
+conservative upper bound given in equation (\ref{ineq2}).
 
 \begin{figure}
 \begin{center}
 \includegraphics[scale=0.4]{fig1.pdf}
 \end{center}
-\caption{Plot of p-value for given test statistics using numerical integration
-(pink) versus a conservative chi-squared bound (dashed blue). The null distribution
-is unform on the set $\{1,2,3\}$. }
+\caption{Plot of calculated p-values for given test statistics
+using numerical integration
+(pink) compared to the conservative chi-squared bound (dashed blue). 
+The null distribution is uniform on the set $\{1,2,3\}$ in this example.
+The instability in the calculated p-values is a result of numerical
+instabilities.}
 \label{cvmissues}
 \end{figure}
 
