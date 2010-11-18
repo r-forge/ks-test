@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2010.9.1)  18 NOV 2010 17:31
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2010.9.1)  18 NOV 2010 17:37
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -848,7 +848,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 595--610
 []\T1/ppl/m/n/10 In the con-tin-u-ous set-ting, both of the
  []
 
-(./RJwrapper.bbl)) [5] [6] (./RJwrapper.aux) ) 
+(./RJwrapper.bbl) [5]) [6] (./RJwrapper.aux) ) 
 Here is how much of TeX's memory you used:
  13576 strings out of 495061
  215894 string characters out of 1182622
@@ -868,9 +868,9 @@ ic/mathpazo/fplmri.pfb></usr/share/texmf-texlive/fonts/type1/urw/courier/ucrr8a
 exmf-texlive/fonts/type1/urw/palatino/uplb8a.pfb></usr/share/texmf-texlive/font
 s/type1/urw/palatino/uplr8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/palat
 ino/uplri8a.pfb>
-Output written on RJwrapper.pdf (6 pages, 186438 bytes).
+Output written on RJwrapper.pdf (6 pages, 186914 bytes).
 PDF statistics:
- 209 PDF objects out of 1000 (max. 8388607)
+ 210 PDF objects out of 1000 (max. 8388607)
  43 named destinations out of 1000 (max. 500000)
  106 words of extra memory for PDF output out of 10000 (max. 10000000)
 
