@@ -341,19 +341,21 @@ the presence of ties in the data (the first argument, \code{x}) generates a
 warning unless \code{y} describes a discrete distribution.  When a discrete
 distribution is specified, exact p-values are not available for 
 two-sided alternative hypotheses, but the reported p-values will be
-conservative.  For one-sided tests,
+conservative; very tight bounds for interesting (small) p-values are
+presented in \cite{Conover1972}.  For one-sided tests,
 exact p-values are calculated using Conover's
 method (when \code{exact = NULL} or \code{exact = TRUE})
 if the sample size is less than or equal to 30; otherwise, asymptotic distributions
 are used which are reliable in such cases (CITATION? Is this correct?).
 When \code{exact = FALSE} the asymptotic distribution is used which is known
-to be imprecise but conservative, even for small samples (CITATION).
+to be conservative though imprecise for small samples (CITATION).
 
 %*** Discussion of what we might have broken: cases where the user
 %provided a discrete distribution to the original ks.test() even though
 %it wasn't intended to be supported. ***
 
-The function \pkg{cvm.test()} is similar to \pkg{ks.test()}.  Its first two
+The function \pkg{cvm.test()} is similar in design
+to \pkg{ks.test()}.  Its first two
 arguments specify the data and null distribution; the only extra option,
 \code{type}, specifies the variant of the Cram\'{e}r-von Mises test:
 \begin{itemize}
@@ -365,13 +367,15 @@ is the default and most common method, \code{U2} is for cyclical data,
 and \code{A2} is the Anderson-Darling alternative.
 \end{itemize}
 As with \code{ks.test()}, \code{cvm.test()} returns an object of class 
-\code{htest}.
+\code{htest}.  Although we designed \code{cmv.test()} primarily for cases with
+discrete distributions \code{y}, we implemented the continuous forms of the
+test for variants \code{W2} and \code{A2} (as noted in the Discussion, below).
 
  
 %%%%%%%%%%%%%%%%%%
 \section{Examples}
 
-Consider a toy example, with observed data of length 2 (specifically, the
+Consider a toy example with observed data of length 2 (specifically, the
 values 0 and 1) and a hypothized null distribution that places equal
 probability on the values 0 and 1.  With the current \code{ks.test()} function
 in R (which, admittedly, doesn't claim to handle discrete distributions),
@@ -393,6 +397,7 @@ should be 0 and the associated p-value should be 1.  Our revision of \code{ks.te
 fixes this problem when the user provides a discrete distribution:
 \begin{Schunk} 
 \begin{Sinput}
+> library(ks.test)
 > ks.test(c(0, 1), ecdf(c(0, 1)))
 \end{Sinput}
 \begin{Soutput}
@@ -404,16 +409,15 @@ alternative hypothesis: two-sided
 \end{Soutput}
 \end{Schunk}
 
-Next, we simulate a sample of 25 from the discrete uniform distribution on
+Next, we simulate a sample of size 25 from the discrete uniform distribution on
 the integers $\{1, 2, \ldots, 10\}$ and show several variants of the
 new \code{ks.test()} implementation.  The first is the default two-sided test,
 where the reported p-value is a conservative upper bound for the actual
 p-value.  In this case, the approximation may not be that tight, but this is
-irrelevant for such large p-values (for more interesting p-values, the
-upper bound is very close to the true p-value).
+irrelevant for such large p-values (for more interesting (small) p-values, the
+upper bound is very close to the true p-value as shown in \cite{Conover1972}).
 \begin{Schunk}
 \begin{Sinput}
-> library(ks.test)
 > set.seed(1)
 > x <- sample(1:10, 25, replace = TRUE)
 > x
@@ -484,8 +488,8 @@ If, instead, either \code{exact=FALSE} is used with the new
 \code{ks.test()} function, or if the original \code{stats::ks.test()}
 is used, the reported p-value is 0.1389.
 
-Finally, we employ two of the Cram\'{e}r-von Mises tests.  Need short discussion,
-and we could use a good cyclical example:
+Finally, we demonstrate the Cram\'{e}r-von Mises tests with the same
+simulated data. 
 \begin{Schunk}
 \begin{Sinput}
 > library(cvm.test)
@@ -510,7 +514,7 @@ alternative hypothesis: Two.sided
 \end{Soutput}
 \end{Schunk}
 
-Cyclical example:
+*** Cyclical example? ***
 
 \begin{Schunk}
 \begin{Sinput}
@@ -572,33 +576,55 @@ alternative hypothesis: Two.sided
 %*** Hmm... if you claim the following, you want to make sure it is true.
 %Did you read it somewhere? ***
 
-In the end, for methods such as those presented in this paper where it is possible,
-there are enough positives to suggest that we attempt to implement exact $p$-value calculations. This does lead
-to an interesting direction for future research in non-parametric goodness of fit tests: the methods presented
-here were historically chosen because they could be shown to have fixed null distributions which could easily
-calculated in an era without fast computers for carrying out permutation tests. It is quite possible that
-variants without the property, which could be easily used today, have greater power to certain alternative 
-distributions.
+This paper presents the implementation of a range of nonparametric
+goodness-of-fit tests for discrete null distributions.  In some cases,
+the p-values are known to be exact.  In others, conservativeness 
+and tightness of bounds have been established in the literature.  As a result,
+no simulations are necessary for these methods (which were developed during
+an era when extensive simulations may have been prohibitively expensive
+or time-consuming).
+However, this does raise the possibility that alternative tests relying upon
+modern computational abilities could provide even greater power in certain
+situations, a possible avenue for future work.
+
 
 %Possibly go into a brief discussion of classes and class inheritance in R. The use of `htest' in our functions; benefits and issues with using it. Particularly troublesome in ks.test where we have a range of p-values.  More precisely, explain that we
 %could provide upper and lower bounds for the p-value but are limited by class
 %\code{htest}.
 
 In the continuous setting, both of 
-the Kolmogorov-Smirnov and the Cram\'{e}r-von Mises tests have two-sample analogues. Here data are
-observed from two processes, and the hypothesis tested is 
-whether they came from the same (but unspecified) distribution. There
-does not exist an analogous theory for discrete distributions. 
+the Kolmogorov-Smirnov and the Cram\'{e}r-von Mises tests
+have two-sample analogues. When data are
+observed from two processes or sampled from two populations, 
+the hypothesis tested is 
+whether they came from the same (unspecified) distribution. An
+analogous theory for discrete distributions does not exist.
 This comes from the fact that the discrete null distributions
 of the test statistics depend on the exact null distribution; 
 therefore the two-sample case would surely have to depend
 on the exact distributions used as well %(*** is this true? ***), 
 which are generally not even stated in the two-sample case. 
+*** I don't think I buy this. Couldn't this just be done as a
+chi-squared test on a 2xp table, at least? *** Also,
+see \url{http://ideas.repec.org/p/mtl/montde/2001-23.html}.
 
 While we have implemented the two most popular variants of 
-goodness-of-fit tests, there are 
-several more exotic varieties to be found. For further 
-generalizations of tests see the extended study done in \cite{dewev1973}.
+goodness-of-fit tests for discrete distributions, further 
+generalizations of tests are described in the
+extended study of \cite{dewev1973}.  We also provide general one-sample
+Cram\'{e}r-von Mises testing for continuous distributions simply
+to help complement the abilities provided by several other
+R packages, although these tests are not the focus of this paper.
+In particular, functions implemented in package \pkg{nortest} focus on the
+composite hypothesis of normality, while
+package \pkg{ADGofTest} provides the Anderson-Darling variant
+of the test for continuous distributions.  Packages
+\pkg{CvM2SL1Test} and \pkg{CvM2SL1Test} provide support for
+two-sample Cram\'{e}r-von Mises tests with continuous distributions.
+ *** Need to be added
+to the bibliography. ***
+
+
 
 
 %\bibliography{example}
