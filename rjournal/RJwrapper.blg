@@ -2,44 +2,44 @@ This is BibTeX, Version 0.99c (TeX Live 2009/Debian)
 The top-level auxiliary file: RJwrapper.aux
 The style file: abbrvnat.bst
 Database file #1: paper.bib
-You've used 10 entries,
+You've used 11 entries,
             2773 wiz_defined-function locations,
-            658 strings with 5801 characters,
-and the built_in function-call counts, 3883 in all, are:
-= -- 356
-> -- 122
+            666 strings with 5984 characters,
+and the built_in function-call counts, 4303 in all, are:
+= -- 396
+> -- 152
 < -- 10
-+ -- 46
-- -- 36
-* -- 273
-:= -- 601
-add.period$ -- 30
-call.type$ -- 10
-change.case$ -- 41
-chr.to.int$ -- 10
-cite$ -- 20
-duplicate$ -- 200
-empty$ -- 388
-format.name$ -- 50
-if$ -- 824
++ -- 56
+- -- 45
+* -- 310
+:= -- 671
+add.period$ -- 35
+call.type$ -- 11
+change.case$ -- 46
+chr.to.int$ -- 11
+cite$ -- 22
+duplicate$ -- 218
+empty$ -- 414
+format.name$ -- 60
+if$ -- 908
 int.to.chr$ -- 1
 int.to.str$ -- 1
 missing$ -- 11
-newline$ -- 58
-num.names$ -- 40
-pop$ -- 76
+newline$ -- 65
+num.names$ -- 44
+pop$ -- 84
 preamble$ -- 1
-purify$ -- 32
+purify$ -- 37
 quote$ -- 0
-skip$ -- 136
+skip$ -- 149
 stack$ -- 0
-substring$ -- 217
-swap$ -- 10
+substring$ -- 219
+swap$ -- 12
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 105
+type$ -- 116
 warning$ -- 0
-while$ -- 41
+while$ -- 44
 width$ -- 0
-write$ -- 137
+write$ -- 154

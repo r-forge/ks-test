@@ -48,10 +48,11 @@ misleading inferences.
 
 This paper presents a revision of R's
 \code{ks.test()} function and a new \code{cvm.test()} function to
-fill this void for researchers and practitioners in the R environment. 
+fill this void for researchers and practitioners in the R environment
+\citep{R2010}. 
 We first present overviews of the theory and general implementation of the
 discrete Kolmogorov-Smirnov and Cram\'{e}r-von Mises tests.  We discuss
-the particular implementation of tests in R and provide examples.  We
+the particular implementation of the tests in R and provide examples.  We
 conclude with a short discussion, including the state of existing continuous
 and two-sample Cram\'{e}r-von Mises testing in R.
 
@@ -118,7 +119,7 @@ with continuous null distributions results in conservative p-values
 when the null distribution is discontinuous 
 (see *** or *** or \citet{stephens1974}, for example).  In the early 1970's, 
 \citet{Conover1972} developed the method implemented here
-for computing exact p-values
+for computing p-values
 in the case of discrete null distributions.
 
 \subsection{Implementation}
@@ -134,11 +135,14 @@ for the implemenetation, but this is not the case.
 Consider two non-decreasing functions $f$ and $g$, where the function $f$ is a step function with jumps on the set $\{x_1, \ldots x_N \}$ and $g$
 is continuous (the classical Kolmogorov-Smirnov situation).
 In order to determine the supremum of the difference between
-these two functions, notice that **** FORMAT THESE AT END ****
+these two functions, notice that
 \begin{align}
-&\sup_x \left| f(x)- g(x) \right|  \nonumber  \\
-       &= \max_i \left( \max\left\{ \left|g(x_i) - f(x_i) \right|, \lim_{x \rightarrow x_i} \left| g(x) - f(x_{i-1}) \right| \right\} \right) \label{SUP1}\\
-&=  \max_i \bigg(\max \bigg\{ \left|g(x_i) - f(x_i) \right|, \left| g(x_i) - f(x_{i-1}) \right| \bigg\} \bigg). \label{SUP2}
+\sup_x \left| f(x) - g(x) \right| &  \nonumber  \\
+       =  \max_i \bigg[ \max\bigg(  & \left|g(x_i) - f(x_i) \right|, \nonumber \\
+& \lim_{x \rightarrow x_i} \left| g(x) - f(x_{i-1})
+   \right| \bigg) \bigg] \label{SUP1}\\
+=  \max_i \bigg[\max \bigg( & \left|g(x_i) - f(x_i) \right|, \nonumber \\
+& \left| g(x_i) - f(x_{i-1}) \right| \bigg) \bigg]. \label{SUP2}
 \end{align}
 Computing the maximum over these $2N$
 values (with $f$ equal to
@@ -152,23 +156,15 @@ If it is known that $g$ is a step function, it follows that
 for some small $\epsilon$,
 \begin{align}
 \sup_x &\left| f(x)- g(x) \right| =  \nonumber \\
-        &                    \max_i \{ \left|g(x_i) - f(x_i) \right|, \left| g(x_i - \epsilon) - f(x_{i-1}) \right| \} \label{epsilon}
+        & \max_i \left( \left|g(x_i) - f(x_i) \right|, 
+    \left| g(x_i - \epsilon) - f(x_{i-1}) \right| \right) \label{epsilon}
 \end{align}
 where the discontinuities in $g$ are more than some distance $\epsilon$ apart. 
 This, however, requires knowledge that $g$ is a step function as well as of
-the nature of its support (or break-points).
-%
-%*** Hmm... do we care about time? ***  When the break-points of $g$ are
-%unknown, or when $g$ is neither a step function nor a continuous distribution
-%function, computing the supremum requires taking the numerical limit in (1***?). 
-%This is computational involved and risks problems with numerical tolerances.
-%
-We implement the Kolmogorov-Smirnov test statistic for discrete null
-distributions by forcing the user to completely specify the null distribution.
+the nature of its support (or break-points).  As a result,
+we implement the Kolmogorov-Smirnov test statistic for discrete null
+distributions by requiring the complete specification of the null distribution.
 
-%**** Hmmm... It is often the case that the test is used inside of a
-%long simulation, 
-%and the added computational time would likely be prohibitive. 
 
 Having obtained the test statistic, the p-value must then be calculated. 
 For larger sample sizes, the null distribution can be approximated
@@ -178,12 +174,6 @@ smaller sample sizes, the methodology in \citet{Conover1972} is used.
 Full details of the calculations are contained in source code
 of our revised function \code{ks.test()} and in Conover's original paper. 
 
-%** code hasn't previously existed?  I deleted this stuff, not sure if
-%it fits here.  Is it obvious (since we bothered to do this in the first
-%place)?  Or move it?
-
-%Code for this procedure in the R language, or in any other open source options, did not previously
-%exist and is included in the new function \pkg{ks.test}. 
 
 %Numerical issues arise from the summation; need to do something else for high $n$. Simulation? Asymptotic approximation? 
 %The interesting part of the implementation of Conover's method, from a computational standpoint, are the difficult numerical issues that 
@@ -197,8 +187,8 @@ of our revised function \code{ks.test()} and in Conover's original paper.
 %distribution for the testing statistic.
 
 While the Kolmogorov-Smirnov test may be the most popular of
-the nonparametric goodness-of-fit tests, there is another family of 
-tests which has been shown to be more powerful against a large class
+the nonparametric goodness-of-fit tests, Cram\'{e}r-von Mises
+tests have been shown to be more powerful against a large class
 of alternatives hypotheses. 
 The original test was developed by
 Harald Cram\'{e}r and Richard von Mises \citep{cramer1928, vonmises1928} and further adapted by \cite{anderson1952}, and  \cite{Watson1961}. 
@@ -213,26 +203,22 @@ As with the original Kolmogorov-Smirnov test statistic, these all have
 null distributions of their test statistics which are independent of the
 specified null models.
 
-The $W^2$
-statistic was the original test statistic; it has the benefit of having
-the simplest form.
+The $W^2$ statistic was the original test statistic.
 The $A^2$ statistic was developed by
 Anderson in the process of generalizing the test for the two-sample case.
 Watson's $U^2$ statistic was developed for distributions
 which are cyclic (with an ordering to the support but
-no natural starting point), as it is invariant to cyclic reordering of
-the support. 
-For example, a distribution on the months of the year could be considered
-cyclic.
+no natural starting point); it is invariant to cyclic reordering of
+the support.   For example, a distribution on the months of the year
+could be considered cyclic.
 
 It has been shown that these tests can be more powerful than Kolmogorov-Smirnov tests to certain deviations from the hypothesized distribution. 
-As they all involve
-integration over the whole range of data, rather than use of a supremum.
-Thus, they are best-suited for situations where the
+They all involve integration over the whole range of data, rather than
+use of a supremum, so they are best-suited for situations where the
 true alternative distribution deviates a little over the whole support
-rather than having large deviations over a small section of the support. For
-a complete analysis of the relative powers of these tests, see 
-\cite{stephens1974}.
+rather than having large deviations over a small section of the support. 
+\cite{stephens1974} offers a complete analysis of the relative powers
+of these tests.
 
 %Discuss the discrete version. How to calculate W2, U2, and A2. 
 
@@ -241,14 +227,15 @@ a complete analysis of the relative powers of these tests, see
 Generalizations of the Cram\'{e}r-von Mises tests to discrete
 distributions were developed in \cite{choulakian1994}. As with the
 Kolmogorov-Smirnov test, the forms of the test statistics are unchanged, 
-and the null distributions of the test statistics are again hypothesis-dependent. The methods do not offer finite-sample results, but rather 
-show that the asymptotic distributions of the test statistics under the null hypothesis each involve consideration of a weighted sum of independent
+and the null distributions of the test statistics are again hypothesis-dependent. \cite{choulakian1994} does not offer finite-sample results, but rather 
+shows that the asymptotic distributions of the test statistics under the null hypothesis each involve consideration of a weighted sum of independent
 chi-squared variables (with the weights depending on the particular
 null distribution). 
 We implement the asymptotic distributions here; \cite{stephens1974}
 showed that these approximations are conservative 
 and asymptotically equivalent to the true null distributions.
 
+**** Why would Stephens (1974) have this, when they were developed in 1994? ****
 
 \subsection{Implementation}
 
@@ -282,9 +269,12 @@ but numerical issues appear in the regime of large test statistics $x$
 The function $\theta(\cdot, x)$ is linear in $x$; as the test statistic 
 grows the corresponding periodicity of the integrand decreases and
 the approximation becomes unstable. 
-%This is further magnified in situations where the 
-%$p$-values should be very small, where tiny fluctuations (undetectable
-%elsewhere) become quite prominent. 
+As an example of this numerical instability, the red plotted in
+Figure \ref{cvmissues} shows the non-monotonicity of the numerical
+evaluation of equation (\ref{distQ}) for a null distribution that is
+uniform on the set $\{1,2,3\}$.
+
+
 We resolve this problem by using a simple conservative approximation to
 avoid the numerical instability. Consider the
 following inequality:
@@ -296,14 +286,14 @@ following inequality:
 The values for the weighted sum can be bounded using a simple transformation
 and a chi-squared distribution of a higher degree of freedom. 
 The original formulation is preferable for most p-values, while
-this approximation is used for smaller p-values (smaller than 0.001,
+this upper bound is used for smaller p-values (smaller than 0.001,
 based on our observations of the numerical instability of the original
-formulation).
+formulation).  Although it would be preferable to determine the use of
+the bound based on values of the test statistic rather than the p-value,
+the range of ``extreme'' values of the test statistic varies with the
+hypothesized distribution.
 
-Figure \ref{cvmissues} shows the non-monotonicity of the numerical
-evaluation of equation (\ref{distQ}) for the null distribution which is
-uniform on the set $\{1,2,3\}$, as well as the behavior of the
-conservative upper bound given in equation (\ref{ineq2}).
+
 
 \begin{figure}
 \begin{center}
@@ -311,7 +301,7 @@ conservative upper bound given in equation (\ref{ineq2}).
 \end{center}
 \caption{Plot of calculated p-values for given test statistics
 using numerical integration
-(pink) compared to the conservative chi-squared bound (dashed blue). 
+(red) compared to the conservative chi-squared bound (dashed blue). 
 The null distribution is uniform on the set $\{1,2,3\}$ in this example.
 The instability in the calculated p-values is a result of numerical
 instabilities.}
@@ -330,7 +320,7 @@ package \pkg{stats}, while \code{cvm.test()} is a new
 function for Cram\'{e}r-von Mises tests.
 Both are available from the authors
 or from R-Forge (\url{https://r-forge.r-project.org/R/?group_id=802});
-they will be proposed for inclusion in \pkg{stats} in late 2010.
+\code{ks.test()} will be proposed for inclusion in \pkg{stats} in late 2010.
 
 The revised \code{ks.test()} function supports one-sample tests for discrete
 null distributions by allowing the second argument, \code{y}, to be
@@ -628,7 +618,6 @@ if this particular one is really part of this literature segment?
 
  *** Need to be added
 to the bibliography, whatever we choose to do ***
-
 
 
 

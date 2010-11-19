@@ -1,4 +1,4 @@
-\begin{thebibliography}{10}
+\begin{thebibliography}{11}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -10,6 +10,13 @@ T.~W. Anderson and D.~A. Darling.
 \newblock Asymptotic theory of certain ``goodness of fit'' criteria based on
   stochastic processes.
 \newblock \emph{Ann. Math. Statist.}, 23:\penalty0 193--212, 1952.
+
+\bibitem[Choulakian et~al.(1994)Choulakian, Lockhart, and
+  Stephens]{choulakian1994}
+V.~Choulakian, R.~A. Lockhart, and M.~A. Stephens.
+\newblock Cram\'{e}r-von mises statistics for discrete distributions.
+\newblock \emph{The Canadian Journal of Statistics}, 22\penalty0 (1):\penalty0
+  125--137, 1994.
 
 \bibitem[Conover(1972)]{Conover1972}
 W.~J. Conover.
@@ -34,6 +41,13 @@ J.~Imhof.
 \newblock Computing the distribution of quadratic forms in normal variables.
 \newblock \emph{Biometrika}, 48:\penalty0 419--426, 1961.
 
+\bibitem[{R Development Core Team}(2010)]{R2010}
+{R Development Core Team}.
+\newblock \emph{R: A Language and Environment for Statistical Computing}.
+\newblock R Foundation for Statistical Computing, Vienna, Austria, 2010.
+\newblock URL \url{http://www.R-project.org/}.
+\newblock {ISBN} 3-900051-07-0.
+
 \bibitem[Slakter(1965)]{slakter65}
 M.~J. Slakter.
 \newblock A comparison of the pearson chi-square and kolmogorov goodness-of-fit
@@ -46,12 +60,6 @@ M.~A. Stephens.
 \newblock Edf statistics for goodness of fit and some comparisons.
 \newblock \emph{Journal of the American Statistical Association}, 69\penalty0
   (347):\penalty0 730--737, 1974.
-
-\bibitem[V~Choulakian(1994)]{choulakian1994}
-M.~A.~S. V~Choulakian, R A~Lockhart.
-\newblock Cram\'{e}r-von mises statistics for discrete distributions.
-\newblock \emph{The Canadian Journal of Statistics}, 22\penalty0 (1):\penalty0
-  125--137, 1994.
 
 \bibitem[von Mises(1928)]{vonmises1928}
 R.~E. von Mises.
