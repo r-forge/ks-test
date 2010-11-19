@@ -20,21 +20,11 @@ to various numerical issues that arise in their implementation.
 
 \section{Introduction}
 
-%General idea of goodness-of-fit tests (hypothesis test about underlying distribution).
-%Given an observed sequence of data, the typical question of statistical inference is to determine
-%the underlying process from which it came. 
 Goodness-of-fit tests are used to assess whether data are consistent
 with a hypothesized null distribution.  The $\chi^2$ test is the best-known
 parametric goodness-of-fit test, while the most popular nonparametric tests
 are the classic test proposed by Kolmogorov and Smirnov followed closely by
 several variants on Cram\'{e}r-von Mises tests.
-
-%procedure proposed by
-%Cram\'{e}r and von Mises (tests sometimes called Cram\'{e}r-von Mises-Smirnov
-%tests, or simply Cram\'{e}r-von Mises tests).
-
-%*** why "estimation procedure" above?
-%*** Citations in the paragraph above?  Also check the body of paper. ***
 
 In their most basic forms, these nonparametric goodness-of-fit
 tests are intended for continuous null distributions, but they have
@@ -56,34 +46,9 @@ the particular implementation of the tests in R and provide examples.  We
 conclude with a short discussion, including the state of existing continuous
 and two-sample Cram\'{e}r-von Mises testing in R.
 
-%*** Later, make sure we point out how using one of the ``old'' tests and
-%hoping for the best is a problem. ***
-
-%Given a particular null distribution, goodness-of-fit tests 
-%are used in order to test whether it is likely that the data were
-%generated via the null distribution.
-
-%Why we use non-parametric tests (power to interesting shifts; robustness to underlying assumptions).
-%While almost any hypothesis test can be viewed as a variant on a
-%goodness-of-fit test, the term ``goodness-of-fit test'' is typically
-%reserved for those tests which are nonparametric in nature. 
-%That is, they do not conduct the hypothesis testing 
-%through the explicit calculation of the parameters generating the data. Instead, they %generally attempt to
-%calculate differences between the empirical distribution of the observed data and the overall distribution 
-%of the null model. In many cases these tests are preferential since they tend to have an increased power for 
-%interesting deviations from the null model, in exchange for failing to detect less interesting deviations due to 
-%factors such as measurement error. By far the most popular of these nonparametric tests are due to Kolmogorov and 
-%Smirnov, followed closely by several variants on an estimation procedure proposed by Cram\'{e}r and von Mises. 
-
-% Discrete versions exist; just no code
-%While the original aim of nonparametric goodness of fit tests was meant for continuous null distributions, discrete versions
-%have existed since the early 1970s. Unfortunately, current statistical software has largely failed to incorporate them.
-%This has left the end-user to either use only parametric tests, such as Pearson's Chi-Squared test, or to incorrectly
-%apply the functions meant for continuous distributions. 
 
 \section{Kolmogorov-Smirnov Test}
 
-% Most popular choice of test; explain the basic algorithm and purpose for continuous distributions (maybe a few P's).
 
 \subsection{Overview}
 
@@ -105,9 +70,7 @@ For these, the absolute value in (\ref{eqD}) is discarded and the tests are base
 on either the supremum of the remaining difference (the `greater' testing
 alternative) or by replacing the supremum with a negative infimum
 (the `lesser' hypothesis alternative).  Tabulated p-values have been
-available for these tests since 1933. %(*** year ****).
-
-%**** check this above, both do away with the absolute value, I think? ***
+available for these tests since 1933. 
 
 The extension of the Kolmogorov-Smirnov test to non-continuous 
 null distributions is not straightforward. The formula of
@@ -117,7 +80,8 @@ continuous case, its distribution depends on the null model.
 It has been known since at least the 1950's that using the tables associated
 with continuous null distributions results in conservative p-values
 when the null distribution is discontinuous 
-(see *** or *** or \citet{stephens1974}, for example).  In the early 1970's, 
+(see \cite{slakter1965}, \cite{goodman1954}, and \cite{massey1951}).  
+In the early 1970's, 
 \citet{Conover1972} developed the method implemented here
 for computing p-values
 in the case of discrete null distributions.
@@ -172,7 +136,7 @@ with the null distribution from the classical Kolmogorov-Smirnov test.
 When an exact p-value is required for
 smaller sample sizes, the methodology in \citet{Conover1972} is used. 
 Full details of the calculations are contained in source code
-of our revised function \code{ks.test()} and in Conover's original paper. 
+of our revised function \code{ks.test()} and in Conover's paper. 
 
 
 %Numerical issues arise from the summation; need to do something else for high $n$. Simulation? Asymptotic approximation? 
@@ -281,7 +245,9 @@ and a chi-squared distribution of a higher degree of freedom.
 The original formulation is preferable for most p-values, while
 this upper bound is used for smaller p-values (smaller than 0.001,
 based on our observations of the numerical instability of the original
-formulation).  Although it would be preferable to determine the use of
+formulation).  Figure \ref{cvmissues} shows this bound with the blue dashed
+line; values in red exceeding the bound are a result of the numerical
+instability.  Although it would be preferable to determine the use of
 the bound based on values of the test statistic rather than the p-value,
 the range of ``extreme'' values of the test statistic varies with the
 hypothesized distribution.
@@ -296,8 +262,8 @@ hypothesized distribution.
 using numerical integration
 (red) compared to the conservative chi-squared bound (dashed blue). 
 The null distribution is uniform on the set $\{1,2,3\}$ in this example.
-The instability in the calculated p-values is a result of numerical
-instabilities.}
+The sharp variations in the calculated p-values are a result of numerical
+instabilities, and the true p-values are bounded by the blue dashed curve.}
 \label{cvmissues}
 \end{figure}
 
@@ -337,8 +303,8 @@ to be conservative though imprecise for small samples (CITATION).
 %provided a discrete distribution to the original ks.test() even though
 %it wasn't intended to be supported. ***
 
-The function \pkg{cvm.test()} is similar in design
-to \pkg{ks.test()}.  Its first two
+The function \code{cvm.test()} is similar in design
+to \code{ks.test()}.  Its first two
 arguments specify the data and null distribution; the only extra option,
 \code{type}, specifies the variant of the Cram\'{e}r-von Mises test:
 \begin{itemize}
@@ -471,7 +437,7 @@ If, instead, either \code{exact=FALSE} is used with the new
 \code{ks.test()} function, or if the original \code{stats::ks.test()}
 is used, the reported p-value is 0.1389.
 
-Finally, we demonstrate the Cram\'{e}r-von Mises tests with the same
+We demonstrate the Cram\'{e}r-von Mises tests with the same
 simulated data. 
 \begin{Schunk}
 \begin{Sinput}
@@ -497,34 +463,38 @@ alternative hypothesis: Two.sided
 \end{Soutput}
 \end{Schunk}
 
-*** Cyclical example? ***
-
+We conclude with a toy cyclical example showing that the test is
+invariant to cyclic reordering of the support.
 \begin{Schunk}
 \begin{Sinput}
 > library(cvm.test)
-> x <- sample(1:4, 20, replace=T)
-> cvm.test(x, ecdf(1:4), type='U2')
-\end{Sinput}
-\begin{Soutput}
-	Cramer-von Mises - U2
-
-data:  x 
-U2 = 0.075, p-value = 0.4027
-alternative hypothesis: Two.sided 
-\end{Soutput}
-\begin{Sinput}
-> y <- x%%4 + 1
-> cvm.test(y, ecdf(1:4), type = 'U2')
+> set.seed(1)
+> y <- sample(1:4, 20, replace=T)
+> cvm.test(y, ecdf(1:4), type='U2')
 \end{Sinput}
 \begin{Soutput}
 	Cramer-von Mises - U2
 
 data:  y 
-U2 = 0.075, p-value = 0.4027
+U2 = 0.0094, p-value = 0.945
+alternative hypothesis: Two.sided 
+\end{Soutput}
+\begin{Sinput}
+> z <- y%%4 + 1
+> cvm.test(z, ecdf(1:4), type = 'U2')
+\end{Sinput}
+\begin{Soutput}
+	Cramer-von Mises - U2
+
+data:  z 
+U2 = 0.0094, p-value = 0.945
 alternative hypothesis: Two.sided 
 \end{Soutput}
 \end{Schunk}
-
+In contrast, the Kolmogorov-Smirnov or the standard Cram\'{e}r-von Mises tests
+produce different results after such a reordering. For example, the default
+Cram\'{e}r-von Mises yields p-values of 
+*** we have a problem, or maybe got really unlucky? ***.
 
 
 
@@ -580,37 +550,33 @@ the Kolmogorov-Smirnov and the Cram\'{e}r-von Mises tests
 have two-sample analogues. When data are
 observed from two processes or sampled from two populations, 
 the hypothesis tested is 
-whether they came from the same (unspecified) distribution. An
-analogous theory for discrete distributions does not exist.
+whether they came from the same (unspecified) distribution. 
 This comes from the fact that the discrete null distributions
 of the test statistics depend on the exact null distribution; 
 therefore the two-sample case would surely have to depend
-on the exact distributions used as well %(*** is this true? ***), 
-which are generally not even stated in the two-sample case. 
-*** I don't think I buy this. Couldn't this just be done as a
-chi-squared test on a 2xp table, at least? *** Also,
-see \url{http://ideas.repec.org/p/mtl/montde/2001-23.html}.
+on the exact distributions used as well
+which are generally not even stated in the two-sample case
+\cite{newpaper}.  **** explored goodness-of-fit tests for
+discrete distributions using a permutation test approach.
 
-While we have implemented the two most popular variants of 
-goodness-of-fit tests for discrete distributions, further 
-generalizations of tests are described in the
+
+Further 
+generalizations of goodness-of-fit tests for discrete distributions
+are described in the
 extended study of \cite{dewev1973}.  We also provide general one-sample
 Cram\'{e}r-von Mises testing for continuous distributions simply
 to help complement the abilities provided by several other
 R packages, although these tests are not the focus of this paper.
-In particular, functions implemented in package \pkg{nortest} focus on the
+In particular, functions implemented in package \pkg{nortest} 
+\citep{nortest} focus on the
 composite hypothesis of normality, while
-package \pkg{ADGofTest} provides the Anderson-Darling variant
+package \pkg{ADGofTest} \citep{ADGofTest} provides the Anderson-Darling variant
 of the test for continuous distributions.  Packages
-\pkg{CvM2SL1Test} and \pkg{CvM2SL1Test} provide support for
+\pkg{CvM2SL1Test} \citep{CvM2SL1Test} and \pkg{CvM2SL2Test} 
+\citep{CvM2SL2Test} provide support for
 two-sample Cram\'{e}r-von Mises tests with continuous distributions.
-Package \pkg{cramer} offers a multivariate Cram\'{e}r test for
-the two-sample problem.  Possible reference, though it isn't clear
-if this particular one is really part of this literature segment?
-\url{http://en.scientificcommons.org/39157548}
-
- *** Need to be added
-to the bibliography, whatever we choose to do ***
+Package \pkg{cramer} \citep{cramer} offers a multivariate Cram\'{e}r test for
+the two-sample problem.
 
 
 

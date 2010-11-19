@@ -1,4 +1,4 @@
-\begin{thebibliography}{11}
+\begin{thebibliography}{19}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -10,6 +10,12 @@ T.~W. Anderson and D.~A. Darling.
 \newblock Asymptotic theory of certain ``goodness of fit'' criteria based on
   stochastic processes.
 \newblock \emph{Ann. Math. Statist.}, 23:\penalty0 193--212, 1952.
+
+\bibitem[Bellosta(2009)]{ADGofTest}
+C.~J.~G. Bellosta.
+\newblock \emph{ADGofTest: Anderson-Darling GoF test}, 2009.
+\newblock URL \url{http://CRAN.R-project.org/package=ADGofTest}.
+\newblock R package version 0.1.
 
 \bibitem[Choulakian et~al.(1994)Choulakian, Lockhart, and
   Stephens]{choulakian1994}
@@ -36,10 +42,32 @@ T.~de~Wet and J.~Venter.
   tests of fit.
 \newblock \emph{Annals of Statistics}, 2:\penalty0 380--387, 1994.
 
+\bibitem[Franz(2006)]{cramer}
+C.~Franz.
+\newblock \emph{cramer: Multivariate nonparametric Cramer-Test for the
+  two-sample-problem}, 2006.
+\newblock R package version 0.8-1.
+
+\bibitem[Goodman(1954)]{goodman1954}
+L.~Goodman.
+\newblock Kolmogorov-smirnov tests for psychological research.
+\newblock \emph{Psychological Bulletin}, 51:\penalty0 160--168, 1954.
+
+\bibitem[Gross(2006)]{nortest}
+J.~Gross.
+\newblock \emph{nortest: Tests for Normality}, 2006.
+\newblock R package version 1.0.
+
 \bibitem[Imhof(1961)]{imhof1961}
 J.~Imhof.
 \newblock Computing the distribution of quadratic forms in normal variables.
 \newblock \emph{Biometrika}, 48:\penalty0 419--426, 1961.
+
+\bibitem[Massey(1951)]{massey1951}
+F.~Massey.
+\newblock The kolmogorov-smirnov test for goodness of fit.
+\newblock \emph{Journal of the American Statistical Association}, 46:\penalty0
+  68--78, 1951.
 
 \bibitem[{R Development Core Team}(2010)]{R2010}
 {R Development Core Team}.
@@ -48,12 +76,19 @@ J.~Imhof.
 \newblock URL \url{http://www.R-project.org/}.
 \newblock {ISBN} 3-900051-07-0.
 
-\bibitem[Slakter(1965)]{slakter65}
+\bibitem[Slakter(1965{\natexlab{a}})]{slakter1965}
+M.~Slakter.
+\newblock A comparison of the pearson chi-square and kolmogorov goodness-of-fit
+  tests with respect to validity.
+\newblock \emph{Journal of the American Statistical Association}, 60:\penalty0
+  854--858, 1965{\natexlab{a}}.
+
+\bibitem[Slakter(1965{\natexlab{b}})]{slakter65}
 M.~J. Slakter.
 \newblock A comparison of the pearson chi-square and kolmogorov goodness-of-fit
   tests with respect to validity.
 \newblock \emph{Journal of the American Statistical Association}, 60\penalty0
-  (311):\penalty0 854--858, 1965.
+  (311):\penalty0 854--858, 1965{\natexlab{b}}.
 
 \bibitem[Stephens(1974)]{stephens1974}
 M.~A. Stephens.
@@ -70,5 +105,17 @@ R.~E. von Mises.
 G.~S. Watson.
 \newblock Goodness of fit tests on the circle.
 \newblock \emph{Biometrika}, 48:\penalty0 109--114, 1961.
+
+\bibitem[Xiao and Cui(2009{\natexlab{a}})]{CvM2SL1Test}
+Y.~Xiao and Y.~Cui.
+\newblock \emph{CvM2SL1Test: L1-version of Cramer-von Mises Two Sample Tests},
+  2009{\natexlab{a}}.
+\newblock R package version 0.0-2.
+
+\bibitem[Xiao and Cui(2009{\natexlab{b}})]{CvM2SL2Test}
+Y.~Xiao and Y.~Cui.
+\newblock \emph{CvM2SL2Test: Cramer-von Mises Two Sample Tests},
+  2009{\natexlab{b}}.
+\newblock R package version 0.0-2.
 
 \end{thebibliography}
