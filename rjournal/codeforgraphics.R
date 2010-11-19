@@ -91,7 +91,7 @@ for(i in 1:length(I)) {
 
 #pdf('fig1.pdf', height=6, width=8)
 coff <- 1.2
-coff2 <- 1.2
+coff2 <- 1.3
 plot(I[I > coff], z[I > coff], type='l', xlab='test statistic', ylab='p-value', col='salmon', lwd=2)
 abline(h=0, lty=2)
 lines(I[I > coff2], y[I > coff2], lty=2, col='blue', lwd=2)
