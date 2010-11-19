@@ -360,12 +360,12 @@ alternative hypothesis: two-sided
 \end{Schunk}
 
 Next, we simulate a sample of size 25 from the discrete uniform distribution on
-the integers $\{1, 2, \ldots, 10\}$ and show several variants of the
+the integers $\{1, 2, \ldots, 10\}$ and show usage of the
 new \code{ks.test()} implementation.  The first is the default two-sided test,
 where the reported p-value is a conservative upper bound for the actual
 p-value.  In this case, the approximation may not be that tight, but this is
-irrelevant for such large p-values (for more interesting (small) p-values, the
-upper bound is very close to the true p-value as shown in \cite{Conover1972}).
+irrelevant for such large p-values. For more interesting (small) p-values, the
+upper bound is very close to the true p-value (shown in \cite{Conover1972}).
 \begin{Schunk}
 \begin{Sinput}
 > set.seed(1)
@@ -420,6 +420,7 @@ alternative hypothesis:
 the CDF of x lies above the null hypothesis 
 \end{Soutput}
 \end{Schunk}
+
 A different toy example shows the dangers of using R's existing
 \code{ks.test()} function:
 \begin{Schunk}
@@ -495,7 +496,7 @@ alternative hypothesis: Two.sided
 In contrast, the Kolmogorov-Smirnov or the standard Cram\'{e}r-von Mises tests
 produce different results after such a reordering. For example, the default
 Cram\'{e}r-von Mises test yields p-values of 0.8237 and 0.9577 with the original
-and transformed data $y$ and $z$, respectively.
+and transformed data \code{y} and \code{z}, respectively.
 
 
 
@@ -531,13 +532,13 @@ and transformed data $y$ and $z$, respectively.
 %*** Hmm... if you claim the following, you want to make sure it is true.
 %Did you read it somewhere? ***
 
-This paper presents the implementation of a range of nonparametric
+This paper presents the implementation of several nonparametric
 goodness-of-fit tests for discrete null distributions.  In some cases,
 the p-values are known to be exact.  In others, conservativeness 
 and tightness of bounds have been established in the literature.  As a result,
-no simulations are necessary for these methods (which were developed during
-an era when extensive simulations may have been prohibitively expensive
-or time-consuming).
+no simulations are necessary for these methods, which were generally
+developed during an era when extensive simulations may have been
+prohibitively expensive or time-consuming).
 However, this does raise the possibility that alternative tests relying upon
 modern computational abilities could provide even greater power in certain
 situations, a possible avenue for future work.
@@ -549,13 +550,16 @@ observed from two processes or sampled from two populations,
 the hypothesis tested is 
 whether they came from the same (unspecified) distribution. 
 With the discrete case, however, the null distribution of the
-test statistic in the discrete case depends on the underlying
+test statistic depends on the underlying
 probability model, as discussed by \cite{walsh1963}.
 Such an extension would require the specification of a
 null distribution, which generally goes unstated in two-sample
 goodness-of-fit tests.  We note that
-\cite{Mdufour2001} explored goodness-of-fit tests for
+\cite{Mdufour2001} explored two-sample goodness-of-fit tests for
 discrete distributions using a permutation test approach.
+
+*** possibly change following paragraph depending on what we
+decide to include in \code{cvm.test()}. ***
 
 Further 
 generalizations of goodness-of-fit tests for discrete distributions

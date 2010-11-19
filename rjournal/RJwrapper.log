@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2010.9.1)  19 NOV 2010 13:55
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2010.9.1)  19 NOV 2010 14:23
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -824,18 +824,18 @@ LaTeX Font Info:    Try loading font information for TS1+ppl on input line 312.
 (/usr/share/texmf-texlive/tex/latex/psnfss/ts1ppl.fd
 File: ts1ppl.fd 2001/06/04 font definitions for TS1/ppl.
 ) [3 <./fig1.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 437--440
+Underfull \hbox (badness 10000) in paragraph at lines 438--441
 \T1/ppl/m/n/10 If, in-stead, ei-ther \T1/pcr/m/n/10 exact=FALSE \T1/ppl/m/n/10 
 is used with
  []
 
 [4]
-LaTeX Font Info:    Try loading font information for TS1+pcr on input line 474.
+LaTeX Font Info:    Try loading font information for TS1+pcr on input line 475.
 
  (/usr/share/texmf-texlive/tex/latex/psnfss/ts1pcr.fd
 File: ts1pcr.fd 2001/06/04 font definitions for TS1/pcr.
 )
-Underfull \hbox (badness 10000) in paragraph at lines 545--559
+Underfull \hbox (badness 10000) in paragraph at lines 546--560
 []\T1/ppl/m/n/10 In the con-tin-u-ous set-ting, both of the
  []
 
@@ -847,7 +847,7 @@ Here is how much of TeX's memory you used:
  16390 multiletter control sequences out of 15000+50000
  40127 words of font info for 90 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
- 56i,12n,53p,497b,609s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 56i,12n,53p,497b,607s stack positions out of 5000i,500n,10000p,200000b,50000s
 {/usr/share/texmf-texlive/fonts/e
 nc/dvips/base/8r.enc}</usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/c
 mex10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr10.pfb></
@@ -859,9 +859,9 @@ ic/mathpazo/fplmri.pfb></usr/share/texmf-texlive/fonts/type1/urw/courier/ucrr8a
 exmf-texlive/fonts/type1/urw/palatino/uplb8a.pfb></usr/share/texmf-texlive/font
 s/type1/urw/palatino/uplr8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/palat
 ino/uplri8a.pfb>
-Output written on RJwrapper.pdf (6 pages, 194950 bytes).
+Output written on RJwrapper.pdf (6 pages, 195590 bytes).
 PDF statistics:
- 247 PDF objects out of 1000 (max. 8388607)
+ 248 PDF objects out of 1000 (max. 8388607)
  53 named destinations out of 1000 (max. 500000)
  106 words of extra memory for PDF output out of 10000 (max. 10000000)
 
