@@ -62,7 +62,7 @@ D = \sup_x \left| F_0(x)- F_{data}(x) \right|.    \label{eqD}
 \end{align}
 The distribution of $D$ does not depend on the hypothesized
 distribution, making this a computationally
-attractive method. \cite{slakter65} offers a standard presentation
+attractive method. \cite{slakter1965} offers a standard presentation
 of the test and its
 performance relative to other algorithms. 
 The test statistic is easily adapted for one-sided tests.
@@ -295,9 +295,10 @@ presented in \cite{Conover1972}.  For one-sided tests,
 exact p-values are calculated using Conover's
 method (when \code{exact = NULL} or \code{exact = TRUE})
 if the sample size is less than or equal to 30; otherwise, asymptotic distributions
-are used which are reliable in such cases (CITATION? Is this correct?).
-When \code{exact = FALSE} the asymptotic distribution is used which is known
-to be conservative though imprecise for small samples (CITATION).
+are used which are reliable in such cases.
+When \code{exact = FALSE} the asymptotic distribution is used and known
+to be conservative though imprecise for small samples (see \cite{Conover1972}
+for details).
 
 %*** Discussion of what we might have broken: cases where the user
 %provided a discrete distribution to the original ks.test() even though
@@ -493,8 +494,9 @@ alternative hypothesis: Two.sided
 \end{Schunk}
 In contrast, the Kolmogorov-Smirnov or the standard Cram\'{e}r-von Mises tests
 produce different results after such a reordering. For example, the default
-Cram\'{e}r-von Mises yields p-values of 
-*** we have a problem, or maybe got really unlucky? ***.
+Cram\'{e}r-von Mises test yields p-values of 0.8237 and 0.9577 with the original
+and transformed data $y$ and $z$, respectively.
+
 
 
 
@@ -540,40 +542,36 @@ However, this does raise the possibility that alternative tests relying upon
 modern computational abilities could provide even greater power in certain
 situations, a possible avenue for future work.
 
-
-%Possibly go into a brief discussion of classes and class inheritance in R. The use of `htest' in our functions; benefits and issues with using it. Particularly troublesome in ks.test where we have a range of p-values.  More precisely, explain that we
-%could provide upper and lower bounds for the p-value but are limited by class
-%\code{htest}.
-
 In the continuous setting, both of 
 the Kolmogorov-Smirnov and the Cram\'{e}r-von Mises tests
 have two-sample analogues. When data are
 observed from two processes or sampled from two populations, 
 the hypothesis tested is 
 whether they came from the same (unspecified) distribution. 
-This comes from the fact that the discrete null distributions
-of the test statistics depend on the exact null distribution; 
-therefore the two-sample case would surely have to depend
-on the exact distributions used as well
-which are generally not even stated in the two-sample case
-\cite{newpaper}.  **** explored goodness-of-fit tests for
+With the discrete case, however, the null distribution of the
+test statistic in the discrete case depends on the underlying
+probability model, as discussed by \cite{walsh1963}.
+Such an extension would require the specification of a
+null distribution, which generally goes unstated in two-sample
+goodness-of-fit tests.  We note that
+\cite{Mdufour2001} explored goodness-of-fit tests for
 discrete distributions using a permutation test approach.
-
 
 Further 
 generalizations of goodness-of-fit tests for discrete distributions
 are described in the
-extended study of \cite{dewev1973}.  We also provide general one-sample
+extended study of \cite{dewev1973}.  Our \code{cvm.test()} function
+also provides general one-sample
 Cram\'{e}r-von Mises testing for continuous distributions simply
-to help complement the abilities provided by several other
+to help complement the functionality provided by other
 R packages, although these tests are not the focus of this paper.
-In particular, functions implemented in package \pkg{nortest} 
+Functions implemented in package \pkg{nortest} 
 \citep{nortest} focus on the
 composite hypothesis of normality, while
 package \pkg{ADGofTest} \citep{ADGofTest} provides the Anderson-Darling variant
-of the test for continuous distributions.  Packages
+of the test for general continuous distributions.  Packages
 \pkg{CvM2SL1Test} \citep{CvM2SL1Test} and \pkg{CvM2SL2Test} 
-\citep{CvM2SL2Test} provide support for
+\citep{CvM2SL2Test} provide
 two-sample Cram\'{e}r-von Mises tests with continuous distributions.
 Package \pkg{cramer} \citep{cramer} offers a multivariate Cram\'{e}r test for
 the two-sample problem.
