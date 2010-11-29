@@ -72,7 +72,7 @@ For these, the absolute value in (\ref{eqD}) is discarded and the tests are base
 on either the supremum of the remaining difference (the `greater' testing
 alternative) or by replacing the supremum with a negative infimum
 (the `lesser' hypothesis alternative).  Tabulated p-values have been
-available for these tests since 1933.  **** CITATION? ***
+available for these tests since 1933 \citep{kol33}.
 
 The extension of the Kolmogorov-Smirnov test to non-continuous 
 null distributions is not straightforward. The formula of
@@ -170,7 +170,6 @@ U^2 &= n \cdot \int_{-\infty}^{\infty} \left[ F_{data}(x)- F_{0}(x) - W^2 \right
 As with the original Kolmogorov-Smirnov test statistic, these all have 
 test statistic null distributions which are independent of the
 hypothesized continuous models.
-
 The $W^2$ statistic was the original test statistic.
 The $A^2$ statistic was developed by
 Anderson in the process of generalizing the test for the two-sample case.
@@ -180,12 +179,13 @@ no natural starting point); it is invariant to cyclic reordering of
 the support.   For example, a distribution on the months of the year
 could be considered cyclic.
 
-It has been shown that these tests can be more powerful than Kolmogorov-Smirnov tests to certain deviations from the hypothesized distribution. 
+It has been shown that these tests can be more powerful than 
+Kolmogorov-Smirnov tests to certain deviations from the hypothesized distribution. 
 They all involve integration over the whole range of data, rather than
 use of a supremum, so they are best-suited for situations where the
 true alternative distribution deviates a little over the whole support
 rather than having large deviations over a small section of the support. 
-\cite{stephens1974} offers a complete analysis of the relative powers
+\cite{stephens1974} offers a comprehensive analysis of the relative powers
 of these tests.
 
 
@@ -439,7 +439,8 @@ alternative hypothesis: two-sided
 \end{Schunk}
 If, instead, either \code{exact=FALSE} is used with the new
 \code{ks.test()} function, or if the original \code{stats::ks.test()}
-is used, the reported p-value is 0.1389.
+is used, the reported p-value is 0.1389 even though the test statistic
+is the same.
 
 We demonstrate the Cram\'{e}r-von Mises tests with the same
 simulated data. 
