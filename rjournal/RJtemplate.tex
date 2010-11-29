@@ -27,12 +27,12 @@ are the classic test proposed by Kolmogorov and Smirnov followed closely by
 several variants on Cram\'{e}r-von Mises tests.
 
 In their most basic forms, these nonparametric goodness-of-fit
-tests are intended for continuous null distributions, but they have
-also been adapted for discrete null distributions.  Unfortunately,
+tests are intended for continuous hypothesized distributions, but they have
+also been adapted for discrete distributions.  Unfortunately,
 most modern statistical software packages and programming environments
 have failed to incorporate these discrete versions.  As a result,
 researchers would typically rely upon the $\chi^2$ test or
-use of a nonparametric test designed for a continuous null distribution.
+a nonparametric test designed for a continuous null distribution.
 For smaller sample sizes, in particular, both of these choices can produce
 misleading inferences.
 
@@ -55,12 +55,14 @@ and two-sample Cram\'{e}r-von Mises testing in R.
 The most popular nonparametric goodness-of-fit test is the
 Kolmogorov-Smirnov test.
 Given the cumulative distribution
-function $F_0(x)$ of the continuous null distribution
-and the empirical distribution function $F_{data}(x)$ of the observed data,  the test statistic is given by
+function $F_0(x)$ of the hypothesized distribution
+and the empirical distribution function $F_{data}(x)$ of the
+observed data,  the test statistic is given by
 \begin{align}
 D = \sup_x \left| F_0(x)- F_{data}(x) \right|.    \label{eqD}
 \end{align}
-The distribution of $D$ does not depend on the hypothesized
+When $F_0$ is continuous, 
+the distribution of $D$ does not depend on the hypothesized
 distribution, making this a computationally
 attractive method. \cite{slakter1965} offers a standard presentation
 of the test and its
@@ -70,15 +72,15 @@ For these, the absolute value in (\ref{eqD}) is discarded and the tests are base
 on either the supremum of the remaining difference (the `greater' testing
 alternative) or by replacing the supremum with a negative infimum
 (the `lesser' hypothesis alternative).  Tabulated p-values have been
-available for these tests since 1933. 
+available for these tests since 1933.  **** CITATION? ***
 
 The extension of the Kolmogorov-Smirnov test to non-continuous 
 null distributions is not straightforward. The formula of
 the test statistic $D$ remains unchanged, but its distribution
 is much more difficult to obtain; unlike the 
-continuous case, its distribution depends on the null model.
-It has been known since at least the 1950's that using the tables associated
-with continuous null distributions results in conservative p-values
+continuous case, it depends on the null model.
+Use of the tables associated
+with continuous hypothesized distributions results in conservative p-values
 when the null distribution is discontinuous 
 (see \cite{slakter1965}, \cite{goodman1954}, and \cite{massey1951}).  
 In the early 1970's, 
@@ -116,6 +118,8 @@ a continuous null distribution. When the function $g$ is not
 continuous, however, equality (\ref{SUP2}) does not hold in general because 
 we cannot replace $\lim_{x\rightarrow x_i} g(x)$ with the value $g(x_i)$. 
 
+*** Would a picture help at a point of discontinuity? ***
+
 If it is known that $g$ is a step function, it follows that
 for some small $\epsilon$,
 \begin{align}
@@ -125,7 +129,7 @@ for some small $\epsilon$,
 \end{align}
 where the discontinuities in $g$ are more than some distance $\epsilon$ apart. 
 This, however, requires knowledge that $g$ is a step function as well as of
-the nature of its support (or break-points).  As a result,
+the nature of its support (specifically, the break-points).  As a result,
 we implement the Kolmogorov-Smirnov test statistic for discrete null
 distributions by requiring the complete specification of the null distribution.
 
@@ -164,8 +168,8 @@ A^2 &= n \cdot \int_{-\infty}^{\infty} \frac{\left[F_{data}(x)- F_{0}(x) \right]
 U^2 &= n \cdot \int_{-\infty}^{\infty} \left[ F_{data}(x)- F_{0}(x) - W^2 \right]^2 dF_0(x) \label{U2}
 \end{align}
 As with the original Kolmogorov-Smirnov test statistic, these all have 
-null distributions of their test statistics which are independent of the
-specified null models.
+test statistic null distributions which are independent of the
+hypothesized continuous models.
 
 The $W^2$ statistic was the original test statistic.
 The $A^2$ statistic was developed by
@@ -317,9 +321,7 @@ is the default and most common method, \code{U2} is for cyclical data,
 and \code{A2} is the Anderson-Darling alternative.
 \end{itemize}
 As with \code{ks.test()}, \code{cvm.test()} returns an object of class 
-\code{htest}.  Although we designed \code{cmv.test()} primarily for cases with
-discrete distributions \code{y}, we implemented the continuous forms of the
-test for variants \code{W2} and \code{A2} (as noted in the Discussion, below).
+\code{htest}.
 
  
 %%%%%%%%%%%%%%%%%%
@@ -558,17 +560,11 @@ goodness-of-fit tests.  We note that
 \cite{Mdufour2001} explored two-sample goodness-of-fit tests for
 discrete distributions using a permutation test approach.
 
-*** possibly change following paragraph depending on what we
-decide to include in \code{cvm.test()}. ***
-
 Further 
 generalizations of goodness-of-fit tests for discrete distributions
-are described in the
-extended study of \cite{dewev1973}.  Our \code{cvm.test()} function
-also provides general one-sample
-Cram\'{e}r-von Mises testing for continuous distributions simply
-to help complement the functionality provided by other
-R packages, although these tests are not the focus of this paper.
+are described in the extended study of \cite{dewev1973}.  There are
+existing R packages for certain type of Cram\'{e}r-von Mises 
+goodness-of-fit tests for continuous distributions.
 Functions implemented in package \pkg{nortest} 
 \citep{nortest} focus on the
 composite hypothesis of normality, while
@@ -579,7 +575,6 @@ of the test for general continuous distributions.  Packages
 two-sample Cram\'{e}r-von Mises tests with continuous distributions.
 Package \pkg{cramer} \citep{cramer} offers a multivariate Cram\'{e}r test for
 the two-sample problem.
-
 
 
 %\bibliography{example}
