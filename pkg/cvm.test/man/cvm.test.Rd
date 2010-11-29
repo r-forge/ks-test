@@ -62,7 +62,7 @@ cvm.test(x3, myfun)
 # Usage of U2 for cyclical distributions (note U2 unchanged, but W2 not)
 
 set.seed(1)
-y <- sample(1:4, 20, replace=T)
+y <- sample(1:4, 20, replace=TRUE)
 cvm.test(y, ecdf(1:4), type='W2')
 cvm.test(y, ecdf(1:4), type='U2')
 z <- y%%4 + 1

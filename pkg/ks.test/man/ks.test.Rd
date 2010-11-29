@@ -218,7 +218,14 @@ ks.test(x3, ecdf(1:10))
 myfun <- stepfun(1:10, cumsum(c(0, rep(0.1, 10))))
 ks.test(x3, myfun)
 
-# 
+#Default R ks.test does not correctly calculate discrete test statistics:
+stats::ks.test(c(0, 1), ecdf(c(0, 1)))
+ks.test(c(0, 1), ecdf(c(0, 1)))
+
+#Even when the correct test statistic is given, R's default ks.test
+#Gives conservative p-values:
+stats::ks.test(rep(1, 3), ecdf(1:3))
+ks.test(rep(1, 3), ecdf(1:3))
 
 
 }
