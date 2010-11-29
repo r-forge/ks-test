@@ -71,7 +71,7 @@ The test statistic is easily adapted for one-sided tests.
 For these, the absolute value in (\ref{eqD}) is discarded and the tests are based
 on either the supremum of the remaining difference (the `greater' testing
 alternative) or by replacing the supremum with a negative infimum
-(the `lesser' hypothesis alternative).  Tabulated p-values have been
+(the `lesser' hypothesis alternative).  Tabulated $p$-values have been
 available for these tests since 1933 \citep{kol33}.
 
 The extension of the Kolmogorov-Smirnov test to non-continuous 
@@ -80,12 +80,12 @@ the test statistic $D$ remains unchanged, but its distribution
 is much more difficult to obtain; unlike the 
 continuous case, it depends on the null model.
 Use of the tables associated
-with continuous hypothesized distributions results in conservative p-values
+with continuous hypothesized distributions results in conservative $p$-values
 when the null distribution is discontinuous 
 (see \cite{slakter1965}, \cite{goodman1954}, and \cite{massey1951}).  
 In the early 1970's, 
 \citet{Conover1972} developed the method implemented here
-for computing p-values
+for computing $p$-values
 in the case of discrete null distributions.
 
 \subsection{Implementation}
@@ -93,7 +93,7 @@ in the case of discrete null distributions.
 The implementation of the discrete Kolmogorov-Smirnov test involves
 two steps. First, the particular test statistic is calculated
 (corresponding to the desired one-sided or two-sided test).
-Then, the p-value for that particular test statistic may be computed. 
+Then, the $p$-value for that particular test statistic may be computed. 
 
 The form of the test statistic is the same as in the
 continuous case; it would seem that no additional work would be required
@@ -118,7 +118,6 @@ a continuous null distribution. When the function $g$ is not
 continuous, however, equality (\ref{SUP2}) does not hold in general because 
 we cannot replace $\lim_{x\rightarrow x_i} g(x)$ with the value $g(x_i)$. 
 
-*** Would a picture help at a point of discontinuity? ***
 
 If it is known that $g$ is a step function, it follows that
 for some small $\epsilon$,
@@ -134,10 +133,10 @@ we implement the Kolmogorov-Smirnov test statistic for discrete null
 distributions by requiring the complete specification of the null distribution.
 
 
-Having obtained the test statistic, the p-value must then be calculated. 
+Having obtained the test statistic, the $p$-value must then be calculated. 
 For larger sample sizes, the null distribution can be approximated
 with the null distribution from the classical Kolmogorov-Smirnov test. 
-When an exact p-value is required for
+When an exact $p$-value is required for
 smaller sample sizes, the methodology in \citet{Conover1972} is used. 
 Full details of the calculations are contained in source code
 of our revised function \code{ks.test()} and in Conover's paper. 
@@ -145,7 +144,7 @@ of our revised function \code{ks.test()} and in Conover's paper.
 
 %Numerical issues arise from the summation; need to do something else for high $n$. Simulation? Asymptotic approximation? 
 %The interesting part of the implementation of Conover's method, from a computational standpoint, are the difficult numerical issues that 
-%arise when calculated the p-values for larger sample sizes. 
+%arise when calculated the $p$-values for larger sample sizes. 
 
 \section{Cram\'{e}r-von Mises Tests}
 
@@ -226,7 +225,7 @@ There is no analytic solution to the integral in (\ref{distQ}),
 so the integration is
 accomplished numerically. This seems fine in most situations we considered,
 but numerical issues appear in the regime of large test statistics $x$
-(or, equivalently, small p-values).
+(or, equivalently, small $p$-values).
 The function $\theta(\cdot, x)$ is linear in $x$; as the test statistic 
 grows the corresponding periodicity of the integrand decreases and
 the approximation becomes unstable. 
@@ -246,13 +245,13 @@ following inequality:
 \end{align}
 The values for the weighted sum can be bounded using a simple transformation
 and a chi-squared distribution of a higher degree of freedom. 
-The original formulation is preferable for most p-values, while
-this upper bound is used for smaller p-values (smaller than 0.001,
+The original formulation is preferable for most $p$-values, while
+this upper bound is used for smaller $p$-values (smaller than 0.001,
 based on our observations of the numerical instability of the original
 formulation).  Figure \ref{cvmissues} shows this bound with the blue dashed
 line; values in red exceeding the bound are a result of the numerical
 instability.  Although it would be preferable to determine the use of
-the bound based on values of the test statistic rather than the p-value,
+the bound based on values of the test statistic rather than the $p$-value,
 the range of ``extreme'' values of the test statistic varies with the
 hypothesized distribution.
 
@@ -262,12 +261,12 @@ hypothesized distribution.
 \begin{center}
 \includegraphics[scale=0.4]{fig1.pdf}
 \end{center}
-\caption{Plot of calculated p-values for given test statistics
+\caption{Plot of calculated $p$-values for given test statistics
 using numerical integration
 (red) compared to the conservative chi-squared bound (dashed blue). 
 The null distribution is uniform on the set $\{1,2,3\}$ in this example.
-The sharp variations in the calculated p-values are a result of numerical
-instabilities, and the true p-values are bounded by the blue dashed curve.}
+The sharp variations in the calculated $p$-values are a result of numerical
+instabilities, and the true $p$-values are bounded by the blue dashed curve.}
 \label{cvmissues}
 \end{figure}
 
@@ -292,11 +291,11 @@ with class \code{ecdf}) or an object of class \code{stepfun} specifying
 a discrete distribution.  As in the original version of \code{ks.test()},
 the presence of ties in the data (the first argument, \code{x}) generates a
 warning unless \code{y} describes a discrete distribution.  When a discrete
-distribution is specified, exact p-values are not available for 
-two-sided alternative hypotheses, but the reported p-values will be
-conservative; very tight bounds for interesting (small) p-values are
+distribution is specified, exact $p$-values are not available for 
+two-sided alternative hypotheses, but the reported $p$-values will be
+conservative; very tight bounds for interesting (small) $p$-values are
 presented in \cite{Conover1972}.  For one-sided tests,
-exact p-values are calculated using Conover's
+exact $p$-values are calculated using Conover's
 method (when \code{exact = NULL} or \code{exact = TRUE})
 if the sample size is less than or equal to 30; otherwise, asymptotic distributions
 are used which are reliable in such cases.
@@ -331,7 +330,7 @@ Consider a toy example with observed data of length 2 (specifically, the
 values 0 and 1) and a hypothized null distribution that places equal
 probability on the values 0 and 1.  With the current \code{ks.test()} function
 in R (which, admittedly, doesn't claim to handle discrete distributions),
-the reported p-value, 0.5, is clearly incorrect:
+the reported $p$-value, 0.5, is clearly incorrect:
 \begin{Schunk}
 \begin{Sinput}
 > stats::ks.test(c(0, 1), ecdf(c(0, 1)))
@@ -340,12 +339,12 @@ the reported p-value, 0.5, is clearly incorrect:
 	One-sample Kolmogorov-Smirnov test
 
 data:  c(0, 1) 
-D = 0.5, p-value = 0.5
+D = 0.5, $p$-value = 0.5
 alternative hypothesis: two-sided 
 \end{Soutput}
 \end{Schunk}
 Instead, the value of $D$ given in equation (1)
-should be 0 and the associated p-value should be 1.  Our revision of \code{ks.test()}
+should be 0 and the associated $p$-value should be 1.  Our revision of \code{ks.test()}
 fixes this problem when the user provides a discrete distribution:
 \begin{Schunk} 
 \begin{Sinput}
@@ -356,7 +355,7 @@ fixes this problem when the user provides a discrete distribution:
 	One-sample Kolmogorov-Smirnov test
 
 data:  c(0, 1) 
-D = 0, p-value = 1
+D = 0, $p$-value = 1
 alternative hypothesis: two-sided 
 \end{Soutput}
 \end{Schunk}
@@ -364,10 +363,10 @@ alternative hypothesis: two-sided
 Next, we simulate a sample of size 25 from the discrete uniform distribution on
 the integers $\{1, 2, \ldots, 10\}$ and show usage of the
 new \code{ks.test()} implementation.  The first is the default two-sided test,
-where the reported p-value is a conservative upper bound for the actual
-p-value.  In this case, the approximation may not be that tight, but this is
-irrelevant for such large p-values. For more interesting (small) p-values, the
-upper bound is very close to the true p-value (shown in \cite{Conover1972}).
+where the reported $p$-value is a conservative upper bound for the actual
+$p$-value.  In this case, the approximation may not be that tight, but this is
+irrelevant for such large $p$-values. For more interesting (small) $p$-values, the
+upper bound is very close to the true $p$-value (shown in \cite{Conover1972}).
 \begin{Schunk}
 \begin{Sinput}
 > set.seed(1)
@@ -385,12 +384,12 @@ upper bound is very close to the true p-value (shown in \cite{Conover1972}).
 	One-sample Kolmogorov-Smirnov test
 
 data:  x 
-D = 0.08, p-value = 1
+D = 0.08, $p$-value = 1
 alternative hypothesis: two-sided 
 \end{Soutput}
 \end{Schunk}
 Next, we conduct the default one-sided test, where Conover's method
-provides the exact p-value (up to the numerical precision of the
+provides the exact $p$-value (up to the numerical precision of the
 implementation):
 \begin{Schunk}
 \begin{Sinput}
@@ -400,14 +399,14 @@ implementation):
 	One-sample Kolmogorov-Smirnov test
 
 data:  x 
-D^+ = 0.04, p-value = 0.7731
+D^+ = 0.04, $p$-value = 0.7731
 alternative hypothesis:
 the CDF of x lies above the null hypothesis 
 \end{Soutput}
 \end{Schunk}
 In contrast, the option \code{exact=FALSE} results in the
-p-value obtained by applying the classical Kolmogorov-Smirnov
-test, resulting in a conservative p-value:
+$p$-value obtained by applying the classical Kolmogorov-Smirnov
+test, resulting in a conservative $p$-value:
 \begin{Schunk}
 \begin{Sinput}
 > ks.test(x, ecdf(1:10), alternative = "g", 
@@ -417,7 +416,7 @@ test, resulting in a conservative p-value:
 	One-sample Kolmogorov-Smirnov test
 
 data:  x 
-D^+ = 0.04, p-value = 0.9231
+D^+ = 0.04, $p$-value = 0.9231
 alternative hypothesis:
 the CDF of x lies above the null hypothesis 
 \end{Soutput}
@@ -433,13 +432,13 @@ A different toy example shows the dangers of using R's existing
 	One-sample Kolmogorov-Smirnov test
 
 data:  rep(1, 3) 
-D = 0.6667, p-value = 0.04938
+D = 0.6667, $p$-value = 0.04938
 alternative hypothesis: two-sided 
 \end{Soutput}
 \end{Schunk}
 If, instead, either \code{exact=FALSE} is used with the new
 \code{ks.test()} function, or if the original \code{stats::ks.test()}
-is used, the reported p-value is 0.1389 even though the test statistic
+is used, the reported $p$-value is 0.1389 even though the test statistic
 is the same.
 
 We demonstrate the Cram\'{e}r-von Mises tests with the same
@@ -453,7 +452,7 @@ simulated data.
 	Cramer-von Mises - W2
 
 data:  x 
-W2 = 0.057, p-value = 0.8114
+W2 = 0.057, $p$-value = 0.8114
 alternative hypothesis: Two.sided 
 \end{Soutput}
 \begin{Sinput}
@@ -463,7 +462,7 @@ alternative hypothesis: Two.sided
 	Cramer-von Mises - A2
 
 data:  x 
-A2 = 0.3969, p-value = 0.75
+A2 = 0.3969, $p$-value = 0.75
 alternative hypothesis: Two.sided 
 \end{Soutput}
 \end{Schunk}
@@ -481,7 +480,7 @@ invariant to cyclic reordering of the support.
 	Cramer-von Mises - U2
 
 data:  y 
-U2 = 0.0094, p-value = 0.945
+U2 = 0.0094, $p$-value = 0.945
 alternative hypothesis: Two.sided 
 \end{Soutput}
 \begin{Sinput}
@@ -492,13 +491,13 @@ alternative hypothesis: Two.sided
 	Cramer-von Mises - U2
 
 data:  z 
-U2 = 0.0094, p-value = 0.945
+U2 = 0.0094, $p$-value = 0.945
 alternative hypothesis: Two.sided 
 \end{Soutput}
 \end{Schunk}
 In contrast, the Kolmogorov-Smirnov or the standard Cram\'{e}r-von Mises tests
 produce different results after such a reordering. For example, the default
-Cram\'{e}r-von Mises test yields p-values of 0.8237 and 0.9577 with the original
+Cram\'{e}r-von Mises test yields $p$-values of 0.8237 and 0.9577 with the original
 and transformed data \code{y} and \code{z}, respectively.
 
 
@@ -521,8 +520,8 @@ and transformed data \code{y} and \code{z}, respectively.
 %For a more complete comparison of the two tests' power see \cite{slakter65}.
 
 %The computational capabilities of modern computers provide an alternative to using a complex formula to
-%calculate the p-value for a test statistic. By drawing random samples from the null distribution, in many
-%cases the p-values for a given statistic can be calculated accurately in a relatively short time span.
+%calculate the $p$-value for a test statistic. By drawing random samples from the null distribution, in many
+%cases the $p$-values for a given statistic can be calculated accurately in a relatively short time span.
 %This can be quite useful in some cases, but using the exact formulas from our methodology has several
 %distinct advantages. First of all, if the function is called many times (say, within another simulation
 %study), the computational benefits of using a formula can quickly become substantial. There is also a greater need
@@ -537,11 +536,11 @@ and transformed data \code{y} and \code{z}, respectively.
 
 This paper presents the implementation of several nonparametric
 goodness-of-fit tests for discrete null distributions.  In some cases,
-the p-values are known to be exact.  In others, conservativeness 
+the $p$-values are known to be exact.  In others, conservativeness 
 and tightness of bounds have been established in the literature.  As a result,
 no simulations are necessary for these methods, which were generally
 developed during an era when extensive simulations may have been
-prohibitively expensive or time-consuming).
+prohibitively expensive or time-consuming.
 However, this does raise the possibility that alternative tests relying upon
 modern computational abilities could provide even greater power in certain
 situations, a possible avenue for future work.
