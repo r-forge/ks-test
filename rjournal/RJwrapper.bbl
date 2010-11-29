@@ -1,4 +1,4 @@
-\begin{thebibliography}{21}
+\begin{thebibliography}{22}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -48,6 +48,12 @@ J.-M. Dufour and A.~Farhat.
   discrete distributions.
 \newblock Unpublished manuscript, October 2001.
 \newblock URL \url{http://hdl.handle.net/1866/362}.
+
+\bibitem[Emerson and Arnold(2010)]{emersonarnold2010}
+J.~W. Emerson and T.~B. Arnold.
+\newblock The power of human nature in a study of olympic figure skating.
+\newblock Unpublished manuscript, August 2010.
+\newblock URL \url{http://www.stat.yale.edu/~jay/unpublished/}.
 
 \bibitem[Franz(2006)]{cramer}
 C.~Franz.
