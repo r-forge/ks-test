@@ -1,25 +1,20 @@
 cvm.test <- function(x,y, type=c("W2", "U2", "A2")) {
 
-  cvm.stat <- function(x,y,type) {
-    fdata <- ecdf(x)
-    if(type != 'A2') {
-      igrand <- function(z) return((fdata(z) - y(z))^2)
-    } else {
-      igrand <- function(z) return((fdata(z) - y(z))^2 / (y(z) - y(z)^2))
-    }
-    stat <- integrate(igrand, -Inf, Inf)[1]
-    if(type != 'U2') {
-      return(stat)
-    } else {
-      igrand <- function(z) return((fdata(z) - y(z)-stat)^2) 
-      return(integrate(igrand, -Inf, Inf)[1])
-    }    
-  }
-
-  cvm.pval <- function(stat) {
-
-    return()
-  }  
+  #cvm.stat <- function(x,y,type) {
+  #  fdata <- ecdf(x)
+  #  if(type != 'A2') {
+  #    igrand <- function(z) return((fdata(z) - y(z))^2)
+  #  } else {
+  #    igrand <- function(z) return((fdata(z) - y(z))^2 / (y(z) - y(z)^2))
+  #  }
+  #  stat <- integrate(igrand, -Inf, Inf)[1]
+  #  if(type != 'U2') {
+  #    return(stat)
+  #  } else {
+  #    igrand <- function(z) return((fdata(z) - y(z)-stat)^2) 
+  #    return(integrate(igrand, -Inf, Inf)[1])
+  #  }    
+  #}
 
   cvm.pval.disc <- function(STAT, lambda) {
 
@@ -52,7 +47,7 @@ cvm.test <- function(x,y, type=c("W2", "U2", "A2")) {
       df <- sum(lambda != 0)
       return(dchisq(STAT/max(lambda),df))
     }
-  } # End cvm.pval()
+  } # End cvm.pval.disc()
 
   cvm.stat.disc <- function(x,y, type=c("W2", "U2", "A2")) {
     type <- match.arg(type)
@@ -90,7 +85,7 @@ cvm.test <- function(x,y, type=c("W2", "U2", "A2")) {
                    A2 = sum((Z^2*t/(H*(1-H) ))[-length(I)])/N)
 
     return(c(STAT, lambda))
-  } # End cvm.stat()
+  } # End cvm.stat.disc()
 
 
   type <- match.arg(type)
@@ -108,16 +103,7 @@ cvm.test <- function(x,y, type=c("W2", "U2", "A2")) {
     RVAL <- list(statistic = STAT, p.value = PVAL, alternative = "Two.sided",
                  method = METHOD, data.name=DNAME)
   } else {
-    y <- y[!is.na(y)]
-    n.x <- as.double(n)             # to avoid integer overflow
-    n.y <- length(y)
-    if(n.y < 1L)
-       stop("not enough 'y' data")
-    STAT <- cvm.stat(x,y,type=type)
-    PVAL <- cvm.pval(STAT)
-    METHOD <- paste("Cramer-von Mises -", type)
-    RVAL <- list(statistic = STAT, p.value = PVAL, alternative = "Two.sided",
-                 method = METHOD, data.name=DNAME)
+    stop('Null distribution must be a discrete.')
   }
 
 
