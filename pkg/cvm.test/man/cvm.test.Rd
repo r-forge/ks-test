@@ -59,6 +59,17 @@ myfun <- stepfun(1:10, cumsum(c(0, rep(0.1, 10))))
 if (require(ks.test, quietly=TRUE)) ks.test(x3, myfun)
 cvm.test(x3, myfun)
 
+# Usage of U2 for cyclical distributions (note U2 unchanged, but W2 not)
+
+set.seed(1)
+y <- sample(1:4, 20, replace=T)
+cvm.test(y, ecdf(1:4), type='W2')
+cvm.test(y, ecdf(1:4), type='U2')
+z <- y%%4 + 1
+cvm.test(z, ecdf(1:4), type='W2')
+cvm.test(z, ecdf(1:4), type = 'U2')
+
+
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

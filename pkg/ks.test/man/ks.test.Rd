@@ -218,5 +218,8 @@ ks.test(x3, ecdf(1:10))
 myfun <- stepfun(1:10, cumsum(c(0, rep(0.1, 10))))
 ks.test(x3, myfun)
 
+# 
+
+
 }
 \keyword{htest}
