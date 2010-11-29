@@ -3,14 +3,14 @@
 \title{Discrete Cramer-von Mises Goodness-of-Fit Tests}
 \description{
 Computes the test statistics for doing one-sample Cramer-von Mises goodness-of-fit tests
-and calculates asymptotic p-values; cvm.test() tries to follow the same guidelines as ks.test() in the R-base.
+and calculates asymptotic p-values.
 }
 \usage{
 cvm.test(x, y, type = c("W2", "U2", "A2"))
 }
 \arguments{
   \item{x}{a numerical vector of data values.}
-  \item{y}{an \code{\link{ecdf}} or step-function (\code{\link{stepfun}}) for specifying the null model.}
+  \item{y}{an \code{\link{ecdf}} or step-function (\code{\link{stepfun}}) for specifying the hypothesized model.}
   \item{type}{the variant of the Cramer-von Mises test; \code{"W2"} is the default and most common method, \code{"U2"} is for cyclical data, and \code{"A2"} is the Anderson-Darling alternative. For details see references.}
 }
 \details{
@@ -25,7 +25,21 @@ An object of class \code{htest}.
 %% ...
 }
 \references{
-NEED REFERENCES.
+V. Choulakian, R. A. Lockhart, and M. A. Stephens (1994).
+\emph{Cramer-von Mises statistics for discrete distributions}.
+The Canadian Journal of Statistics, 22(1): 125-137.
+
+H. Cramer (1928).
+\emph{On the composition of elementary errors.}
+Skand. Akt., 11:141-180.
+
+M. A. Stephens (1974).
+\emph{Edf statistics for goodness of fit and some comparisons}.
+Journal of the American Statistical Association, 69(347): 730-737.
+
+R. E. von Mises (1928).
+\emph{Wahrscheinlichkeit, Statistik und Wahrheit.}
+Julius Springer, Vienna, Austria.
 }
 \author{
 Taylor B. Arnold and John W. Emerson
