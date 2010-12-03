@@ -1,10 +1,10 @@
 Taylor Arnold and Jay Emerson
-September 9, 2010
+December 3, 2010
 
 This revision to ks.test() will complement an applied paper
 (in submission to The American Statistician) and is part of the
-subject of another paper (to JSS); once we're happy we may propose
-a change to R's stats::ks.test.
+subject of another paper (to the R Journal); once we're happy we 
+may propose a change to R's stats::ks.test.
 
 Please send questions or comments to Jay <john.emerson@yale.edu>
 and Taylor <taylor.arnold@yale.edu>

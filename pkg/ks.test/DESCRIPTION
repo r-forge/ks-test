@@ -1,7 +1,7 @@
 Package: ks.test
-Version: 1.1
-Date: 2010-09-08
-Title: Proposed Revision to ks.test()
+Version: 1.2
+Date: 2010-12-03
+Title: Proposed Revision to stats::ks.test()
 Author: Taylor B. Arnold and John W. Emerson
 Maintainer: Taylor B. Arnold <taylor.arnold@yale.edu>
 Description: This package simply contains a proposed new ks.test() function

@@ -1,5 +1,5 @@
 #  Original file .../src/library/stats/R/ks.test.R
-#  Part of the R package, http://www.R-project.org
+#  Part of the R stats package, http://www.R-project.org
 #
 #  This program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -14,10 +14,10 @@
 #  A copy of the GNU General Public License is available at
 #  http://www.r-project.org/Licenses/
 #
-# Modification by Taylor Arnold and Jay Emerson, 6/13/2010:
+# Modification by Taylor Arnold and Jay Emerson, 2010:
 #
 # Any changes to the original R Core source is noted by
-# the following comment convension:
+# the following comment convension to aid code review:
 #
 #   ####################
 #   ## TBA, JWE: comment
@@ -153,7 +153,7 @@ ks.test <- function(x, y, ...,
 
     #################################################################
     ## TBA, JWE: the following else implements behavior relating to
-    ## a new possibilities for y: an object of class 'stepfun', of
+    ## a new possibility for y: an object of class 'stepfun', of
     ## which 'ecdf' is a subclass we expect most users to have.
 
     } else if (is.stepfun(y)) {

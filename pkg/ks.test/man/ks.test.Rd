@@ -1,12 +1,12 @@
 % Original file src/library/stats/man/ks.test.Rd
-% Part of the R package, http://www.R-project.org
+% Part of the R stats package, http://www.R-project.org
 % Copyright 1995-2008 R Core Development Team
 % Distributed under GPL 2 or later
 %
-% Modification by Taylor Arnold and Jay Emerson, 6/13/2010:
+% Modification by Taylor Arnold and Jay Emerson, 2010:
 %
 % Any changes to the original R Core source is noted by
-% the following comment convension:
+% the following comment convension to aid review:
 %
 %   ####################
 %   ## TBA, JWE: comment
@@ -32,6 +32,7 @@ ks.test(x, y, \dots,
         exact = NULL, tol=1e-8)
 
 %   ## END TBA, JWE
+%   ###############
 
 }
 \arguments{
@@ -39,11 +40,13 @@ ks.test(x, y, \dots,
 
   % ########################################
   % TBA, JWE: modified argument description.
+
   \item{y}{a numeric vector of data values, or a character string
     naming a cumulative distribution function or an actual cumulative
     distribution function such as \code{pnorm}. Alternatively, \code{y}
     can be an \code{\link{ecdf}} function (or an object of class
     \code{\link{stepfun}}) for specifying a discrete distribution.}
+
   % END TBA, JWE
   % ############
 
@@ -60,12 +63,15 @@ ks.test(x, y, \dots,
 
   % ######################
   % TBA, JWE: new argument
+
   \item{tol}{used as an upper bound for possible rounding error in values
     (say, \code{a} and \code{b}) when needing to check for equality
     (\code{a==b}); value of \code{NA} or \code{0} does exact comparisons
     but risks making errors due to numerical imprecisions.}
+
   % END TBA, JWE
   % ############
+
 }
 \details{
   If \code{y} is numeric, a two-sample test of the null hypothesis
@@ -179,8 +185,6 @@ in Conover's 1972 paper -- see references).
   \emph{Journal of Statistical Software}, \bold{8}/18.
   \url{http://www.jstatsoft.org/v08/i18/}.
 
-  **** OTHERS?  cvm? 
-
 }
 \seealso{
   \code{\link{shapiro.test}} which performs the Shapiro-Wilk test for
@@ -218,15 +222,15 @@ ks.test(x3, ecdf(1:10))
 myfun <- stepfun(1:10, cumsum(c(0, rep(0.1, 10))))
 ks.test(x3, myfun)
 
-#Default R ks.test does not correctly calculate discrete test statistics:
+# The previous R ks.test() does not correctly calculate the
+# test statistic for discrete distributions:
 stats::ks.test(c(0, 1), ecdf(c(0, 1)))
 ks.test(c(0, 1), ecdf(c(0, 1)))
 
-#Even when the correct test statistic is given, R's default ks.test
-#Gives conservative p-values:
+# Even when the correct test statistic is given, the
+# previous R ks.test() gives conservative p-values:
 stats::ks.test(rep(1, 3), ecdf(1:3))
 ks.test(rep(1, 3), ecdf(1:3))
-
 
 }
 \keyword{htest}
