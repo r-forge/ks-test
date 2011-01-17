@@ -1,9 +1,0 @@
-
-\section{About the packages}
-
-
-
-
-\section{Examples and simulations}
-
-

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2010.9.1)  29 NOV 2010 13:47
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2010.9.1)  6 DEC 2010 10:32
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -798,9 +798,9 @@ LaTeX Font Info:    Font shape `U/msb/m/n' will be
 LaTeX Font Info:    Font shape `U/msb/m/n' will be
 (Font)              scaled to size 6.25204pt on input line 17.
 LaTeX Font Info:    Font shape `T1/ppl/bx/n' in size <14.4> not available
-(Font)              Font shape `T1/ppl/b/n' tried instead on input line 21.
+(Font)              Font shape `T1/ppl/b/n' tried instead on input line 19.
 LaTeX Font Info:    Font shape `T1/ppl/bx/n' in size <12> not available
-(Font)              Font shape `T1/ppl/b/n' tried instead on input line 55.
+(Font)              Font shape `T1/ppl/b/n' tried instead on input line 51.
  [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
 pdfTeX warning (ext4): destination with the same identifier (name{section*.2}) 
@@ -808,9 +808,9 @@ has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.114 \end{align}
+l.110 \end{align}
                  ]
-LaTeX Font Info:    Try loading font information for U+fplmbb on input line 223
+LaTeX Font Info:    Try loading font information for U+fplmbb on input line 207
 .
  (/usr/share/texmf-texlive/tex/latex/psnfss/ufplmbb.fd
 File: ufplmbb.fd 2003/10/30 Fontinst v1.914 font definitions for U/fplmbb.
@@ -818,24 +818,24 @@ File: ufplmbb.fd 2003/10/30 Fontinst v1.914 font definitions for U/fplmbb.
 [2] <fig1.pdf, id=138, 578.16pt x 433.62pt>
 File: fig1.pdf Graphic file (type pdf)
  <use fig1.pdf>
-LaTeX Font Info:    Try loading font information for TS1+ppl on input line 317.
+LaTeX Font Info:    Try loading font information for TS1+ppl on input line 292.
 
 
 (/usr/share/texmf-texlive/tex/latex/psnfss/ts1ppl.fd
 File: ts1ppl.fd 2001/06/04 font definitions for TS1/ppl.
 ) [3 <./fig1.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 441--445
+Underfull \hbox (badness 10000) in paragraph at lines 415--419
 \T1/ppl/m/n/10 If, in-stead, ei-ther \T1/pcr/m/n/10 exact=FALSE \T1/ppl/m/n/10 
 is used with
  []
 
 [4]
-LaTeX Font Info:    Try loading font information for TS1+pcr on input line 479.
+LaTeX Font Info:    Try loading font information for TS1+pcr on input line 453.
 
  (/usr/share/texmf-texlive/tex/latex/psnfss/ts1pcr.fd
 File: ts1pcr.fd 2001/06/04 font definitions for TS1/pcr.
 )
-Underfull \hbox (badness 10000) in paragraph at lines 550--564
+Underfull \hbox (badness 10000) in paragraph at lines 492--506
 []\T1/ppl/m/n/10 In the con-tin-u-ous set-ting, both of the
  []
 

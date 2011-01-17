@@ -1,5 +1,5 @@
 #  Original file .../src/library/stats/R/ks.test.R
-#  Part of the R stats package, http://www.R-project.org
+#  Part of the R package, http://www.R-project.org
 #
 #  This program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by

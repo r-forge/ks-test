@@ -1,5 +1,5 @@
 % Original file src/library/stats/man/ks.test.Rd
-% Part of the R stats package, http://www.R-project.org
+% Part of the R package, http://www.R-project.org
 % Copyright 1995-2008 R Core Development Team
 % Distributed under GPL 2 or later
 %
