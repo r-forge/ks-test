@@ -34,7 +34,8 @@ ks.test <- function(x, y, ...,
     #########################################################################
     ## TBA, JWE: an additional argument, tol, is used as an upper bound for
     ## possible rounding error in values (say, a and b) when needing to check
-    ## for equality (a==b).
+    ## for equality (a==b).  We also use it in establishing a small epsilon
+    ## for some other calculations involving the step functions.
 
                     tol=1e-8)
 
@@ -59,17 +60,70 @@ ks.test <- function(x, y, ...,
     ## p-value calculations presented in Conover (1972), which is
     ## cited in our revision of ks.test.Rd.
 
-    conover.pval <-  function(alternative, STATISTIC, z, n, y, tol) {
+    conover.pval <-  function(alternative, STATISTIC, x, z, n, y, tol) {
     
-        ts.pval <- function(x, z, n, H, tol) {
-            less <- less.pval(x, z, n, H, tol)
-            greater <- greater.pval(x, z, n, H, tol)
-            p <- min(1,less + greater)
+        ts.pval <- function(S, x, z, n, H, tol) {
+            if (FALSE) { 
+                # The conservative Conover p-value
+                less <- less.pval(S, z, n, H, tol)
+                greater <- greater.pval(S, z, n, H, tol)
+                p <- min(1,less + greater)
+            } else {
+
+# JE:  data      x            the data
+#      knots.f_0 knots.y      knots of the null
+#      f_0       y            the null distribution
+#      d         S            the statistic
+
+                # The exact two-sided p-value from Gleser (need citation added)
+                f_n <- ecdf(x)
+                knots.y <- knots(y) 
+                eps <- min(tol, min(diff(knots.y)) * tol)
+                eps2 <- min(tol, min(diff(y(knots.y))) * tol)
+
+                a <- c()
+                b <- c()
+                f_a <- c()
+
+                for (i in 1:n) {
+                    a.1 <- which(y(knots.y) + S >= i/n + eps2)
+                    if (sum(a.1) > 0) a <- c(a, knots.y[a.1[1]])
+                    else a <- c(a, Inf) 
+    
+                    b.1 <- which(y(knots.y) - S > (i-1)/n - eps2)
+                    if (sum(b.1) > 0) b <- c(b, knots.y[b.1[1]])
+                    else b <- c(b, Inf)
+    
+                    # Calculate F(a_i-)
+                    # If a_i is not a knot of F_0,
+                    # then simply return the value of F_0(a_i).
+                    # Otherwise, evaluate F_0(a_i - eps)
+                    if (!(a[i] %in% knots.y)) f_a <- c(f_a, y(a[i]))
+                    else {
+                      f_a <- c(f_a, y(a[i]-eps))
+                    }
+                } 
+                f_b <- y(b)
+  
+                #return(list(f_a = f_a, f_b = f_b))  NOW HAVE f_a and f_b
+                # which are Niederhausen u, v
+
+                p <- rep(1, n+1)
+                for (i in 1:n) {
+                    tmp <- 0
+                    for (k in 0:(i-1)) {
+                        tmp <- tmp + choose(i, k) * (-1)^(i-k-1) *
+                                     max(f_b[k+1] - f_a[i], 0)^(i-k) * p[k+1]
+                    }
+                    p[i+1] <- tmp
+                }	
+                p <- 1 - p[n+1]               # Niederhausen return
+            }
             return(p)
         }
-        less.pval <- function(x, z, n, H, tol) {
-            m <- ceiling(n*(1-x))
-            c <- x+(1:m-1)/n
+        less.pval <- function(S, z, n, H, tol) {
+            m <- ceiling(n*(1-S))
+            c <- S+(1:m-1)/n
             CDFVAL <- H(sort(z))
             for(j in 1:length(c)) {
                 ifelse( (min(abs(c[j] - CDFVAL)) < tol),
@@ -83,9 +137,9 @@ ks.test <- function(x, y, ...,
             p <- sum(choose(n, 0:(m-1))*c^(n-0:(m-1))*b )
             return(p)        
         }
-        greater.pval <- function(x, z, n, H, tol) {
-            m <- ceiling(n*(1-x))
-            c <- 1-(x+(1:m-1)/n)
+        greater.pval <- function(S, z, n, H, tol) {
+            m <- ceiling(n*(1-S))
+            c <- 1-(S+(1:m-1)/n)
             CDFVAL <- c(0,H(sort(z)))
             for(j in 1:length(c)) {
                 if( !(min(abs(c[j] - CDFVAL)) < tol) )
@@ -100,9 +154,9 @@ ks.test <- function(x, y, ...,
         }
 
         p <- switch(alternative,
-                    "two.sided" = ts.pval(STATISTIC,z,n,y,tol), 
-                    "less" = less.pval(STATISTIC,z,n,y,tol), 
-                    "greater" = greater.pval(STATISTIC,z,n,y,tol))
+                    "two.sided" = ts.pval(STATISTIC, x, z, n, y, tol), 
+                    "less" = less.pval(STATISTIC, z, n, y, tol), 
+                    "greater" = greater.pval(STATISTIC, z, n, y, tol))
         return(p)
     }
 
@@ -158,15 +212,16 @@ ks.test <- function(x, y, ...,
 
     } else if (is.stepfun(y)) {
         z <- knots(y)
-        if(is.null(exact) || exact) exact <- (n <= 30)
+        if(is.null(exact) || exact) exact <- (n <= 50)
         METHOD <- "One-sample Kolmogorov-Smirnov test"
-        x <- c(0, ecdf(x)(z) - y(z))
+        dev <- c(0, ecdf(x)(z) - y(z))      # JE had been blowing away data
         STATISTIC <- switch(alternative,
-                            "two.sided" = max(abs(x)),
-                            "greater" = max(x),
-                            "less" = max(-x))
+                            "two.sided" = max(abs(dev)),
+                            "greater" = max(dev),
+                            "less" = max(-dev))
         PVAL <- switch(exact,
-                       "TRUE" = conover.pval(alternative, STATISTIC,z,n,y,tol),
+                       "TRUE" = conover.pval(alternative, STATISTIC,
+                                             x, z, n, y, tol),
                        "FALSE" = NULL)
         nm_alternative <- switch(alternative,
             "two.sided" = "two-sided",
