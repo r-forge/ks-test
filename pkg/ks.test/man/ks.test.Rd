@@ -172,7 +172,12 @@ in Conover's 1972 paper -- see references).
   %% TBA, JWE added:
   William J. Conover (1972),
   A Kolmogorov Goodness-of-Fit Test for Discontinuous Distributions.
-  \emph{Journal of American Statistical Association}, Vol. 67, Num. 339, 591--596.
+  \emph{Journal of American Statistical Association}, Vol. 67, No. 339, 591--596.
+
+  Leon Jay Gleser (1985),
+  Exact Power of Goodness-of-Fit Tests of Kolmogorov Type for Discontinuous 
+  Distributions.
+  \emph{Journal of American Statistical Association}, Vol. 80, No. 392,  954--958.
   %% END TBA, JWE
   %% ############
 

@@ -64,7 +64,7 @@ ks.test <- function(x, y, ...,
     
         ts.pval <- function(S, x, z, n, H, tol) {
             if (FALSE) { 
-                # The conservative Conover p-value
+                # The conservative Conover p-value, no longer needed:
                 less <- less.pval(S, z, n, H, tol)
                 greater <- greater.pval(S, z, n, H, tol)
                 p <- min(1,less + greater)
@@ -75,7 +75,8 @@ ks.test <- function(x, y, ...,
 #      f_0       y            the null distribution
 #      d         S            the statistic
 
-                # The exact two-sided p-value from Gleser (need citation added)
+                # The exact two-sided p-value from Gleser (1985)
+                # and Niederhausen (1981)
                 f_n <- ecdf(x)
                 knots.y <- knots(y) 
                 eps <- min(tol, min(diff(knots.y)) * tol)
@@ -212,7 +213,7 @@ ks.test <- function(x, y, ...,
 
     } else if (is.stepfun(y)) {
         z <- knots(y)
-        if(is.null(exact) || exact) exact <- (n <= 50)
+        if(is.null(exact) || exact) exact <- (n <= 100)
         METHOD <- "One-sample Kolmogorov-Smirnov test"
         dev <- c(0, ecdf(x)(z) - y(z))      # JE had been blowing away data
         STATISTIC <- switch(alternative,
