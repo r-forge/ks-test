@@ -111,8 +111,7 @@ ks.test(x, y, \dots,
   %% ##########################
   %% TBA, JWE added and edited:
   Exact p-values are not available for the one-sided two-sample case,
-  in the case of ties if \code{y} is continuous, or in the two-sided
-  one-sample case if \code{y} is discrete.  If \code{exact = NULL}
+  or in the case of ties if \code{y} is continuous.  If \code{exact = NULL}
   (the default), an exact p-value is computed if the sample size is less
   than 100 in the one-sample case with \code{y} continuous or if the sample
   size is less than or equal to 30 in the one-sample case with \code{y}
@@ -123,14 +122,10 @@ ks.test(x, y, \dots,
   obtained as described in Marsaglia, Tsang & Wang (2003).  The formula of
   Birnbaum & Tingey (1951) is used for the one-sample one-sided case.
 
-  In the one-sample case with \code{y} discrete, the method presented in
-  Conover (1972) is used when \code{exact=TRUE} (or when \code{exact=NULL}
-  and \code{length(x)<=30} as described above).  Here, the p-value with the
-  two-sided alternative will be slightly conservative (by an amount bounded
-  as described in Conover's paper).  Exact p-values are provided for tests
-  with the one-sided alternatives with \code{length(x)<=30}.
-
-  In the one-sample case with \code{y} discrete and \code{exact=FALSE} or
+  In the one-sample case with \code{y} discrete, the methods presented in
+  Conover (1972) and Gleser (1985) are used when \code{exact=TRUE} (or when
+  \code{exact=NULL}_ and \code{length(x)<=30} as described above. 
+  When \code{exact=FALSE} or
   \code{length(x)>=30}, the test may not be exact but the resulting p-values
   are known to be conservative.
 

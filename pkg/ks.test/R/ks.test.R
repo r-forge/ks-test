@@ -63,65 +63,52 @@ ks.test <- function(x, y, ...,
     conover.pval <-  function(alternative, STATISTIC, x, z, n, y, tol) {
     
         ts.pval <- function(S, x, z, n, H, tol) {
-            if (FALSE) { 
-                # The conservative Conover p-value, no longer needed:
-                less <- less.pval(S, z, n, H, tol)
-                greater <- greater.pval(S, z, n, H, tol)
-                p <- min(1,less + greater)
-            } else {
+            # The exact two-sided p-value from Gleser (1985)
+            # and Niederhausen (1981)
+            f_n <- ecdf(x)
+            knots.y <- knots(y) 
+            eps <- min(tol, min(diff(knots.y)) * tol)
+            eps2 <- min(tol, min(diff(y(knots.y))) * tol)
 
-# JE:  data      x            the data
-#      knots.f_0 knots.y      knots of the null
-#      f_0       y            the null distribution
-#      d         S            the statistic
+            a <- c()
+            b <- c()
+            f_a <- c()
 
-                # The exact two-sided p-value from Gleser (1985)
-                # and Niederhausen (1981)
-                f_n <- ecdf(x)
-                knots.y <- knots(y) 
-                eps <- min(tol, min(diff(knots.y)) * tol)
-                eps2 <- min(tol, min(diff(y(knots.y))) * tol)
-
-                a <- c()
-                b <- c()
-                f_a <- c()
-
-                for (i in 1:n) {
-                    a.1 <- which(y(knots.y) + S >= i/n + eps2)
-                    if (sum(a.1) > 0) a <- c(a, knots.y[a.1[1]])
-                    else a <- c(a, Inf) 
+            for (i in 1:n) {
+                a.1 <- which(y(knots.y) + S >= i/n + eps2)
+                if (sum(a.1) > 0) a <- c(a, knots.y[a.1[1]])
+                else a <- c(a, Inf) 
     
-                    b.1 <- which(y(knots.y) - S > (i-1)/n - eps2)
-                    if (sum(b.1) > 0) b <- c(b, knots.y[b.1[1]])
-                    else b <- c(b, Inf)
+                b.1 <- which(y(knots.y) - S > (i-1)/n - eps2)
+                if (sum(b.1) > 0) b <- c(b, knots.y[b.1[1]])
+                else b <- c(b, Inf)
     
-                    # Calculate F(a_i-)
-                    # If a_i is not a knot of F_0,
-                    # then simply return the value of F_0(a_i).
-                    # Otherwise, evaluate F_0(a_i - eps)
-                    if (!(a[i] %in% knots.y)) f_a <- c(f_a, y(a[i]))
-                    else {
-                      f_a <- c(f_a, y(a[i]-eps))
-                    }
-                } 
-                f_b <- y(b)
+                # Calculate F(a_i-)
+                # If a_i is not a knot of F_0,
+                # then simply return the value of F_0(a_i).
+                # Otherwise, evaluate F_0(a_i - eps)
+                if (!(a[i] %in% knots.y)) f_a <- c(f_a, y(a[i]))
+                else {
+                    f_a <- c(f_a, y(a[i]-eps))
+                }
+            } 
+            f_b <- y(b)
   
-                #return(list(f_a = f_a, f_b = f_b))  NOW HAVE f_a and f_b
-                # which are Niederhausen u, v
+            # NOW HAVE f_a and f_b which are Niederhausen u, v
 
-                p <- rep(1, n+1)
-                for (i in 1:n) {
-                    tmp <- 0
-                    for (k in 0:(i-1)) {
-                        tmp <- tmp + choose(i, k) * (-1)^(i-k-1) *
-                                     max(f_b[k+1] - f_a[i], 0)^(i-k) * p[k+1]
-                    }
-                    p[i+1] <- tmp
-                }	
-                p <- 1 - p[n+1]               # Niederhausen return
-            }
+            p <- rep(1, n+1)
+            for (i in 1:n) {
+                tmp <- 0
+                for (k in 0:(i-1)) {
+                    tmp <- tmp + choose(i, k) * (-1)^(i-k-1) *
+                                 max(f_b[k+1] - f_a[i], 0)^(i-k) * p[k+1]
+                }
+                p[i+1] <- tmp
+            }	
+            p <- max(0, 1 - p[n+1])          # Use Niederhausen result
             return(p)
         }
+
         less.pval <- function(S, z, n, H, tol) {
             m <- ceiling(n*(1-S))
             c <- S+(1:m-1)/n
@@ -138,6 +125,7 @@ ks.test <- function(x, y, ...,
             p <- sum(choose(n, 0:(m-1))*c^(n-0:(m-1))*b )
             return(p)        
         }
+
         greater.pval <- function(S, z, n, H, tol) {
             m <- ceiling(n*(1-S))
             c <- 1-(S+(1:m-1)/n)
@@ -213,7 +201,7 @@ ks.test <- function(x, y, ...,
 
     } else if (is.stepfun(y)) {
         z <- knots(y)
-        if(is.null(exact) || exact) exact <- (n <= 100)
+        if(is.null(exact) || exact) exact <- (n <= 30)
         METHOD <- "One-sample Kolmogorov-Smirnov test"
         dev <- c(0, ecdf(x)(z) - y(z))      # JE had been blowing away data
         STATISTIC <- switch(alternative,
