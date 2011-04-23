@@ -69,33 +69,22 @@ ks.test <- function(x, y, ...,
             knots.y <- knots(y) 
             eps <- min(tol, min(diff(knots.y)) * tol)
             eps2 <- min(tol, min(diff(y(knots.y))) * tol)
-
-            a <- c()
-            b <- c()
-            f_a <- c()
-
+            a <- rep(0, n); b <- a; f_a <- a
             for (i in 1:n) {
-                a.1 <- which(y(knots.y) + S >= i/n + eps2)
-                if (sum(a.1) > 0) a <- c(a, knots.y[a.1[1]])
-                else a <- c(a, Inf) 
-    
-                b.1 <- which(y(knots.y) - S > (i-1)/n - eps2)
-                if (sum(b.1) > 0) b <- c(b, knots.y[b.1[1]])
-                else b <- c(b, Inf)
-    
+                a[i] <- min(c(knots.y[which(y(knots.y) + S >= i/n + eps2)[1]],
+                              Inf), na.rm=TRUE)
+                b[i] <- min(c(knots.y[which(y(knots.y) - S > (i-1)/n - eps2)[1]],
+                              Inf), na.rm=TRUE)
                 # Calculate F(a_i-)
                 # If a_i is not a knot of F_0,
                 # then simply return the value of F_0(a_i).
                 # Otherwise, evaluate F_0(a_i - eps)
-                if (!(a[i] %in% knots.y)) f_a <- c(f_a, y(a[i]))
-                else {
-                    f_a <- c(f_a, y(a[i]-eps))
-                }
+                f_a[i] <- ifelse(!(a[i] %in% knots.y),
+                                 y(a[i]), y(a[i]-eps))
             } 
             f_b <- y(b)
   
             # NOW HAVE f_a and f_b which are Niederhausen u, v
-
             p <- rep(1, n+1)
             for (i in 1:n) {
                 tmp <- 0

@@ -193,6 +193,8 @@ in Conover's 1972 paper -- see references).
 \examples{
 require(graphics)
 
+set.seed(1)
+
 x <- rnorm(50)
 y <- runif(30)
 # Do x and y come from the same distribution?
