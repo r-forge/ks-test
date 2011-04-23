@@ -1,0 +1,11 @@
+\BOOKMARK [0][-]{section*.2}{Nonparametric Goodness-of-Fit Tests for Discrete Null Distributions}{}
+\BOOKMARK [1][-]{section*.4}{Introduction}{section*.2}
+\BOOKMARK [1][-]{section*.5}{Kolmogorov-Smirnov Test}{section*.2}
+\BOOKMARK [2][-]{section*.6}{Overview}{section*.5}
+\BOOKMARK [2][-]{section*.7}{Implementation}{section*.5}
+\BOOKMARK [1][-]{section*.8}{Cram\351r-von Mises Tests}{section*.2}
+\BOOKMARK [2][-]{section*.9}{Overview}{section*.8}
+\BOOKMARK [2][-]{section*.10}{Implementation}{section*.8}
+\BOOKMARK [1][-]{section*.11}{Kolmogorov-Smirnov and Cram\351r-von Mises Tests in R}{section*.2}
+\BOOKMARK [1][-]{section*.12}{Examples}{section*.2}
+\BOOKMARK [1][-]{section*.13}{Discussion}{section*.2}

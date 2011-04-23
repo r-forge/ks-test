@@ -1,0 +1,140 @@
+\begin{thebibliography}{22}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Anderson and Darling(1952)]{anderson1952}
+T.~W. Anderson and D.~A. Darling.
+\newblock Asymptotic theory of certain ``goodness of fit'' criteria based on
+  stochastic processes.
+\newblock \emph{Annals of Mathematical Statistics}, 23:\penalty0 193--212,
+  1952.
+
+\bibitem[Bellosta(2009)]{ADGofTest}
+C.~J.~G. Bellosta.
+\newblock \emph{ADGofTest: {A}nderson-{D}arling GoF test}, 2009.
+\newblock URL \url{http://CRAN.R-project.org/package=ADGofTest}.
+\newblock R package version 0.1.
+
+\bibitem[Choulakian et~al.(1994)Choulakian, Lockhart, and
+  Stephens]{choulakian1994}
+V.~Choulakian, R.~A. Lockhart, and M.~A. Stephens.
+\newblock Cram\'{e}r-von {M}ises statistics for discrete distributions.
+\newblock \emph{The Canadian Journal of Statistics}, 22\penalty0 (1):\penalty0
+  125--137, 1994.
+
+\bibitem[Conover(1972)]{Conover1972}
+W.~J. Conover.
+\newblock A {K}olmogorov goodness-of-fit test for discontinuous distributions.
+\newblock \emph{Journal of the American Statistical Association}, 67\penalty0
+  (339):\penalty0 591--596, 1972.
+
+\bibitem[Cram\'{e}r(1928)]{cramer1928}
+H.~Cram\'{e}r.
+\newblock On the composition of elementary errors.
+\newblock \emph{Skand. Akt.}, 11:\penalty0 141--180, 1928.
+
+\bibitem[de~Wet and Venter(1994)]{dewev1973}
+T.~de~Wet and J.~Venter.
+\newblock Asymptotic distributions for quadratic forms with applications to
+  tests of fit.
+\newblock \emph{Annals of Statistics}, 2:\penalty0 380--387, 1994.
+
+\bibitem[Dufour and Farhat(2001)]{Mdufour2001}
+J.-M. Dufour and A.~Farhat.
+\newblock Exact nonparametric two-sample homogeneity tests for possibly
+  discrete distributions.
+\newblock Unpublished manuscript, October 2001.
+\newblock URL \url{http://hdl.handle.net/1866/362}.
+
+\bibitem[Emerson and Arnold(2010)]{emersonarnold2010}
+J.~W. Emerson and T.~B. Arnold.
+\newblock The power of human nature in a study of olympic figure skating.
+\newblock Unpublished manuscript, August 2010.
+\newblock URL \url{http://www.stat.yale.edu/~jay/unpublished/}.
+
+\bibitem[Franz(2006)]{cramer}
+C.~Franz.
+\newblock \emph{cramer: Multivariate nonparametric Cramer-Test for the
+  two-sample-problem}, 2006.
+\newblock R package version 0.8-1.
+
+\bibitem[Goodman(1954)]{goodman1954}
+L.~A. Goodman.
+\newblock Kolmogorov-{S}mirnov tests for psychological research.
+\newblock \emph{Psychological Bulletin}, 51:\penalty0 160--168, 1954.
+
+\bibitem[Gross(2006)]{nortest}
+J.~Gross.
+\newblock \emph{nortest: Tests for Normality}, 2006.
+\newblock R package version 1.0.
+
+\bibitem[Imhof(1961)]{imhof1961}
+J.~P. Imhof.
+\newblock Computing the distribution of quadratic forms in normal variables.
+\newblock \emph{Biometrika}, 48:\penalty0 419--426, 1961.
+
+\bibitem[Kolmogorov(1933)]{kol33}
+A.~Kolmogorov.
+\newblock Sulla determinazione empirica di una legge di distribuzione.
+\newblock \emph{Giornale dell' Instuto Italiano degli Attuari}, 4:\penalty0
+  83--91, 1933.
+
+\bibitem[Massey(1951)]{massey1951}
+F.~Massey.
+\newblock The {K}olmogorov-{S}mirnov test for goodness of fit.
+\newblock \emph{Journal of the American Statistical Association}, 46:\penalty0
+  68--78, 1951.
+
+\bibitem[{R Development Core Team}(2010)]{R2010}
+{R Development Core Team}.
+\newblock \emph{R: A Language and Environment for Statistical Computing}.
+\newblock R Foundation for Statistical Computing, Vienna, Austria, 2010.
+\newblock URL \url{http://www.R-project.org/}.
+\newblock {ISBN} 3-900051-07-0.
+
+\bibitem[Slakter(1965)]{slakter1965}
+M.~J. Slakter.
+\newblock A comparison of the {P}earson chi-square and {K}olmogorov
+  goodness-of-fit tests with respect to validity.
+\newblock \emph{Journal of the American Statistical Association}, 60\penalty0
+  (311):\penalty0 854--858, 1965.
+
+\bibitem[Stephens(1974)]{stephens1974}
+M.~A. Stephens.
+\newblock Edf statistics for goodness of fit and some comparisons.
+\newblock \emph{Journal of the American Statistical Association}, 69\penalty0
+  (347):\penalty0 730--737, 1974.
+
+\bibitem[von Mises(1928)]{vonmises1928}
+R.~E. von Mises.
+\newblock \emph{Wahrscheinlichkeit, Statistik und Wahrheit}.
+\newblock Julius Springer, Vienna, Austria, 1928.
+
+\bibitem[Walsh(1963)]{walsh1963}
+J.~E. Walsh.
+\newblock Bounded probability properties for {K}olmogorov-{S}mirnov and similar
+  statistics for discrete data.
+\newblock \emph{Annals of the Institute of Statistical Mathematics},
+  15:\penalty0 153--158, 1963.
+
+\bibitem[Watson(1961)]{Watson1961}
+G.~S. Watson.
+\newblock Goodness of fit tests on the circle.
+\newblock \emph{Biometrika}, 48:\penalty0 109--114, 1961.
+
+\bibitem[Xiao and Cui(2009{\natexlab{a}})]{CvM2SL1Test}
+Y.~Xiao and Y.~Cui.
+\newblock \emph{CvM2SL1Test: L1-version of Cramer-von Mises Two Sample Tests},
+  2009{\natexlab{a}}.
+\newblock R package version 0.0-2.
+
+\bibitem[Xiao and Cui(2009{\natexlab{b}})]{CvM2SL2Test}
+Y.~Xiao and Y.~Cui.
+\newblock \emph{CvM2SL2Test: Cramer-von Mises Two Sample Tests},
+  2009{\natexlab{b}}.
+\newblock R package version 0.0-2.
+
+\end{thebibliography}
