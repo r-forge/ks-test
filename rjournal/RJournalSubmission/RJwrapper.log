@@ -1,6 +1,5 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2010.9.1)  6 DEC 2010 10:35
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2011.4.15)  23 APR 2011 13:58
 entering extended mode
- restricted \write18 enabled.
  %&-line parsing enabled.
 **RJwrapper.tex
 (./RJwrapper.tex
@@ -75,7 +74,7 @@ Package etexcmds Info: Could not find \expanded.
 (etexcmds)             that some package has redefined \expanded.
 (etexcmds)             In the latter case, load this package earlier.
 )
-(/usr/share/texmf-texlive/tex/latex/latexconfig/hyperref.cfg
+(/etc/texmf/tex/latex/config/hyperref.cfg
 File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
 )
 (/usr/share/texmf-texlive/tex/latex/oberdiek/kvoptions.sty
@@ -808,17 +807,17 @@ has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.110 \end{align}
-                 ]
-LaTeX Font Info:    Try loading font information for U+fplmbb on input line 207
+l.112 \end{align}
+                 ] [2]
+LaTeX Font Info:    Try loading font information for U+fplmbb on input line 214
 .
  (/usr/share/texmf-texlive/tex/latex/psnfss/ufplmbb.fd
 File: ufplmbb.fd 2003/10/30 Fontinst v1.914 font definitions for U/fplmbb.
 )
-[2] <fig1.pdf, id=137, 578.16pt x 433.62pt>
+<fig1.pdf, id=147, 578.16pt x 433.62pt>
 File: fig1.pdf Graphic file (type pdf)
  <use fig1.pdf>
-LaTeX Font Info:    Try loading font information for TS1+ppl on input line 292.
+LaTeX Font Info:    Try loading font information for TS1+ppl on input line 295.
 
 
 (/usr/share/texmf-texlive/tex/latex/psnfss/ts1ppl.fd
@@ -834,16 +833,16 @@ LaTeX Font Info:    Try loading font information for TS1+pcr on input line 453.
 (/usr/share/texmf-texlive/tex/latex/psnfss/ts1pcr.fd
 File: ts1pcr.fd 2001/06/04 font definitions for TS1/pcr.
 ) [4]
-Underfull \hbox (badness 10000) in paragraph at lines 492--506
+Underfull \hbox (badness 10000) in paragraph at lines 493--507
 []\T1/ppl/m/n/10 In the con-tin-u-ous set-ting, both of the
  []
 
 (./RJwrapper.bbl [5])) [6] (./RJwrapper.aux) ) 
 Here is how much of TeX's memory you used:
- 13624 strings out of 495061
- 216698 string characters out of 1182622
+ 13634 strings out of 495061
+ 216806 string characters out of 1182621
  297478 words of memory out of 3000000
- 16396 multiletter control sequences out of 15000+50000
+ 16403 multiletter control sequences out of 15000+50000
  40127 words of font info for 90 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
  56i,12n,53p,503b,679s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -858,9 +857,9 @@ ic/mathpazo/fplmri.pfb></usr/share/texmf-texlive/fonts/type1/urw/courier/ucrr8a
 exmf-texlive/fonts/type1/urw/palatino/uplb8a.pfb></usr/share/texmf-texlive/font
 s/type1/urw/palatino/uplr8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/palat
 ino/uplri8a.pfb>
-Output written on RJwrapper.pdf (6 pages, 197887 bytes).
+Output written on RJwrapper.pdf (6 pages, 199802 bytes).
 PDF statistics:
- 258 PDF objects out of 1000 (max. 8388607)
- 55 named destinations out of 1000 (max. 500000)
- 106 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 270 PDF objects out of 1000 (max. 8388607)
+ 58 named destinations out of 1000 (max. 500000)
+ 114 words of extra memory for PDF output out of 10000 (max. 10000000)
 

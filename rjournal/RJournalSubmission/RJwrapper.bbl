@@ -1,4 +1,4 @@
-\begin{thebibliography}{22}
+\begin{thebibliography}{24}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -49,10 +49,10 @@ J.-M. Dufour and A.~Farhat.
 \newblock Unpublished manuscript, October 2001.
 \newblock URL \url{http://hdl.handle.net/1866/362}.
 
-\bibitem[Emerson and Arnold(2010)]{emersonarnold2010}
+\bibitem[Emerson and Arnold(2011)]{emersonarnold2010}
 J.~W. Emerson and T.~B. Arnold.
 \newblock The power of human nature in a study of olympic figure skating.
-\newblock Unpublished manuscript, August 2010.
+\newblock Unpublished manuscript, February 2011.
 \newblock URL \url{http://www.stat.yale.edu/~jay/unpublished/}.
 
 \bibitem[Franz(2006)]{cramer}
@@ -60,6 +60,13 @@ C.~Franz.
 \newblock \emph{cramer: Multivariate nonparametric Cramer-Test for the
   two-sample-problem}, 2006.
 \newblock R package version 0.8-1.
+
+\bibitem[Gleser(1985)]{gleser85}
+L.~J. Gleser.
+\newblock Exact power of goodness-of-fit tests of kolmogorov type for
+  discontinuous distributions.
+\newblock \emph{Journal of American Statistical Association}, 80\penalty0
+  (392):\penalty0 954--958, 1985.
 
 \bibitem[Goodman(1954)]{goodman1954}
 L.~A. Goodman.
@@ -87,6 +94,14 @@ F.~Massey.
 \newblock The {K}olmogorov-{S}mirnov test for goodness of fit.
 \newblock \emph{Journal of the American Statistical Association}, 46:\penalty0
   68--78, 1951.
+
+\bibitem[Niederhausen(1981)]{nieder81}
+H.~Niederhausen.
+\newblock {Sheffer polynomials for computing exact Kolmogorov-Smirnov and
+  R{\'e}nyi type distributions}.
+\newblock \emph{The Annals of Statistics}, 9\penalty0 (5):\penalty0 923--944,
+  1981.
+\newblock ISSN 0090-5364.
 
 \bibitem[{R Development Core Team}(2010)]{R2010}
 {R Development Core Team}.
