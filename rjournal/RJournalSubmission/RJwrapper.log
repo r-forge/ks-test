@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2011.4.15)  23 APR 2011 13:58
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2011.4.5)  6 AUG 2011 12:37
 entering extended mode
  %&-line parsing enabled.
 **RJwrapper.tex
@@ -74,7 +74,7 @@ Package etexcmds Info: Could not find \expanded.
 (etexcmds)             that some package has redefined \expanded.
 (etexcmds)             In the latter case, load this package earlier.
 )
-(/etc/texmf/tex/latex/config/hyperref.cfg
+(/usr/share/texmf-texlive/tex/latex/latexconfig/hyperref.cfg
 File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
 )
 (/usr/share/texmf-texlive/tex/latex/oberdiek/kvoptions.sty
@@ -840,7 +840,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 493--507
 (./RJwrapper.bbl [5])) [6] (./RJwrapper.aux) ) 
 Here is how much of TeX's memory you used:
  13634 strings out of 495061
- 216806 string characters out of 1182621
+ 216844 string characters out of 1182622
  297478 words of memory out of 3000000
  16403 multiletter control sequences out of 15000+50000
  40127 words of font info for 90 fonts, out of 3000000 for 9000
