@@ -40,7 +40,7 @@ ks.test <- function(x, y, ...,
                     tol=1e-8)
 
     ## END TBA, JWE
-    ###############
+    ################
 
 {
 
