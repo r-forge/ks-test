@@ -56,11 +56,12 @@ ks.test <- function(x, y, ...,
     }
 
     #############################################################
-    ## TBA, JWE: conover.pval is a new function implementing the
-    ## p-value calculations presented in Conover (1972), which is
-    ## cited in our revision of ks.test.Rd.
+    ## TBA, JWE: exact.pval is a new function implementing the
+    ## p-value calculations presented in Conover (1972) and
+    ## Gleser (1985), which are cited in our revision of
+    ## ks.test.Rd.
 
-    conover.pval <-  function(alternative, STATISTIC, x, z, n, y, tol) {
+    exact.pval <-  function(alternative, STATISTIC, x, z, n, y, tol) {
     
         ts.pval <- function(S, x, z, n, H, tol) {
             # The exact two-sided p-value from Gleser (1985)
@@ -85,6 +86,8 @@ ks.test <- function(x, y, ...,
             f_b <- y(b)
   
             # NOW HAVE f_a and f_b which are Niederhausen u, v
+            # which uses the Noe result.
+
             p <- rep(1, n+1)
             for (i in 1:n) {
                 tmp <- 0
@@ -190,15 +193,19 @@ ks.test <- function(x, y, ...,
 
     } else if (is.stepfun(y)) {
         z <- knots(y)
+
+    ## JE NOTE: could allow larger n for two-sided case???
+    ## revisit.
+
         if(is.null(exact) || exact) exact <- (n <= 30)
         METHOD <- "One-sample Kolmogorov-Smirnov test"
-        dev <- c(0, ecdf(x)(z) - y(z))      # JE had been blowing away data
+        dev <- c(0, ecdf(x)(z) - y(z))
         STATISTIC <- switch(alternative,
                             "two.sided" = max(abs(dev)),
                             "greater" = max(dev),
                             "less" = max(-dev))
         PVAL <- switch(exact,
-                       "TRUE" = conover.pval(alternative, STATISTIC,
+                       "TRUE" = exact.pval(alternative, STATISTIC,
                                              x, z, n, y, tol),
                        "FALSE" = NULL)
         nm_alternative <- switch(alternative,
