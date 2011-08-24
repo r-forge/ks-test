@@ -1,0 +1,65 @@
+Dear Taylor and John,
+
+I must apologise for the long delay since you submitted this article. I
+am attaching two reviewers reports. Both reviewers are positive and have
+some constructive suggestions.  Based on this I would like you to submit
+a revised manuscript after considering some changes to the functions.
+Your resubmission should include a point-by-point reply to the two
+reviews.
+
+Reviewer 2 has a suggestion for tighter bounds in the cvm.test function
+than the one shown in equations 10 + 11, which I suggest you implement.
+
+JJJ: Yes, we'll look at it.
+
+Reviewer 1 wants to see some simulations showing the accuracy of this
+approximation and I think there is a good case for doing this. 
+
+JJJ: We didn't think so, no.
+
+ Reviewer
+1 goes further and suggests that you use Monte Carlo simulation to
+calculate p-values in the range (0.0001, 0.01) in the cvm.test function
+itself, pointing out that this range is important in a multiple
+comparison situation. I'm not sure I agree with this latter suggestion,
+and I would hope that it can be circumvented with the use of the
+improved bounds.
+
+JJJ: We agree, we hope the improved bounds did the trick.
+
+
+
+I am aware that you have updated the package since your submission. I
+also saw your message to the R-devel list about incorporating these
+changes into the stats package. I don't see any major problems with this
+idea, but I would like to keep this issue separate from the destiny of
+the article in The R Journal.
+
+JJJ: Yes, we agree.
+
+I have a few minor comments on the manuscript:
+- page 1. Introduction, third paragraph.  Articles in The R Journal
+ do not cite R itself.
+
+JJJ: Done.
+
+- page 4. Examples. Could you please use scoping consistently to make
+ it clear function is being called: your one or the one in stats.
+
+JJJ: Yes, we will do this.
+
+- page 4, LHS. In the second example, the p-value returned by ks.test
+ is a conservative upper bound. I think this could be mentioned
+ earlier (page 2).
+
+JJJ: Sounds reasonable.
+
+- page 4, RHS. "A different toy example shows the dangers of using R's
+ existing ks.test() function [with discrete data]"
+
+JJJ: Done.
+
+best regards
+Martyn
+
+

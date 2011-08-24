@@ -1,0 +1,202 @@
+Reviewer’s Report on the Paper
+“Non-parametric Goodness-of-Fit Tests for
+Discrete Null Distributions”
+March 02, 2011
+In this paper the authors present four non-parametric goodness-of-fit tests for discrete
+distributions: Kolmogorov-Smirnov test, and three Cram ́r-von Mises type tests.
+
+Regarding the Kolmogorov-Smirnov test
+Line 18 from bottom on page 2: the author said, “ For large sample sizes, the null dis-
+tribution can be approximated with the null distribution from the classical Kolmogorov-
+Smirnov test”.
+This statement is very ambiguous. What is the “null distribution from the classical
+Kolmogorov-Smirnov test”? Do the authors mean the corresponding test for continuous
+data? However, a discrete distribution function is near to a continuous function only if it
+has too many discontinuous points. So, if there are only a few discontinuous points for
+the null distribution function, the classical K-S test (for continuous data, as the reviewer
+understands) can not be applied, no matter how large the sample is. The authors should
+clarify this point.
+
+JJJ We added "of the test statistic" to avoid confusion.  Taylor, check that
+paper on the conservativeness of the classical test, and see if there is
+something that says that it really isn't that bad for larger sample sizes.
+Revisit this.
+
+
+Line 15 from bottom on page 2: When the sample size is small and an exact p-value is
+required, the authors’ contribution is the implementation of the idea of Conover (1972) and
+the revision of the corresponding function ks.test(). The revised function ks.test() has obvi-
+1
+ous advantages over the existing version when the null distribution is discrete. However, it
+seems that the authors should mention that the number of discontinuous points should be
+small.
+
+JJJ Well, there is nothing wrong if the size of the support is large
+relative to the sample size... if uniform weights, then no advantage;
+if non-uniform, then we might still provide an advantage?  Do we need
+to add to the paper on this point?  Easy simulation?
+
+
+
+
+Regarding the three Cram ́r-von Mises Type tests
+
+Asymptotically, the three tests have the general equivalent form of weighted sum of
+chi-squares:
+p
+λi χ2 =1 ,
+i,df
+Q=
+i=1
+and the p-value for a given value x of the test statistic is given by
+Pr {Q ≥ x} =
+1 1
++
+2 π
+∞
+0
+sin θ(u, x)
+du
+uρ(u)
+“for continuous function θ(·, x) and ρ(·) depending on the weights λi ”. This result is due to
+Imhof (1961). The computation of the p-value is achieved numerically. This is fine in most
+situations. But when x is extremely large or the p-value is extremely small, the numerical
+process is instable, resulting weird results. To avoid the numerical instability, the authors’
+solution is to compute the upper bound of the p-value:
+p
+Pr
+χ2
+p
+p
+χ2
+1
+≥ x/pλmax ≡ Pr λmax
+λi χ2 =1 ≥ x ≡ Pr {Q ≥ x} .
+i,df
+≥ x ≥ Pr
+i=1
+i=1
+According to the authors, this upper bound is a “conservative approximation”.
+The conservative approximation is useful when the p-value is extremely small, e.g. <
+10−5 . However, for p-values in the range (0.0001, 0.01), the authors should evaluate the per-
+formance of the conservative approximation by using the Monte-Carlo simulation. According
+to Figure 1 on page 3, it seems that the approximation may be poor in that range. In fact,
+in the computer age, one can easily use the Monte Carlo simulation to get a more accurate
+estimate for the p-value for a given value of x, (note the fact that all λi ’s are known!), unless
+the p-value is really tiny. The reviewer’s experience is, when the p-value is larger than 10−4 ,
+the Monte-Carlo simulation works very well.
+
+JJJ From fisher.test:
+simulate.p.value: a logical indicating whether to compute p-values by
+          Monte Carlo simulation, in larger than 2 by 2 tables.
+
+       B: an integer specifying the number of replicates used in the
+          Monte Carlo test.
+
+
+
+
+2
+In multiple testing, where a good portion of p-values are usually in the range (0.00001, 0.001),
+it is very important to ensure the accuracy of the estimated p-values since it significantly
+impacts the set of null hypotheses to be rejected. The authors should consider how to im-
+prove the results for the p-values in that range. Perhaps, a more reasonable way to compute
+the p-value for a given value x of the test statistic is,
+• to use the Imhof’s method if the p-value is moderately large, (e.g., larger than 0.01);
+• to apply the Monte-Carlo simulation if the p-value is in the range (0.0001, 0.01); (This
+will give better results, unless the authors can give convincing evidence that this is not
+necessary.)
+• to use the conservative approximation if the p-value is really tiny. (Monte Carlo sim-
+ulation does not work and, the Imhof’s method can not be applied due to numerical
+instability.)
+Suggestions. The authors should revise the paper according to the above comments.
+
+JJJ: Ok, reconsider.
+
+----------------------------------------------------------------------
+
+Referee’s report to Authors on
+R Journal Manuscript
+Nonparametric goodness-of-fit tests for discrete null distributions
+by
+Taylor B. Arnold & John W. Emerson
+Summary:
+This article describes implementation of empirical distribution function tests for fully
+specified discrete distributions. I found the article clear, well written and pretty comprehen-
+sive. I have three comments or suggestions:
+1. I think you ought to remind readers that the hypotheses being tested must not have any
+uknown parameters; it is not ok to estimate the parameters and then use the fitted
+distribution as the null hypothesis. The relevant large sample theory for Cram ́r-
+e
+von Mises statistics is in Lockhart, Spinelli, and Stephens, CJS, 2007. Those authors
+should have written R code to implement their tests but they never did.
+
+JJJ: Addition to bibliography?  Lockhart, Spinelli, and Stephens, CJS, 2007?
+And: yes, could remind readers not to estimate parameters.
+
+
+
+2. In the 2007 paper just cited the authors suggest alternative test statistics because they
+noticed that in non-uniform cases if they reversed the order of the cells they got a
+different statistic value. The modifications are not great. Suppose you were testing
+the hypothesis that a sample of X values come from the binomial distribution with
+k trials and success probability 3/4. The values k − X would be a sample from the
+binomial distribution with success probability 1/4 and you would probably want the
+test statistics to be the same in both cases. (Switching the meaning of success and
+failure should not change the conclusion about whether or not the binomial model is
+appropriate.)
+
+JJJ: Taylor, look into this issue so we can comment at least.  And we aren't
+sure what he is asking, but ok.
+
+
+3. The upper bound on the tail of a linear combination of chi-squares can likely be im-
+proved by Markov’s inequality:
+λi Zi2 ≥ x) ≤ E(exp(t
+P(
+i
+λi Zi2 )) exp(−tx) =
+e−tx
+(1 − 2tλi )
+.
+Here the Zi are standard normal and I hope I have the formula for the MGF of a
+chi-square righHere the Zi are standard normal and I hope I have the formula for the
+mgf of a chi-square right. The final quantity on the right should be minimized over
+0 < t < (2λmax )−1 to get a pretty tight bound as in the fashion of extreme value theory.
+Overall, well done.
+
+JJJ: Taylor: go into cvm code and output some lambdas, etc... to explore
+this further.  Perhaps even code this bound and compare to our bound
+by printing them when cvm is run?
+
+
+logf <- function(t, x, lambda) {
+  ans <- -t*x
+  ans <- ans - 0.5*sum( log(1-2*t*lambda) )
+  return(ans)
+}
+
+x <- 15
+lambda <- rep(1,3)
+tvals <- seq(0.00001, 1/(2*max(lambda)), length.out=100)
+vals <- exp(sapply(tvals, logf, x, lambda))
+plot(tvals, vals)
+sapply(tvals, logf, x, lambda)
+
+# The best bound over valid t?
+min(vals[is.finite(vals)])
+
+---------------------------------------------------------------------
+RE: ks.test
+
+References
+[1] No , M. (1972). The calculation of distributions of two-sided Kolmogorov-Smirnov-type statistics, Annals of Mathematical Statistics, 43: 58–64.
+[2] Owen, A. B. (1995). Nonparametric likelihood confidence ba
+
+JJJ: Track these down and have a look, Jay.
+
+
+
+
+
+

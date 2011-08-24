@@ -36,8 +36,7 @@ misleading inferences.
 
 This paper presents a revision of R's
 \code{ks.test()} function and a new \code{cvm.test()} function to
-fill this void for researchers and practitioners in the R environment
-\citep{R2010}. This
+fill this void for researchers and practitioners in the R environment. This
 work was motivated by the need for such goodness-of-fit testing in a study
 of Olympic figure skating scoring \citep{emersonarnold2010}.  
 We first present overviews of the theory and general implementation of the
@@ -132,7 +131,8 @@ we implement the Kolmogorov-Smirnov test statistic for discrete null
 distributions by requiring the complete specification of the null distribution.
 
 Having obtained the test statistic, the $p$-value must then be calculated. 
-For larger sample sizes, the null distribution can be approximated
+For larger sample sizes, the null distribution
+of the test statistic can be approximated
 with the null distribution from the classical Kolmogorov-Smirnov test. 
 When an exact $p$-value is required for
 smaller sample sizes, the methodology in \citet{Conover1972} is used in
@@ -399,7 +399,7 @@ the CDF of x lies above the null hypothesis
 \end{Schunk}
 
 A different toy example shows the dangers of using R's existing
-\code{ks.test()} function:
+\code{ks.test()} function with discrete data:
 \begin{Schunk}
 \begin{Sinput}
 > ks.test(rep(1, 3), ecdf(1:3))
