@@ -93,6 +93,22 @@ simulate.p.value: a logical indicating whether to compute p-values by
        B: an integer specifying the number of replicates used in the
           Monte Carlo test.
 
+library(ks.test)
+a <- ks.test(c(1,2,3), ecdf(c(1,2,3)))
+ks.test(c(1,2,2,2,3), ecdf(c(1,2,3)))
+#ks.test(c(1,2,2,2,3), ecdf(c(1,2,3)), simulate.p.value=TRUE)
+ks.test(c(1,2,2,2,3), ecdf(c(1,2,3)), simulate.p.value=TRUE, B=10000)
+
+ks.test(c(1,1), ecdf(c(1,2)))
+ks.test(c(1,1), ecdf(c(1,2)), simulate.p.value=TRUE, B=10000)
+
+
+# This simulation is consistent with our "real exact" p-value calculation:
+a <- matrix(sample(c(1,2,3), 5*10000, replace=TRUE), 10000, 5)
+s <- apply(a, 1, function(b) return(ks.test(b, ecdf(c(1,2,3)))$stat))
+
+# NOW: can try out Gleser's method with various sample sizes, even greater
+# than 30, and compare to simulated p-values?  JAY DO THIS.
 
 
 
@@ -185,6 +201,20 @@ sapply(tvals, logf, x, lambda)
 
 # The best bound over valid t?
 min(vals[is.finite(vals)])
+
+
+RESULT: Yes, a slightly better bound below 0.0025 in one example
+we did, but it was negligible in the tail, and it was really not
+so good for larger p-values.  In another example the advantage
+was more impressive (at least in the tail).
+
+CONCLUSION: we should consider using the min of these two upper bounds?
+And recall that we only do this down in the tails where there were some
+numerical instabilities of the exact p-values.
+
+
+
+
 
 ---------------------------------------------------------------------
 RE: ks.test

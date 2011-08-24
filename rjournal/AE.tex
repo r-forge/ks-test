@@ -142,7 +142,8 @@ calculation of rectangular probabilities for uniform order statistics
 as discussed by \citet{nieder81}.
 Full details of the calculations are contained in source code
 of our revised function \code{ks.test()} and in the papers of
-Conover and Gleser.
+Conover and Gleser.  We also support the estimation of the p-value
+using a Monte Carlo simulation.
 
 \section{Cram\'{e}r-von Mises Tests}
 
@@ -260,6 +261,8 @@ the bound based on values of the test statistic rather than the $p$-value,
 the range of ``extreme'' values of the test statistic varies with the
 hypothesized distribution.
 
+NOTE: Changes required above for improved bound.
+
 \section{Kolmogorov-Smirnov and Cram\'{e}r-von Mises Tests in R}
 
 Functions \code{ks.test()} and \code{cvm.test()} are provided for
@@ -303,6 +306,9 @@ As with \code{ks.test()}, \code{cvm.test()} returns an object of class
 \code{htest}.
 
 \section{Examples}
+
+NOTE: Add an example or two with simulated p-values.  Remember to add
+stats:: everywhere appropriate for clarity, and ks.test::, etc...
 
 Consider a toy example with observed data of length 2 (specifically, the
 values 0 and 1) and a hypothized null distribution that places equal

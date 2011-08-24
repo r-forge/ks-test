@@ -37,7 +37,11 @@ ks.test <- function(x, y, ...,
     ## for equality (a==b).  We also use it in establishing a small epsilon
     ## for some other calculations involving the step functions.
 
-                    tol=1e-8)
+    ## Additional arguments, simulate.p.value and B, follow the usage of
+    ## fisher.test, but are only used for the discrete distribution case.
+
+                    tol=1e-8,
+                    simulate.p.value=FALSE, B=2000)
 
     ## END TBA, JWE
     ################
@@ -141,6 +145,29 @@ ks.test <- function(x, y, ...,
         return(p)
     }
 
+    sim.pval <-  function(alternative, STATISTIC, x, z, n, y, tol, B) {
+        # Simulate B samples from given stepfun y
+        knots.y <- knots(y)
+        fknots.y <- y(knots.y)
+        u <- runif(B*length(x))
+        u <- sapply(u, function(a) return(knots.y[sum(a>fknots.y)+1]))
+        dim(u) <- c(B, length(x))
+        
+        # Calculate B values of the test statistic
+        getks <- function(a, knots.y, fknots.y) {
+            dev <- c(0, ecdf(a)(knots.y) - fknots.y)
+            STATISTIC <- switch(alternative,
+                              "two.sided" = max(abs(dev)),
+                              "greater" = max(dev),
+                              "less" = max(-dev))
+            return(STATISTIC)
+        }
+        s <- apply(u, 1, getks, knots.y, fknots.y)
+
+        # Produce the estimated p-value
+        return(sum(s >= STATISTIC-tol) / B)
+    }
+
     ## END TBA, JWE
     ###############
 
@@ -191,6 +218,8 @@ ks.test <- function(x, y, ...,
     ## a new possibility for y: an object of class 'stepfun', of
     ## which 'ecdf' is a subclass we expect most users to have.
 
+    ## Don't recalculate knots(z) more than necessary.
+
     } else if (is.stepfun(y)) {
         z <- knots(y)
 
@@ -204,10 +233,17 @@ ks.test <- function(x, y, ...,
                             "two.sided" = max(abs(dev)),
                             "greater" = max(dev),
                             "less" = max(-dev))
-        PVAL <- switch(exact,
-                       "TRUE" = exact.pval(alternative, STATISTIC,
-                                             x, z, n, y, tol),
-                       "FALSE" = NULL)
+        if (simulate.p.value) {
+            PVAL <- switch(exact,
+                           "TRUE" = sim.pval(alternative, STATISTIC,
+                                             x, z, n, y, tol, B),
+                           "FALSE" = NULL)
+        } else {
+            PVAL <- switch(exact,
+                           "TRUE" = exact.pval(alternative, STATISTIC,
+                                               x, z, n, y, tol),
+                           "FALSE" = NULL)
+        }
         nm_alternative <- switch(alternative,
             "two.sided" = "two-sided",
             "less" = "the CDF of x lies below the null hypothesis",
