@@ -45,7 +45,14 @@ cvm.test <- function(x,y, type=c("W2", "U2", "A2")) {
     if(pval > 0.001) return(pval)
     if(pval <= 0.001) {
       df <- sum(lambda != 0)
-      return(dchisq(STAT/max(lambda),df))
+      est1 <- dchisq(STAT/max(lambda),df)      
+      logf <- function(t) {
+        ans <- -t*STAT
+        ans <- ans - 0.5*sum( log(1-2*t*lambda) )
+        return(ans)
+      }
+      est2 <- optimize(logf, interval=c(0,1/(2*max(lambda))))[[1]]
+      return(min(est1,est2))
     }
   } # End cvm.pval.disc()
 
