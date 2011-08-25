@@ -106,11 +106,15 @@ for(i in 1:length(I)) {
 
 #pdf('fig1.pdf', height=6, width=8)
 coff <- 1.2
-coff2 <- 1.3
-plot(I[I > coff], z[I > coff], type='l', xlab='test statistic', ylab='p-value', col='salmon', lwd=2)
+coff2 <- 3.0
+plot(I[I > coff & I < coff2], z[I > coff & I < coff2], type='l', xlim=c(coff, coff2),
+    xlab='test statistic', ylab='p-value', col='tomato1', lwd=2)
 abline(h=0, lty=2)
-lines(I[I > coff2], y[I > coff2], lty=2, col='blue', lwd=2)
-lines(I[I > coff], w[I > coff], col='green', lwd=2)
+lines(I[I > 1.3], y[I > 1.3], lty=2, col='steelblue', lwd=3)
+lines(I[I > coff], w[I > coff], lty=2, col='olivedrab4', lwd=3)
+legend(2.25, 0.015, legend=c('Asymptotic p-value (9)',
+                             'Bound given by (11)','Bound given by (13)' ), 
+     col=c('tomato1','steelblue', 'olivedrab4'), lty=c(1,2,2))
 #dev.off()
 
 
