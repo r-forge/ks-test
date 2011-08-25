@@ -80,7 +80,7 @@ x <- sample(1:3, replace=TRUE)
 lambda <- cvm.stat.disc(x,y,'W2')[-1]
 cvm.pval(1, lambda)
 
-I <- seq(0,5,length.out=30)
+I <- seq(0,5,length.out=500)
 y <- rep(NA, length(I))
 for(i in 1:length(I)) {
   y[i] <- cvm.pval(I[i], lambda, good=TRUE)
@@ -110,7 +110,7 @@ coff2 <- 1.3
 plot(I[I > coff], z[I > coff], type='l', xlab='test statistic', ylab='p-value', col='salmon', lwd=2)
 abline(h=0, lty=2)
 lines(I[I > coff2], y[I > coff2], lty=2, col='blue', lwd=2)
-lines(I[I > coff], z[I > coff], col='green', lwd=2)
+lines(I[I > coff], w[I > coff], col='green', lwd=2)
 #dev.off()
 
 
