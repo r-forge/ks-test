@@ -17,7 +17,9 @@ the null distribution function, the classical K-S test (for continuous data, as 
 understands) can not be applied, no matter how large the sample is. The authors should
 clarify this point.
 
-JJJ We added "of the test statistic" to avoid confusion.  Taylor, check that
+JJJ We added "of the test statistic" to avoid confusion.  
+
+Taylor, check that
 paper on the conservativeness of the classical test, and see if there is
 something that says that it really isn't that bad for larger sample sizes.
 Revisit this.
@@ -109,6 +111,25 @@ s <- apply(a, 1, function(b) return(ks.test(b, ecdf(c(1,2,3)))$stat))
 
 # NOW: can try out Gleser's method with various sample sizes, even greater
 # than 30, and compare to simulated p-values?  JAY DO THIS.
+
+# "Conservative" is "very conservative" under H0 in at least some cases.
+# But it seems best to leave our threshold at 30 for closest consistency
+# to the original ks.test and because of the limitations of the one-sample
+# calculations.
+
+library(ks.test)
+myset <- c(1,2,3,3,4,5,6,6,6)
+f0 <- ecdf(myset)
+N <- 31
+x <- sample(myset, N, replace=TRUE)
+ks.test(x, f0, exact=FALSE)
+ks.test(x, f0)
+ks.test(x, f0, exact=TRUE)
+ks.test(x, f0, simulate.p.value=TRUE, B=10000)
+
+
+
+
 
 
 

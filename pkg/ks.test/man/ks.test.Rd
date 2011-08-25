@@ -25,11 +25,12 @@
 %   #########################################################################
 %   ## TBA, JWE: an additional argument, tol, is used as an upper bound for
 %   ## possible rounding error in values (say, a and b) when needing to check
-%   ## for equality (a==b).
+%   ## for equality (a==b).  We also add simulate.p.value and B, following
+%   ## the usage in fisher.test(), for example
 
 ks.test(x, y, \dots,
         alternative = c("two.sided", "less", "greater"),
-        exact = NULL, tol=1e-8)
+        exact = NULL, tol=1e-8, simulate.p.value=FALSE, B=2000)
 
 %   ## END TBA, JWE
 %   ###############
@@ -68,6 +69,11 @@ ks.test(x, y, \dots,
     (say, \code{a} and \code{b}) when needing to check for equality
     (\code{a==b}); value of \code{NA} or \code{0} does exact comparisons
     but risks making errors due to numerical imprecisions.}
+  \item{simulate.p.value}{a logical indicating whether to compute
+    p-values by Monte Carlo simulation, for discrete goodness-of-fit
+    tests only.}
+  \item{B}{an integer specifying the number of replicates used in the
+    Monte Carlo test (for discrete goodness-of-fit tests only).}
 
   % END TBA, JWE
   % ############
@@ -114,22 +120,27 @@ ks.test(x, y, \dots,
   or in the case of ties if \code{y} is continuous.  If \code{exact = NULL}
   (the default), an exact p-value is computed if the sample size is less
   than 100 in the one-sample case with \code{y} continuous or if the sample
-  size is less than or equal to 30 in the one-sample case with \code{y}
+  size is less than or equal to 30 with \code{y}
   discrete; or if the product of the
-  sample sizes is less than 10000 in the two-sample case.  Otherwise,
+  sample sizes is less than 10000 in the two-sample case for continuous
+  \code{y}.  Otherwise,
   asymptotic distributions are used whose approximations may be inaccurate
-  in small samples.  In the one-sample two-sided case, exact p-values are
-  obtained as described in Marsaglia, Tsang & Wang (2003).  The formula of
+  in small samples.  With \code{y} continuous,
+  the one-sample two-sided case, exact p-values are
+  obtained as described in Marsaglia, Tsang & Wang (2003); the formula of
   Birnbaum & Tingey (1951) is used for the one-sample one-sided case.
 
   In the one-sample case with \code{y} discrete, the methods presented in
   Conover (1972) and Gleser (1985) are used when \code{exact=TRUE} (or when
-  \code{exact=NULL}_ and \code{length(x)<=30} as described above. 
-  When \code{exact=FALSE} or
-  \code{length(x)>=30}, the test may not be exact but the resulting p-values
-  are known to be conservative.
+  \code{exact=NULL}) and \code{length(x)<=30} as described above. 
+  When \code{exact=FALSE} or \code{exact=NULL} with
+  \code{length(x)>30}, the test is not exact and the resulting p-values
+  are known to be conservative.  Usage of \code{exact=TRUE} with
+  sample sizes greater than 30 is not advised due to numerical instabilities;
+  in such cases, simulated p-values may be desirable.
 
-  If a single-sample test is used with \code{y} continuous, the parameters specified in
+  If a single-sample test is used with \code{y} continuous,
+  the parameters specified in
   \code{\dots} must be pre-specified and not estimated from the data.
   There is some more refined distribution theory for the KS test with
   estimated parameters (see Durbin, 1973), but that is not implemented
@@ -233,6 +244,7 @@ ks.test(c(0, 1), ecdf(c(0, 1)))
 # previous R ks.test() gives conservative p-values:
 stats::ks.test(rep(1, 3), ecdf(1:3))
 ks.test(rep(1, 3), ecdf(1:3))
+ks.test(rep(1, 3), ecdf(1:3), simulate=TRUE, B=10000)
 
 }
 \keyword{htest}

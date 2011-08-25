@@ -65,13 +65,12 @@ ks.test <- function(x, y, ...,
     ## Gleser (1985), which are cited in our revision of
     ## ks.test.Rd.
 
-    exact.pval <-  function(alternative, STATISTIC, x, z, n, y, tol) {
+    exact.pval <-  function(alternative, STATISTIC, x, n, y, knots.y, tol) {
     
-        ts.pval <- function(S, x, z, n, H, tol) {
+        ts.pval <- function(S, x, n, y, knots.y, tol) {
             # The exact two-sided p-value from Gleser (1985)
             # and Niederhausen (1981)
             f_n <- ecdf(x)
-            knots.y <- knots(y) 
             eps <- min(tol, min(diff(knots.y)) * tol)
             eps2 <- min(tol, min(diff(y(knots.y))) * tol)
             a <- rep(0, n); b <- a; f_a <- a
@@ -89,8 +88,8 @@ ks.test <- function(x, y, ...,
             } 
             f_b <- y(b)
   
-            # NOW HAVE f_a and f_b which are Niederhausen u, v
-            # which uses the Noe result.
+            # NOW HAVE f_a and f_b which are Niederhausen u, v, and this
+            # uses the Noe result.
 
             p <- rep(1, n+1)
             for (i in 1:n) {
@@ -101,11 +100,16 @@ ks.test <- function(x, y, ...,
                 }
                 p[i+1] <- tmp
             }	
-            p <- max(0, 1 - p[n+1])          # Use Niederhausen result
+            p <- max(0, 1 - p[n+1])          # Niederhausen result
+            if (p>1) {
+                warning("numerical instability in p-value calculation.")
+                p <- 1
+            }
             return(p)
         }
 
-        less.pval <- function(S, z, n, H, tol) {
+        # Conover
+        less.pval <- function(S, n, H, z, tol) {
             m <- ceiling(n*(1-S))
             c <- S+(1:m-1)/n
             CDFVAL <- H(sort(z))
@@ -122,7 +126,8 @@ ks.test <- function(x, y, ...,
             return(p)        
         }
 
-        greater.pval <- function(S, z, n, H, tol) {
+        # Conover
+        greater.pval <- function(S, n, H, z, tol) {
             m <- ceiling(n*(1-S))
             c <- 1-(S+(1:m-1)/n)
             CDFVAL <- c(0,H(sort(z)))
@@ -139,15 +144,14 @@ ks.test <- function(x, y, ...,
         }
 
         p <- switch(alternative,
-                    "two.sided" = ts.pval(STATISTIC, x, z, n, y, tol), 
-                    "less" = less.pval(STATISTIC, z, n, y, tol), 
-                    "greater" = greater.pval(STATISTIC, z, n, y, tol))
+                    "two.sided" = ts.pval(STATISTIC, x, n, y, knots.y, tol), 
+                    "less" = less.pval(STATISTIC, n, y, knots.y, tol), 
+                    "greater" = greater.pval(STATISTIC, n, y, knots.y, tol))
         return(p)
     }
 
-    sim.pval <-  function(alternative, STATISTIC, x, z, n, y, tol, B) {
+    sim.pval <-  function(alternative, STATISTIC, x, n, y, knots.y, tol, B) {
         # Simulate B samples from given stepfun y
-        knots.y <- knots(y)
         fknots.y <- y(knots.y)
         u <- runif(B*length(x))
         u <- sapply(u, function(a) return(knots.y[sum(a>fknots.y)+1]))
@@ -226,7 +230,10 @@ ks.test <- function(x, y, ...,
     ## JE NOTE: could allow larger n for two-sided case???
     ## revisit.
 
-        if(is.null(exact) || exact) exact <- (n <= 30)
+        if(is.null(exact)) exact <- (n <= 30)
+        if (exact && n>30) {
+            warning("numerical instability may affect p-value")
+        }
         METHOD <- "One-sample Kolmogorov-Smirnov test"
         dev <- c(0, ecdf(x)(z) - y(z))
         STATISTIC <- switch(alternative,
@@ -234,14 +241,12 @@ ks.test <- function(x, y, ...,
                             "greater" = max(dev),
                             "less" = max(-dev))
         if (simulate.p.value) {
-            PVAL <- switch(exact,
-                           "TRUE" = sim.pval(alternative, STATISTIC,
-                                             x, z, n, y, tol, B),
-                           "FALSE" = NULL)
+            PVAL <- sim.pval(alternative, STATISTIC,
+                             x, n, y, z, tol, B)
         } else {
             PVAL <- switch(exact,
                            "TRUE" = exact.pval(alternative, STATISTIC,
-                                               x, z, n, y, tol),
+                                               x, n, y, z, tol),
                            "FALSE" = NULL)
         }
         nm_alternative <- switch(alternative,
