@@ -236,10 +236,11 @@ uniform on the set $\{1,2,3\}$.
 \end{center}
 \caption{Plot of calculated $p$-values for given test statistics
 using numerical integration
-(red) compared to the conservative chi-squared bound (dashed blue). 
+(red) compared to the conservative chi-squared bound (dashed blue) and
+the Markov inequality bound (dashed green). 
 The null distribution is uniform on the set $\{1,2,3\}$ in this example.
 The sharp variations in the calculated $p$-values are a result of numerical
-instabilities, and the true $p$-values are bounded by the blue dashed curve.}
+instabilities, and the true $p$-values are bounded by the dashed curves.}
 \label{cvmissues}
 \end{figure}
 
@@ -282,15 +283,11 @@ hypothesized distribution.
 \section{Kolmogorov-Smirnov and Cram\'{e}r-von Mises Tests in R}
 
 Functions \code{ks.test()} and \code{cvm.test()} are provided for
-convenience in packages \pkg{ks.test} and \pkg{cvm.test}, respectively.
+convenience in package \pkg{dgof}, available on CRAN.
 Function \code{ks.test()} offers a revision of
-R's Kolmogorov-Smirnov function \code{ks.test()} from base
-package \pkg{stats}, while \code{cvm.test()} is a new
+R's Kolmogorov-Smirnov function \code{ks.test()} from recommended
+package \pkg{stats}; \code{cvm.test()} is a new
 function for Cram\'{e}r-von Mises tests.
-Both are available from the authors
-or from R-Forge (\url{https://r-forge.r-project.org/R/?group_id=802});
-\code{ks.test()} will be proposed for inclusion in recommended
-package \pkg{stats}.
 
 The revised \code{ks.test()} function supports one-sample tests for discrete
 null distributions by allowing the second argument, \code{y}, to be
