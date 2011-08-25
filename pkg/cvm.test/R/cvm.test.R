@@ -51,7 +51,7 @@ cvm.test <- function(x,y, type=c("W2", "U2", "A2")) {
         ans <- ans - 0.5*sum( log(1-2*t*lambda) )
         return(ans)
       }
-      est2 <- optimize(logf, interval=c(0,1/(2*max(lambda))))[[1]]
+      est2 <- exp(nlm(logf, 1/(4*max(lambda)))$minimum)
       return(min(est1,est2))
     }
   } # End cvm.pval.disc()

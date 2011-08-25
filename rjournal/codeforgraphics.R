@@ -74,12 +74,13 @@
 
 #lambda <- sort(runif(10))
 #lambda <- sort(c(0.020837 , 0.342575 , 0.531838 , 0.604825 , 0.645453 , 0.706874 , 0.750545 , 0.776914 , 0.810034 , 0.880271))
-y <- ecdf(1:4)
-x <- sample(1:4)
+set.seed(42)
+y <- ecdf(1:3)
+x <- sample(1:3, replace=TRUE)
 lambda <- cvm.stat.disc(x,y,'W2')[-1]
 cvm.pval(1, lambda)
 
-I <- seq(0,5,length.out=500)
+I <- seq(0,5,length.out=30)
 y <- rep(NA, length(I))
 for(i in 1:length(I)) {
   y[i] <- cvm.pval(I[i], lambda, good=TRUE)
@@ -88,6 +89,20 @@ z <- rep(NA, length(I))
 for(i in 1:length(I)) {
   z[i] <- cvm.pval(I[i], lambda, good=FALSE)
 }
+w <- rep(NA, length(I))
+for(i in 1:length(I)) {
+  STAT <- I[i]
+  logf <- function(t) {
+    ans <- -t*STAT
+    ans <- ans - 0.5*sum( log(1-2*t*lambda) )
+    return(ans)
+  }
+  est2 <- exp(nlm(logf, 1/(4*max(lambda)))$minimum)
+  #est2 <- exp(optimize(logf, interval=c(0,1/(2*max(lambda))))[[1]])
+  w[i] <- est2
+}
+
+
 
 #pdf('fig1.pdf', height=6, width=8)
 coff <- 1.2
@@ -95,7 +110,7 @@ coff2 <- 1.3
 plot(I[I > coff], z[I > coff], type='l', xlab='test statistic', ylab='p-value', col='salmon', lwd=2)
 abline(h=0, lty=2)
 lines(I[I > coff2], y[I > coff2], lty=2, col='blue', lwd=2)
-lines(I[I > coff], z[I > coff], col='salmon', lwd=2)
+lines(I[I > coff], z[I > coff], col='green', lwd=2)
 #dev.off()
 
 
