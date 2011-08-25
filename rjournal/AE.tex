@@ -299,12 +299,15 @@ with class \code{ecdf}) or an object of class \code{stepfun} specifying
 a discrete distribution.  As in the original version of \code{ks.test()},
 the presence of ties in the data (the first argument, \code{x}) generates a
 warning unless \code{y} describes a discrete distribution.  
-If the sample size is less than or equal to 30, exact $p$-values are provided;
-otherwise, asymptotic distributions
-are used which are reliable in such cases.
-When \code{exact = FALSE} the asymptotic distribution is used and known
-to be conservative though imprecise for small samples (see \cite{Conover1972}
-for details).
+If the sample size is less than or equal to 30, or when \code{exact=TRUE},
+exact $p$-values are provided (a warning is issued when the sample size is
+greater than 30 due to possible numerical instabilities).
+When \code{exact = FALSE} (or when \code{exact} is unspecified and the sample
+size is greater than 30) the classical Kolmogorov-Smirnov null distribution
+of the test statistic is used and resulting $p$-values are known
+to be conservative though imprecise (see \cite{Conover1972}
+for details).  In such cases, simulated $p$-values may be desired, produced
+by the \code{simulate.p.value=TRUE} option.
 
 The function \code{cvm.test()} is similar in design
 to \code{ks.test()}.  Its first two
@@ -322,9 +325,6 @@ As with \code{ks.test()}, \code{cvm.test()} returns an object of class
 \code{htest}.
 
 \section{Examples}
-
-NOTE: Add an example or two with simulated p-values.  Remember to add
-stats:: everywhere appropriate for clarity, and ks.test::, etc...
 
 Consider a toy example with observed data of length 2 (specifically, the
 values 0 and 1) and a hypothized null distribution that places equal
@@ -350,7 +350,7 @@ fixes this problem when the user provides a discrete distribution:
 \begin{Schunk} 
 \begin{Sinput}
 > library(ks.test)
-> ks.test(c(0, 1), ecdf(c(0, 1)))
+> ks.test::ks.test(c(0, 1), ecdf(c(0, 1)))
 \end{Sinput}
 \begin{Soutput}
 	One-sample Kolmogorov-Smirnov test
@@ -376,7 +376,7 @@ where the exact $p$-value is obtained using the methods of \citet{gleser85}.
 [14]  4  8  5  8 10  4  8 10  3  7  2  3
 \end{Soutput}
 \begin{Sinput}
-> ks.test(x, ecdf(1:10))
+> ks.test::ks.test(x, ecdf(1:10))
 \end{Sinput}
 \begin{Soutput}
 	One-sample Kolmogorov-Smirnov test
@@ -391,7 +391,8 @@ provides the exact $p$-value (up to the numerical precision of the
 implementation):
 \begin{Schunk}
 \begin{Sinput}
-> ks.test(x, ecdf(1:10), alternative = "g")
+> ks.test::ks.test(x, ecdf(1:10),
++   alternative = "g")
 \end{Sinput}
 \begin{Soutput}
 	One-sample Kolmogorov-Smirnov test
@@ -407,8 +408,8 @@ $p$-value obtained by applying the classical Kolmogorov-Smirnov
 test, resulting in a conservative $p$-value:
 \begin{Schunk}
 \begin{Sinput}
-> ks.test(x, ecdf(1:10), alternative = "g", 
-+         exact = FALSE)
+> ks.test::ks.test(x, ecdf(1:10),
++   alternative = "g", exact = FALSE)
 \end{Sinput}
 \begin{Soutput}
 	One-sample Kolmogorov-Smirnov test
@@ -419,12 +420,28 @@ alternative hypothesis:
 the CDF of x lies above the null hypothesis 
 \end{Soutput}
 \end{Schunk}
+The $p$-value may also be estimated via a Monte Carlo simulation:
+\begin{Schunk}
+\begin{Sinput}
+> ks.test::ks.test(x, ecdf(1:10),
++   alternative = "g",
++   simulate.p.value=TRUE, B=10000)
+\end{Sinput}
+\begin{Soutput}
+	One-sample Kolmogorov-Smirnov test
+
+data:  x 
+D^+ = 0.04, p-value = 0.7717
+alternative hypothesis: 
+the CDF of x lies above the null hypothesis 
+\end{Soutput}
+\end{Schunk}
 
 A different toy example shows the dangers of using R's existing
 \code{ks.test()} function with discrete data:
 \begin{Schunk}
 \begin{Sinput}
-> ks.test(rep(1, 3), ecdf(1:3))
+> ks.test::ks.test(rep(1, 3), ecdf(1:3))
 \end{Sinput}
 \begin{Soutput}
 	One-sample Kolmogorov-Smirnov test
@@ -498,14 +515,17 @@ produce different results after such a reordering. For example, the default
 Cram\'{e}r-von Mises test yields $p$-values of 0.8237 and 0.9577 with the original
 and transformed data \code{y} and \code{z}, respectively.
 
+
 \section{Discussion}
 
 This paper presents the implementation of several nonparametric
 goodness-of-fit tests for discrete null distributions.  
 In some cases the $p$-values are known to be exact.  In others,
 conservativeness in special cases with small $p$-values
-has been established.  As a result,
-no simulations are necessary for these methods, which were generally
+has been established.  Although we provide for Monte Carlo simulated
+$p$-values with the new \code{ks.test()},
+no simulations may be necessary necessary for these methods; they
+were generally
 developed during an era when extensive simulations may have been
 prohibitively expensive or time-consuming.
 However, this does raise the possibility that alternative tests relying upon
@@ -548,7 +568,9 @@ the two-sample problem.
 
 We are grateful to Le-Minh Ho for his implementation of the algorithm
 described in \citet{nieder81} for calculating rectangular probabilities
-of uniform order statistics.
+of uniform order statistics.  We also appreciate the feedback from two
+reviewers of this paper as well as from a reviewer of 
+\cite{emersonarnold2010}.
 
 
 \bibliography{ArnoldEmerson}
