@@ -112,9 +112,9 @@ plot(I[I > coff & I < coff2], z[I > coff & I < coff2], type='l', xlim=c(coff, co
 abline(h=0, lty=2)
 lines(I[I > 1.3], y[I > 1.3], lty=2, col='steelblue', lwd=3)
 lines(I[I > coff], w[I > coff], lty=2, col='olivedrab4', lwd=3)
-legend(2.25, 0.015, legend=c('Asymptotic p-value (9)',
+legend(2.07, 0.0013, legend=c('Unstable asymptotic p-value from (9)',
                              'Bound given by (11)','Bound given by (13)' ), 
-     col=c('tomato1','steelblue', 'olivedrab4'), lty=c(1,2,2))
+     col=c('tomato1','steelblue', 'olivedrab4'), lty=c(1,2,2), lwd=c(2,3,3))
 #dev.off()
 
 

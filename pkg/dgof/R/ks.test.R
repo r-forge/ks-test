@@ -14,10 +14,10 @@
 #  A copy of the GNU General Public License is available at
 #  http://www.r-project.org/Licenses/
 #
-# Modification by Taylor Arnold and Jay Emerson, 2010:
+#  Modification by Taylor Arnold and Jay Emerson, 2010:
 #
-# Any changes to the original R Core source is noted by
-# the following comment convension to aid code review:
+#  Any changes to the original R Core source is noted by
+#  the following comment convension to aid code review:
 #
 #   ####################
 #   ## TBA, JWE: comment

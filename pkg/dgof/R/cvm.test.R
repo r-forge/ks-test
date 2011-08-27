@@ -1,20 +1,6 @@
-cvm.test <- function(x,y, type=c("W2", "U2", "A2")) {
-
-  #cvm.stat <- function(x,y,type) {
-  #  fdata <- ecdf(x)
-  #  if(type != 'A2') {
-  #    igrand <- function(z) return((fdata(z) - y(z))^2)
-  #  } else {
-  #    igrand <- function(z) return((fdata(z) - y(z))^2 / (y(z) - y(z)^2))
-  #  }
-  #  stat <- integrate(igrand, -Inf, Inf)[1]
-  #  if(type != 'U2') {
-  #    return(stat)
-  #  } else {
-  #    igrand <- function(z) return((fdata(z) - y(z)-stat)^2) 
-  #    return(integrate(igrand, -Inf, Inf)[1])
-  #  }    
-  #}
+cvm.test <- function(x,y, type=c("W2", "U2", "A2"),
+                    simulate.p.value=FALSE,
+                    B=2000, tol=1e-8) {
 
   cvm.pval.disc <- function(STAT, lambda) {
 
@@ -51,7 +37,8 @@ cvm.test <- function(x,y, type=c("W2", "U2", "A2")) {
         ans <- ans - 0.5*sum( log(1-2*t*lambda) )
         return(ans)
       }
-      est2 <- exp(nlm(logf, 1/(4*max(lambda)))$minimum)
+      est2 <- 1
+      try( est2 <- exp(nlm(logf, 1/(4*max(lambda)))$minimum), silent=TRUE)
       return(min(est1,est2))
     }
   } # End cvm.pval.disc()
@@ -85,7 +72,7 @@ cvm.test <- function(x,y, type=c("W2", "U2", "A2")) {
                 U2 = (diag(1, nrow(E)) - 
                       E%*%One%*%t(One))%*%E%*%(diag(1, nrow(E)) -
                       One%*%t(One)%*%E),
-                A2 = E%*%K)
+                      A2 = E%*%K)
     lambda <- eigen(M%*%Sy)$values
 
     STAT <- switch(type, W2 = sum(Z^2*t)/N, U2 = sum((Z-Zbar)^2*t)/N,
@@ -94,6 +81,21 @@ cvm.test <- function(x,y, type=c("W2", "U2", "A2")) {
     return(c(STAT, lambda))
   } # End cvm.stat.disc()
 
+
+  cvm.pval.disc.sim <-  function(STATISTIC, lambda, y, type, tol, B) {
+    # Simulate B samples from given stepfun y
+    knots.y <- knots(y)
+    fknots.y <- y(knots.y)
+    u <- runif(B*length(x))
+    u <- sapply(u, function(a) return(knots.y[sum(a>fknots.y)+1]))
+    dim(u) <- c(B, length(x))
+        
+    # Calculate B values of the test statistic
+    s <- apply(u, 1, cvm.stat.disc, y, type)
+    s <- s[1,]
+    # Produce the estimated p-value
+    return(sum(s >= STATISTIC-tol) / B)
+  }
 
   type <- match.arg(type)
   DNAME <- deparse(substitute(x))
@@ -104,7 +106,11 @@ cvm.test <- function(x,y, type=c("W2", "U2", "A2")) {
     tempout <- cvm.stat.disc(x,y,type=type)
     STAT <- tempout[1]
     lambda <- tempout[2:length(tempout)]
-    PVAL <- cvm.pval.disc(STAT, lambda)
+    if(!simulate.p.value) {
+      PVAL <- cvm.pval.disc(STAT, lambda)
+    } else {
+      PVAL <- cvm.pval.disc.sim(STAT, lambda, y, type, tol, B)
+    }
     METHOD <- paste("Cramer-von Mises -", type)
     names(STAT) <- as.character(type)
     RVAL <- list(statistic = STAT, p.value = PVAL, alternative = "Two.sided",

@@ -118,3 +118,27 @@ cvm.test <- function(x,y, type=c("W2", "U2", "A2")) {
   return(RVAL)
 }
 
+
+x <- rbinom(8,10,3/4)
+
+y <- ecdf(rbinom(10000,10,3/4))
+cvm.test(x,y,type='U2')
+x <- 10-x
+y <- ecdf(rbinom(10000,10,1/4))
+cvm.test(x,y, type='U2')
+
+
+x <- rbinom(8,10,3/4)
+
+y <- ecdf(rbinom(10000,10,3/4))
+cvm.test(x,y,type='A2')
+x <- 10-x
+y <- ecdf(rbinom(10000,10,1/4))
+cvm.test(x,y, type='A2')
+
+
+
+
+
+
+

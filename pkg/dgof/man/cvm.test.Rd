@@ -6,12 +6,19 @@ Computes the test statistics for doing one-sample Cramer-von Mises goodness-of-f
 and calculates asymptotic p-values.
 }
 \usage{
-cvm.test(x, y, type = c("W2", "U2", "A2"))
+cvm.test(x, y, type = c("W2", "U2", "A2"), simulate.p.value=FALSE, B=2000, tol=1e-8)
 }
 \arguments{
   \item{x}{a numerical vector of data values.}
   \item{y}{an \code{\link{ecdf}} or step-function (\code{\link{stepfun}}) for specifying the hypothesized model.}
   \item{type}{the variant of the Cramer-von Mises test; \code{"W2"} is the default and most common method, \code{"U2"} is for cyclical data, and \code{"A2"} is the Anderson-Darling alternative. For details see references.}
+  \item{simulate.p.value}{a logical indicating whether to compute
+    p-values by Monte Carlo simulation.}
+  \item{B}{an integer specifying the number of replicates used in the
+    Monte Carlo test (for discrete goodness-of-fit tests only).}
+  \item{tol}{used as an upper bound for possible rounding error in values
+    (say, \code{a} and \code{b}) when needing to check for equality
+    (\code{a==b}) (for discrete goodness-of-fit tests only).}
 }
 \details{
 Details here.
@@ -79,6 +86,11 @@ z <- y%%4 + 1
 cvm.test(z, ecdf(1:4), type='W2')
 cvm.test(z, ecdf(1:4), type = 'U2')
 
+# Compare analytic results to simulation results
+set.seed(1)
+y <- sample(1:3, 10, replace=TRUE)
+cvm.test(y, ecdf(1:6), simulate.p.value=FALSE)
+cvm.test(y, ecdf(1:6), simulate.p.value=TRUE)
 
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

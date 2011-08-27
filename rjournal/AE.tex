@@ -339,7 +339,7 @@ the reported $p$-value, 0.5, is clearly incorrect:
 	One-sample Kolmogorov-Smirnov test
 
 data:  c(0, 1) 
-D = 0.5, $p$-value = 0.5
+D = 0.5, p-value = 0.5
 alternative hypothesis: two-sided 
 \end{Soutput}
 \end{Schunk}
@@ -356,7 +356,7 @@ fixes this problem when the user provides a discrete distribution:
 	One-sample Kolmogorov-Smirnov test
 
 data:  c(0, 1) 
-D = 0, $p$-value = 1
+D = 0, p-value = 1
 alternative hypothesis: two-sided 
 \end{Soutput}
 \end{Schunk}
@@ -382,7 +382,7 @@ where the exact $p$-value is obtained using the methods of \citet{gleser85}.
 	One-sample Kolmogorov-Smirnov test
 
 data:  x 
-D = 0.08, $p$-value = 0.9354
+D = 0.08, p-value = 0.9354
 alternative hypothesis: two-sided 
 \end{Soutput}
 \end{Schunk}
@@ -398,7 +398,7 @@ implementation):
 	One-sample Kolmogorov-Smirnov test
 
 data:  x 
-D^+ = 0.04, $p$-value = 0.7731
+D^+ = 0.04, p-value = 0.7731
 alternative hypothesis:
 the CDF of x lies above the null hypothesis 
 \end{Soutput}
@@ -415,7 +415,7 @@ test, resulting in a conservative $p$-value:
 	One-sample Kolmogorov-Smirnov test
 
 data:  x 
-D^+ = 0.04, $p$-value = 0.9231
+D^+ = 0.04, p-value = 0.9231
 alternative hypothesis:
 the CDF of x lies above the null hypothesis 
 \end{Soutput}
@@ -447,7 +447,7 @@ A different toy example shows the dangers of using R's existing
 	One-sample Kolmogorov-Smirnov test
 
 data:  rep(1, 3) 
-D = 0.6667, $p$-value = 0.07407
+D = 0.6667, p-value = 0.07407
 alternative hypothesis: two-sided 
 \end{Soutput}
 \end{Schunk}
@@ -467,7 +467,7 @@ simulated data.
 	Cramer-von Mises - W2
 
 data:  x 
-W2 = 0.057, $p$-value = 0.8114
+W2 = 0.057, p-value = 0.8114
 alternative hypothesis: Two.sided 
 \end{Soutput}
 \begin{Sinput}
@@ -477,7 +477,7 @@ alternative hypothesis: Two.sided
 	Cramer-von Mises - A2
 
 data:  x 
-A2 = 0.3969, $p$-value = 0.75
+A2 = 0.3969, p-value = 0.75
 alternative hypothesis: Two.sided 
 \end{Soutput}
 \end{Schunk}
@@ -495,7 +495,7 @@ invariant to cyclic reordering of the support.
 	Cramer-von Mises - U2
 
 data:  y 
-U2 = 0.0094, $p$-value = 0.945
+U2 = 0.0094, p-value = 0.945
 alternative hypothesis: Two.sided 
 \end{Soutput}
 \begin{Sinput}
@@ -506,7 +506,7 @@ alternative hypothesis: Two.sided
 	Cramer-von Mises - U2
 
 data:  z 
-U2 = 0.0094, $p$-value = 0.945
+U2 = 0.0094, p-value = 0.945
 alternative hypothesis: Two.sided 
 \end{Soutput}
 \end{Schunk}
