@@ -6,7 +6,8 @@ Computes the test statistics for doing one-sample Cramer-von Mises goodness-of-f
 and calculates asymptotic p-values.
 }
 \usage{
-cvm.test(x, y, type = c("W2", "U2", "A2"), simulate.p.value=FALSE, B=2000, tol=1e-8)
+cvm.test(x, y, type = c("W2", "U2", "A2"),
+         simulate.p.value=FALSE, B=2000, tol=1e-8)
 }
 \arguments{
   \item{x}{a numerical vector of data values.}
@@ -21,7 +22,14 @@ cvm.test(x, y, type = c("W2", "U2", "A2"), simulate.p.value=FALSE, B=2000, tol=1
     (\code{a==b}) (for discrete goodness-of-fit tests only).}
 }
 \details{
-Details here.
+While the Kolmogorov-Smirnov test may be the most
+popular of the nonparametric goodness-of-fit tests,
+Cramer-von Mises tests have been shown to be more
+powerful against a large class of alternatives hypotheses. 
+The original test was developed by Harald
+Cramer and Richard von Mises (Cramer, 1928; von
+Mises, 1928) and further adapted by Anderson and
+Darling (1952), and Watson (1961).
 }
 \value{
 An object of class \code{htest}.
@@ -32,6 +40,10 @@ An object of class \code{htest}.
 %% ...
 }
 \references{
+T. W. Anderson and D. A. Darling (1952). \emph{Asymptotic
+theory of certain "goodness of fit" criteria based on stochastic
+processes.} Annals of Mathematical Statistics, 23:193-212.
+
 V. Choulakian, R. A. Lockhart, and M. A. Stephens (1994).
 \emph{Cramer-von Mises statistics for discrete distributions}.
 The Canadian Journal of Statistics, 22(1): 125-137.
@@ -47,6 +59,9 @@ Journal of the American Statistical Association, 69(347): 730-737.
 R. E. von Mises (1928).
 \emph{Wahrscheinlichkeit, Statistik und Wahrheit.}
 Julius Springer, Vienna, Austria.
+
+G. S. Watson (1961).  \emph{Goodness of fit tests on the circle.}
+Biometrika, 48:109-114.
 }
 \author{
 Taylor B. Arnold and John W. Emerson

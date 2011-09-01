@@ -197,10 +197,14 @@ in Conover's 1972 paper -- see references).
   \url{http://www.jstatsoft.org/v08/i18/}.
 
 }
+%% ########################
+%% TBA, JWE added cvm.test:
 \seealso{
   \code{\link{shapiro.test}} which performs the Shapiro-Wilk test for
-  normality.
+  normality; \code{\link{cvm.test}} for Cramer-von Mises type tests.
 }
+%% END TBA, JWE
+%% ############
 \examples{
 require(graphics)
 require(dgof)
